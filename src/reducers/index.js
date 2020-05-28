@@ -9,6 +9,7 @@ import notifications from './notifications';
 import message from './message';
 import connectionStatus from './connectionStatus';
 import titlebar from './titlebar';
+import theme from './theme';
 
 const getReducers = () => {
   return combineReducers({
@@ -21,6 +22,7 @@ const getReducers = () => {
     connectionStatus,
     message,
     titlebar,
+    theme
   });
 };
 

@@ -104,11 +104,45 @@ export const DesktopMenuIconsCover = styled.div`
   }
 `;
 
+export const NavigationGridListScroller = styled.div`
+  grid-area: scroll;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding-top: 1px;
+`;
+
+
+export const Fixed = styled.div`
+  grid-area: fixed;
+  width: 100%;
+  display: grid;    
+  @media (max-width: ${MEDIA_BREAK}px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const ThemeButtonWrapper = styled.div`  
+  @media (max-width: ${MEDIA_BREAK}px) {
+    text-align: right;
+  }
+  @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
+    text-align: right;
+  }
+`
 export const NavigationGrid = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
-  grid-template-rows: auto;
+  // nca-remove
+  // grid-template-rows: auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: 'scroll' 'fixed';
+
   height: 100%;
   background: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
   border-right: 1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
@@ -119,7 +153,7 @@ export const NavigationGrid = styled.div`
   overflow: hidden;
   overflow-y: auto;
   padding: 12px 0 16px;
-
+  
   ${isDesktopApp() &&
     css`
       padding-top: 40px;
