@@ -10,7 +10,12 @@ import {
   MIN_WIDTH_TO_EXPAND_NAVIGATION,
 } from 'src/components/layout';
 import { isDesktopApp } from 'src/helpers/desktop-app-utils';
-import { themed } from 'src/components/theme';
+import { 
+  elevation as AkElevations,
+  themed,
+  colors
+} from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const Overlay = styled.div`
   position: fixed;
@@ -135,6 +140,7 @@ export const ThemeButtonWrapper = styled.div`
   }
 `
 export const NavigationGrid = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
@@ -145,7 +151,7 @@ export const NavigationGrid = styled.div`
 
   height: 100%;
   background: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
-  border-right: 1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
+  // border-right: 1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
   position: fixed;
   top: 0;
   width: 100%;
@@ -198,13 +204,17 @@ export const NavigationGrid = styled.div`
   }
 `;
 
+// color: ${props => (props.isActive ? 
+//   themed({ light:theme.text.default , dark: theme.textd.default}) 
+//   : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
 export const AvatarGrid = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
   color: ${props => (props.isActive ? 
-    themed({ light:theme.text.default , dark: theme.textd.default}) 
+    themed({ light: colors.B400, dark: colors.B100 })
     : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
+  
   font-weight: ${props => (props.isActive ? '600' : '500')};
   background: ${props =>
     props.isActive ? 
@@ -219,7 +229,9 @@ export const AvatarGrid = styled.div`
   ${props =>
     props.isActive &&
     css`
-      box-shadow: inset 3px 0 0 ${themed({ light:theme.text.default , dark: theme.textd.default})};
+      // box-shadow: inset 3px 0 0 ${themed({ light:theme.text.default , dark: theme.textd.default})};
+      box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
+      background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
 
       img,
       a img {
@@ -277,7 +289,7 @@ export const AvatarLink = styled(Link)`
   justify-content: center;
   padding: 8px 12px;
   position: relative;
-
+  color: inherit !important;
   @media (max-width: ${MEDIA_BREAK}px) {
     flex-direction: row;
     justify-content: flex-start;

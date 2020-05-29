@@ -170,7 +170,7 @@ class CommunityMembers extends React.Component<Props, State> {
     const { id, community } = this.props;
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <SectionTitle>
           Community Members · {community.metaData.members.toLocaleString()}
         </SectionTitle>

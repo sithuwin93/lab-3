@@ -20,6 +20,7 @@ export const SegmentedControl = (props: ControlProps) => {
   } = props;
   return (
     <StyledSegmentedControl
+      elevation="e200"
       sticky={sticky}
       mobileSticky={mobileSticky}
       stickyOffset={stickyOffset}

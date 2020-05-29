@@ -48,7 +48,7 @@ class LoginTokenSettings extends React.Component<Props, State> {
       const { joinSettings } = channel;
 
       return (
-        <SectionCard data-cy="login-with-token-settings">
+        <SectionCard elevation="e200" data-cy="login-with-token-settings">
           <SectionTitle>Join channel via link</SectionTitle>
           <SectionSubtitle>
             Allow people to join this private channel by visiting a unique link.
@@ -88,7 +88,7 @@ class LoginTokenSettings extends React.Component<Props, State> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

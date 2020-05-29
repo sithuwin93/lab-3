@@ -206,7 +206,7 @@ class ChannelWithData extends React.Component<Props, State> {
       );
     } else {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Location>
             <Link to={`/${channel.community.slug}/${channel.slug}`}>
               View Channel

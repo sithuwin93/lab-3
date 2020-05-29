@@ -100,7 +100,7 @@ class BrandedLogin extends React.Component<Props, State> {
     if (community) {
       const { brandedLogin } = community;
       return (
-        <SectionCard data-cy="community-settings-branded-login">
+        <SectionCard elevation="e200" data-cy="community-settings-branded-login">
           <SectionTitle>Branded Login</SectionTitle>
           <SectionSubtitle>
             Display a custom login message when people are signing up to
@@ -159,7 +159,7 @@ class BrandedLogin extends React.Component<Props, State> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

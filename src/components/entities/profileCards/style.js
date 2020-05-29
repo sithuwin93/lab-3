@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import theme from 'shared/theme';
 import { Truncate } from 'src/components/globals';
 import { MEDIA_BREAK, MAX_SECONDARY_COLUMN_WIDTH } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const ProfileContainer = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: flex;
   flex-direction: column;
   width: 100%;

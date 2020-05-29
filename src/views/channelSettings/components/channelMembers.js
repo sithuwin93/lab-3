@@ -57,7 +57,7 @@ class ChannelMembers extends Component<Props> {
         channel.memberConnection.edges.map(member => member && member.node);
 
       return (
-        <SectionCard data-cy="channel-members">
+        <SectionCard elevation="e200" data-cy="channel-members">
           <SectionTitle>Members</SectionTitle>
 
           <ListContainer>
@@ -102,14 +102,14 @@ class ChannelMembers extends Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <ViewError />
       </SectionCard>
     );

@@ -25,12 +25,14 @@ export const Default = styled(FlexCol)`
   color: ${() => themed({ light:theme.text.default , dark: theme.textd.default})};
 `;
 
+
 export const Primary = styled(Default)`
-  background-color: ${() => themed({ light:theme.space.dark , dark: theme.spaced.dark})};
+  // background-color: ${() => themed({ light:theme.space.dark , dark: theme.spaced.dark})};
   background-image: ${({ theme }) =>
-    `radial-gradient(farthest-corner at 50% 100%,
-      ${themed({ light: hexa(theme.brand.alt, 0.75), dark:hexa(theme.brandd.alt, 0.75) })}, ${themed({ light: theme.space.dark, dark: theme.spaced.dark})}
-    )`};
+  `radial-gradient(farthest-corner at 50% 100%,
+    ${themed({ light: hexa(theme.brand.alt, 0.75), dark:hexa(theme.brandd.alt, 0.75) })},
+    ${themed({ light: theme.space.dark, dark: theme.spaced.dark})}
+  )`};
   color: ${() => themed({ light:theme.text.reverse , dark:theme.textd.reverse })};
   display: flex;
   flex: 1 0 auto;

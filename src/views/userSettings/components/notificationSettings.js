@@ -97,6 +97,7 @@ class NotificationSettings extends React.Component<Props, State> {
 
     return (
       <SectionCard
+        elevation="e200"
         smallOnly={this.props.smallOnly}
         largeOnly={this.props.largeOnly}
       >

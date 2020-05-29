@@ -3,13 +3,17 @@ import styled, { css } from 'styled-components';
 import theme from 'shared/theme';
 import { tint } from 'src/components/globals';
 import { MEDIA_BREAK } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, colors, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const StyledSegmentedControl = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: flex;
   width: 100%;
-  box-shadow: inset 0 -1px ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
-  background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
+  // box-shadow: inset 0 -1px ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
+  background-color: ${() => themed({ light: colors.N20, dark: colors.N700 })};
+
   overflow: hidden;
   overflow-x: scroll;
   position: ${props => (props.sticky ? 'sticky' : 'relative')};
@@ -35,6 +39,12 @@ export const StyledSegmentedControl = styled.div`
   }
 `;
 
+//  box-shadow: ${props =>
+// props.isActive ? `inset 0 -2px 0 ${theme.text.default}` : 'none'};
+// color: ${props => (props.isActive ? 
+//   themed({ light: theme.text.default, dark:theme.textd.default }) 
+//   :themed({ light: theme.text.alt, dark: theme.text.alt}) )};
+
 export const StyledSegment = styled.div`
   display: flex;
   align-items: center;
@@ -43,10 +53,14 @@ export const StyledSegment = styled.div`
   flex: 1 0 auto;
   font-weight: 600;
   color: ${props => (props.isActive ? 
-    themed({ light: theme.text.default, dark:theme.textd.default }) 
-    :themed({ light: theme.text.alt, dark: theme.text.alt}) )};
-  box-shadow: ${props =>
-    props.isActive ? `inset 0 -2px 0 ${theme.text.default}` : 'none'};
+    themed({ light: colors.B400, dark: colors.B100 })
+    : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
+
+  ${props =>
+      props.isActive && css`
+      box-shadow: inset 0 -3px 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
+
+  `}
   text-align: center;
 
   &:hover {

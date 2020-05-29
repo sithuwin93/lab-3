@@ -11,7 +11,7 @@ import { PrimaryButton } from 'src/components/button';
 class SettingsFallback extends React.Component<{}> {
   render() {
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <SectionTitle>
           <span
             role="img"

@@ -21,7 +21,7 @@ export const ErrorView = (props: Props) => {
   return (
     <ViewGrid {...rest}>
       <CenteredGrid>
-        <Card>
+        <Card elevation="e200">
           <Emoji role="img" aria-label="Oops">
             {emoji}
           </Emoji>

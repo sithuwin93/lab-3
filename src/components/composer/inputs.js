@@ -76,7 +76,7 @@ export default (props: Props) => {
           left: '0',
           right: '0',
           zIndex: '9999',
-          background: '#FFF',
+          // background: '#FFF',
           minHeight: '52px',
         }}
       >

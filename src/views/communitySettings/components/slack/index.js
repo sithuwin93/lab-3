@@ -80,7 +80,7 @@ export class Slack extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
@@ -88,7 +88,7 @@ export class Slack extends React.Component<Props> {
 
     if (hasError) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <ViewError />
         </SectionCard>
       );

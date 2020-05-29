@@ -72,7 +72,7 @@ class SendSlackInvitations extends React.Component<Props, State> {
       const now = new Date().getTime();
       const then = new Date(invitesSentAt).getTime();
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitleWithIcon>
             <Icon glyph={'slack-colored'} size={32} />
             Invitations sent
@@ -91,7 +91,7 @@ class SendSlackInvitations extends React.Component<Props, State> {
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <SectionTitleWithIcon>
           <Icon glyph={'slack-colored'} size={32} />
           Invite your Slack community

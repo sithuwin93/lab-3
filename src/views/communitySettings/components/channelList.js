@@ -42,7 +42,7 @@ class ChannelList extends React.Component<Props> {
       const channels = community.channelConnection.edges.map(c => c && c.node);
 
       return (
-        <SectionCard data-cy="channel-list">
+        <SectionCard elevation="e200" data-cy="channel-list">
           <SectionTitle>Channels</SectionTitle>
 
           <ListContainer style={{ padding: '0 16px' }}>
@@ -88,14 +88,14 @@ class ChannelList extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <ViewError
           refresh
           small

@@ -46,7 +46,7 @@ class PendingUsers extends React.Component<Props> {
       const { pendingUsers } = data.channel;
 
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitle>Pending Members</SectionTitle>
           {pendingUsers && pendingUsers.length > 0 && (
             <SectionSubtitle>
@@ -154,14 +154,14 @@ class PendingUsers extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <ViewError />
       </SectionCard>
     );

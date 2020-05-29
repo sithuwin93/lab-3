@@ -107,11 +107,11 @@ const Feeds = (props: Props) => {
       case 'info': {
         return (
           <InfoContainer>
-            <SidebarSection style={{ paddingBottom: '16px' }}>
+            <SidebarSection elevation="e200" style={{ paddingBottom: '16px' }}>
               <CommunityMeta community={community} />
             </SidebarSection>
 
-            <SidebarSection>
+            <SidebarSection elevation="e200">
               <TeamMembersList
                 community={community}
                 id={community.id}
@@ -120,11 +120,11 @@ const Feeds = (props: Props) => {
               />
             </SidebarSection>
 
-            <SidebarSection>
+            <SidebarSection elevation="e200">
               <ChannelsList id={community.id} communitySlug={community.slug} />
             </SidebarSection>
 
-            <SidebarSection>
+            <SidebarSection elevation="e200">
               <MobileCommunityInfoActions community={community} />
             </SidebarSection>
           </InfoContainer>

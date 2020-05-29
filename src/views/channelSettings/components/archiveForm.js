@@ -55,7 +55,7 @@ class Channel extends React.Component<Props> {
 
     if (!channel.isArchived) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitle>Archive channel</SectionTitle>
           {channel.isPrivate ? (
             <SectionSubtitle>
@@ -80,7 +80,7 @@ class Channel extends React.Component<Props> {
       );
     } else {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitle>Restore channel</SectionTitle>
 
           <SectionSubtitle>

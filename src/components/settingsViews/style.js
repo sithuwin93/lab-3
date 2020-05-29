@@ -2,7 +2,8 @@
 import theme from 'shared/theme';
 import styled from 'styled-components';
 import { MEDIA_BREAK } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const View = styled.main`
   display: flex;
@@ -47,8 +48,9 @@ export const Column = styled.div`
 `;
 
 export const SectionCard = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   border-radius: 4px;
-  border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  // border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   background: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
   margin-bottom: 16px;
   padding: 16px;
@@ -116,9 +118,11 @@ export const Subheading = styled.h3`
 `;
 
 export const StyledHeader = styled.div`
+  ${({ elevation }) => elevations[elevation]}
+
   display: flex;
   padding: 32px;
-  border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
   background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
   width: 100%;
   align-items: center;

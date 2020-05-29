@@ -204,7 +204,7 @@ class ChannelView extends React.Component<Props> {
                 )}
               </SecondaryColumn>
 
-              <PrimaryColumn>
+              <PrimaryColumn elevation="e200">
                 <FeedsContainer>
                   <SegmentedControl>
                     <Segment
@@ -251,7 +251,7 @@ class ChannelView extends React.Component<Props> {
 
                   {selectedView === 'info' && (
                     <InfoContainer>
-                      <SidebarSection>
+                      <SidebarSection elevation="e200">
                         <ChannelProfileCard channel={channel} />
                       </SidebarSection>
 

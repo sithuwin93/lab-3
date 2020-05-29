@@ -91,7 +91,7 @@ class DeleteAccountForm extends React.Component<Props, State> {
 
     if (user) {
       return (
-        <SectionCard data-cy="delete-account-container">
+        <SectionCard elevation="e200" data-cy="delete-account-container">
           <SectionTitle>Delete my account</SectionTitle>
           <SectionSubtitle>
             You can delete your account at any time.{' '}
@@ -149,7 +149,7 @@ class DeleteAccountForm extends React.Component<Props, State> {
 
     if (this.props.isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

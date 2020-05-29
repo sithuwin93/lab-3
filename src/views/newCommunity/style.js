@@ -8,14 +8,15 @@ import { themed } from 'src/components/theme';
 export const Container = styled(Card)`
   background-image: ${props =>
     props.bg ? `url('/img/fills/${props.bg}.svg')` : 'none'};
-  background-color: #fff;
+  // background-color: #fff;
+  background-color: inherit;
   background-size: 110% auto;
   background-repeat: ${props => (props.repeat ? 'repeat-y' : 'no-repeat')};
   background-position: ${props =>
     props.repeat ? 'center top' : 'center center'};
   width: 100%;
-  border-left: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
-  border-right: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // border-left: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+  // border-right: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
   max-width: ${MEDIA_BREAK}px;
   height: 100%;
   min-height: 100%;
@@ -33,7 +34,8 @@ export const Actions = styled.div`
   justify-content: space-between;
   border-top: 2px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
   padding: 24px;
-  background: #fff;
+  // background: #fff;
+  background-color: inherit;
   border-radius: 0 0 12px 12px;
 `;
 

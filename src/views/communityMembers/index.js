@@ -55,7 +55,7 @@ class CommunityMembersSettings extends React.Component<Props> {
             )}
 
             <ErrorBoundary fallbackComponent={SettingsFallback}>
-              <SectionCard>
+              <SectionCard elevation="e200">
                 <SectionTitle>Invite by email</SectionTitle>
                 <CommunityInvitationForm id={community.id} />
               </SectionCard>

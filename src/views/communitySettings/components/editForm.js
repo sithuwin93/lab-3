@@ -287,7 +287,7 @@ class EditForm extends React.Component<Props, State> {
 
     if (!community) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <FormTitle>This community doesn’t exist yet.</FormTitle>
           <Description>Want to make it?</Description>
           <Actions>
@@ -298,7 +298,7 @@ class EditForm extends React.Component<Props, State> {
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <SectionTitle>Community Settings</SectionTitle>
         <Form onSubmit={this.save}>
           <ImageInputWrapper>

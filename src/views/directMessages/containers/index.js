@@ -64,15 +64,15 @@ class DirectMessages extends React.Component<Props, State> {
   render() {
     const { match } = this.props;
     const activeThreadId = match.params.threadId;
-
+//elevation="e200"
     return (
       <ViewGrid>
         <SecondaryPrimaryColumnGrid>
-          <StyledSecondaryColumn shouldHideThreadList={!!activeThreadId}>
+          <StyledSecondaryColumn elevation="e200" shouldHideThreadList={!!activeThreadId}>
             <ThreadsList activeThreadId={activeThreadId} />
           </StyledSecondaryColumn>
 
-          <PrimaryColumn>
+          <PrimaryColumn elevation="e200">
             {activeThreadId ? (
               <ExistingThread id={activeThreadId} match={match} />
             ) : (

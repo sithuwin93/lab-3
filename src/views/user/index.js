@@ -226,11 +226,11 @@ class UserView extends React.Component<Props, State> {
           <ViewGrid data-cy="user-view">
             <SecondaryPrimaryColumnGrid>
               <SecondaryColumn>
-                <SidebarSection>
+                <SidebarSection elevation="e200">
                   <UserProfileCard user={user} />
                 </SidebarSection>
 
-                <SidebarSection>
+                <SidebarSection elevation="e200">
                   <SidebarSectionHeader>
                     <SidebarSectionHeading>Communities</SidebarSectionHeading>
                   </SidebarSectionHeader>
@@ -242,7 +242,7 @@ class UserView extends React.Component<Props, State> {
                   />
                 </SidebarSection>
               </SecondaryColumn>
-              <PrimaryColumn>
+              <PrimaryColumn elevation="e200">
                 <FeedsContainer>
                   <SegmentedControl>
                     <Segment
@@ -303,11 +303,11 @@ class UserView extends React.Component<Props, State> {
 
                   {selectedView === 'info' && (
                     <InfoContainer>
-                      <SidebarSection>
+                      <SidebarSection elevation="e200">
                         <UserProfileCard user={user} />
                       </SidebarSection>
 
-                      <SidebarSection>
+                      <SidebarSection elevation="e200">
                         <SidebarSectionHeader>
                           <SidebarSectionHeading>
                             Communities

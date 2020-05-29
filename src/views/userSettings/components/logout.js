@@ -7,7 +7,7 @@ import { SectionCard } from 'src/components/settingsViews/style';
 
 export default () => (
   <LogoutWrapper>
-    <SectionCard>
+    <SectionCard elevation="e200">
       <OutlineButton href={`${SERVER_URL}/auth/logout`} target="_self">
         Log out
       </OutlineButton>

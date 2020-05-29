@@ -143,7 +143,7 @@ const Component = (props: Props) => {
             <Sidebar community={community} />
           </SecondaryColumn>
 
-          <PrimaryColumn>
+          <PrimaryColumn elevation="e200">
             <CommunityFeeds community={community} />
           </PrimaryColumn>
         </SecondaryPrimaryColumnGrid>

@@ -46,7 +46,7 @@ class BlockedUsers extends React.Component<Props> {
       const { blockedUsers } = data.channel;
 
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitle>Blocked Users</SectionTitle>
           {blockedUsers && blockedUsers.length > 0 && (
             <SectionSubtitle>
@@ -144,14 +144,14 @@ class BlockedUsers extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <ViewError />
       </SectionCard>
     );

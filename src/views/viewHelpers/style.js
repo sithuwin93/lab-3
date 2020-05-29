@@ -2,7 +2,8 @@
 import styled, { css } from 'styled-components';
 import theme from 'shared/theme';
 import { MEDIA_BREAK } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const Emoji = styled.span`
   font-size: 40px;
@@ -40,11 +41,13 @@ export const ActionsRow = styled.div`
 
 export const CardStyles = css`
   background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
-  border: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+  // border: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
   border-radius: 4px;
 `;
 
 export const Card = styled.div`
+  ${({ elevation }) => elevations[elevation]}
+
   ${CardStyles};
   padding: 16px;
 

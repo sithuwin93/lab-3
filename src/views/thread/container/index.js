@@ -177,7 +177,7 @@ const ThreadContainer = (props: Props) => {
   const canChat = !isLocked && !channel.isArchived && isMember;
 
   const renderPrimaryColumn = fullWidth => (
-    <PrimaryColumn fullWidth={fullWidth}>
+    <PrimaryColumn elevation="e200" fullWidth={fullWidth}>
       {/*
         This <Stretch> container makes sure that the thread detail and messages
         component are always at least the height of the screen, minus the

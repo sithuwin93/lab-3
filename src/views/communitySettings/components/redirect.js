@@ -80,7 +80,7 @@ class RedirectSettings extends React.Component<Props, State> {
 
     if (community) {
       return (
-        <SectionCard data-cy="community-settings-redirect">
+        <SectionCard elevation="e200" data-cy="community-settings-redirect">
           <SectionTitle>Migrate your community elsewhere</SectionTitle>
           <SectionSubtitle style={{ marginTop: '8px' }}>
             Enabling this setting will redirect your community and channel pages

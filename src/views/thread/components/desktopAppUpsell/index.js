@@ -51,7 +51,7 @@ class DesktopAppUpsell extends React.Component<Props, State> {
     if (!isVisible || !currentUser) return null;
 
     return (
-      <SidebarSection>
+      <SidebarSection elevation="e200">
         <Container>
           <AppIcon src={'/img/homescreen-icon-72x72.png'} />
 

@@ -327,7 +327,7 @@ class UserWithData extends React.Component<Props, State> {
     const postAuthRedirectPath = `${CLIENT_URL}/users/${username}/settings`;
 
     return (
-      <SectionCard data-cy="user-edit-form">
+      <SectionCard elevation="e200" data-cy="user-edit-form">
         <Location>
           <Icon glyph="view-back" size={16} />
           <Link to={`/users/${username}`}>Return to Profile</Link>

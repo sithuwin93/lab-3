@@ -289,15 +289,17 @@ export const ThreadInputs = styled(FlexCol)`
 `;
 
 export const ThreadTitle = {
-  fontSize: '28px',
+  fontSize: '26px',
   padding: '0',
   outline: 'none',
   border: '0',
-  lineHeight: '1.4',
+  // lineHeight: '1.4',
   fontWeight: '600',
   boxShadow: 'none',
   width: '100%',
-  color: '#16171A',
+  background: 'inherit',
+  color: 'inherit',
+  // color: '#16171A',
   whiteSpace: 'pre-wrap',
   wordBreak: 'break-word',
   minHeight: '34px',

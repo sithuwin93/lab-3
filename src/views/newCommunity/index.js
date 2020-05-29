@@ -187,7 +187,7 @@ class NewCommunity extends React.Component<Props, State> {
             title={'New community'}
             description={'Create a new community'}
           />
-          <SingleColumnGrid>
+          <SingleColumnGrid elevation="e200">
             <Container bg={activeStep === 3 ? 'onboarding' : null} repeat>
               <Stepper activeStep={activeStep} />
               <Title centered={activeStep === 3}>{title}</Title>
@@ -247,7 +247,7 @@ class NewCommunity extends React.Component<Props, State> {
     if (user && !user.email) {
       return (
         <ViewGrid>
-          <SingleColumnGrid>
+          <SingleColumnGrid elevation="e200">
             <Container bg={null}>
               <Title>
                 {user.pendingEmail ? 'Confirm' : 'Add'} Your Email Address

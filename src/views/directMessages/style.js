@@ -2,7 +2,12 @@
 import theme from 'shared/theme';
 import styled, { css } from 'styled-components';
 import { SecondaryColumn, MEDIA_BREAK } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { 
+  elevation as AkElevations,
+  themed,
+  colors
+} from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const View = styled.main`
   grid-area: main;
@@ -63,8 +68,11 @@ export const ComposeHeader = styled.div`
 `;
 
 export const StyledSecondaryColumn = styled(SecondaryColumn)`
-  border-left: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
-  border-right: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  ${({ elevation }) => elevations[elevation]}
+
+  background: ${() => themed({ light: theme.bg.default, dark:theme.bgd.default })};
+  // border-left: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // border-right: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   padding-right: 0;
   padding-bottom: 0;
 

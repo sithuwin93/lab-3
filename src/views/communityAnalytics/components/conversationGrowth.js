@@ -34,7 +34,7 @@ class ConversationGrowth extends React.Component<Props> {
         quarterlyGrowth,
       } = community.conversationGrowth;
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionSubtitle>Your community‘s conversations</SectionSubtitle>
           <SectionTitle>
             {count.toLocaleString()} total conversations
@@ -48,7 +48,7 @@ class ConversationGrowth extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

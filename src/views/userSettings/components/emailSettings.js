@@ -124,6 +124,7 @@ class EmailSettings extends React.Component<Props> {
     if (!user.email) {
       return (
         <SectionCard
+          elevation="e200"
           smallOnly={this.props.smallOnly}
           largeOnly={this.props.largeOnly}
         >
@@ -143,6 +144,7 @@ class EmailSettings extends React.Component<Props> {
 
     return (
       <SectionCard
+        elevation="e200"
         smallOnly={this.props.smallOnly}
         largeOnly={this.props.largeOnly}
       >

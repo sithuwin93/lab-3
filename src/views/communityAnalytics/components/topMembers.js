@@ -42,7 +42,7 @@ class ConversationGrowth extends React.Component<Props> {
 
       if (sortedTopMembers.length === 0) {
         return (
-          <SectionCard>
+          <SectionCard elevation="e200">
             <SectionTitle>{title}</SectionTitle>
             <ViewError
               small
@@ -57,7 +57,7 @@ class ConversationGrowth extends React.Component<Props> {
       }
 
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitle>{title}</SectionTitle>
           {sortedTopMembers.map(member => {
             if (!member) return null;
@@ -89,7 +89,7 @@ class ConversationGrowth extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

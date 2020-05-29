@@ -45,7 +45,7 @@ class SlackChannelConnection extends React.Component<Props> {
       const slackChannels = data.community.slackSettings.slackChannelList;
 
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <SectionTitleWithIcon>
             <Icon glyph={'slack-colored'} size={32} />
             Get conversation notifications in Slack
@@ -74,14 +74,14 @@ class SlackChannelConnection extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );
     }
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <ViewError />
       </SectionCard>
     );

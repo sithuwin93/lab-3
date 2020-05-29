@@ -73,6 +73,7 @@ export const Title = styled.div`
   font-weight: 800;
   font-size: 20px;
   line-height: 28px;
+  color: ${() => themed({ light: theme.text.default, dark:theme.textd.default })};
 `;
 
 export const Header = styled.div`
@@ -104,7 +105,7 @@ export const Description = styled.p`
   line-height: 1.4;
 
   a {
-    color: ${theme.brand.default};
+    color: ${() => themed({ light: theme.brand.default, dark: theme.brandd.default})};
   }
 `;
 

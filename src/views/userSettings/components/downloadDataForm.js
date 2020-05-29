@@ -33,7 +33,7 @@ class DownloadDataForm extends React.Component<Props> {
     if (!user) return null;
 
     return (
-      <SectionCard data-cy="download-data-container">
+      <SectionCard elevation="e200" data-cy="download-data-container">
         <SectionTitle>Download my data</SectionTitle>
         <SectionSubtitle>
           You can download your personal data at any time.

@@ -36,7 +36,7 @@ class ImportSlackTeam extends React.Component<Props> {
         }`;
 
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <SectionTitleWithIcon>
           <Icon glyph={'slack-colored'} size={32} />
           Connect a Slack team

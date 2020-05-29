@@ -14,7 +14,8 @@ import {
   zIndex,
   Truncate,
 } from 'src/components/globals';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const ThreadViewContainer = styled.div`
   display: flex;
@@ -672,9 +673,11 @@ export const FollowButton = styled(OutlineButton)`
 `;
 
 export const SidebarSection = styled.div`
+  ${({ elevation }) => elevations[elevation]}
+
   margin: 8px 16px;
   background: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
-  border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  // border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   border-radius: 4px;
   display: flex;
   flex-direction: column;

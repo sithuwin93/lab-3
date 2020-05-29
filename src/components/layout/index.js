@@ -2,7 +2,8 @@
 import styled from 'styled-components';
 import theme from 'shared/theme';
 import { isDesktopApp } from 'src/helpers/desktop-app-utils';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const NAVBAR_WIDTH = isDesktopApp() ? 80 : 72;
 export const NAVBAR_EXPANDED_WIDTH = 256;
@@ -55,6 +56,7 @@ export const ViewGrid = styled.main.attrs({
 └──┴────────┴──┘
 */
 export const SingleColumnGrid = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: grid;
   justify-self: center;
   grid-template-columns: ${MIN_MAX_WIDTH}px;
@@ -159,9 +161,11 @@ export const CenteredGrid = styled.div`
 `;
 
 export const PrimaryColumn = styled.section`
-  border-left: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
-  border-right: 1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
-  border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border})};
+  // border-left: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  // border-right: 1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
+  // border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border})};
+  ${({ elevation }) => elevations[elevation]}
+
   border-radius: 0 0 4px 4px;
   height: 100%;
   max-width: ${props =>
@@ -186,6 +190,7 @@ export const SecondaryColumn = styled.section`
   overflow-y: auto;
   position: sticky;
   top: 0;
+  padding: 3px;
   padding-bottom: 48px;
   grid-area: secondary;
 

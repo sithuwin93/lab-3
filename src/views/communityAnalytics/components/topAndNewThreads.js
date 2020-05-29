@@ -36,7 +36,7 @@ class TopAndNewThreads extends React.Component<Props> {
 
       return (
         <span>
-          <SectionCard>
+          <SectionCard elevation="e200">
             <SectionTitle>Top conversations this week</SectionTitle>
 
             {sortedTopThreads.length > 0 ? (
@@ -55,7 +55,7 @@ class TopAndNewThreads extends React.Component<Props> {
               />
             )}
           </SectionCard>
-          <SectionCard>
+          <SectionCard elevation="e200">
             <SectionTitle>Unanswered conversations this week</SectionTitle>
             {newThreads.length > 0 ? (
               newThreads.map(thread => {
@@ -79,7 +79,7 @@ class TopAndNewThreads extends React.Component<Props> {
 
     if (isLoading) {
       return (
-        <SectionCard>
+        <SectionCard elevation="e200">
           <Loading />
         </SectionCard>
       );

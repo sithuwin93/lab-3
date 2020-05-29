@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { Truncate, tint } from 'src/components/globals';
 import { MEDIA_BREAK } from 'src/components/layout';
 import { CardStyles } from 'src/views/viewHelpers';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 const listItemStyles = css`
   padding: 12px 12px 12px 16px;
@@ -57,8 +58,10 @@ export const ListItemLabel = styled.div`
 `;
 
 export const SidebarSection = styled.section`
+  ${({ elevation }) => elevations[elevation]}
+
   background: ${() => themed({ light: theme.bg.default, dark:theme.bgd.default })};
-  border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  // border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   margin-top: 24px;
   border-radius: 4px;
 

@@ -12,18 +12,18 @@ type Props = {
 
 export default ({ community }: Props) => (
   <React.Fragment>
-    <SidebarSection>
+    <SidebarSection elevation="e200">
       <CommunityProfileCard community={community} />
     </SidebarSection>
 
     <ErrorBoundary>
-      <SidebarSection>
+      <SidebarSection elevation="e200">
         <ChannelsList id={community.id} communitySlug={community.slug} />
       </SidebarSection>
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <SidebarSection>
+      <SidebarSection elevation="e200">
         <TeamMembersList
           community={community}
           id={community.id}

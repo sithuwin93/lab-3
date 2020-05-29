@@ -55,7 +55,7 @@ const Navigation = (props: Props) => {
               onClick={() => setNavigationIsOpen(false)}
             />
 
-            <NavigationGrid isOpen={navigationIsOpen}>
+            <NavigationGrid elevation="e200" isOpen={navigationIsOpen}>
               <NavigationGridListScroller>
                 <DesktopMenuIconsCover />
                 <Route path="/about">
@@ -233,7 +233,7 @@ const Navigation = (props: Props) => {
               onClick={() => setNavigationIsOpen(false)}
             />
 
-            <NavigationGrid isOpen={navigationIsOpen}>
+            <NavigationGrid elevation="e200" isOpen={navigationIsOpen}>
               <NavigationGridListScroller>
                 <DesktopMenuIconsCover />
                 <GlobalComposerTab />

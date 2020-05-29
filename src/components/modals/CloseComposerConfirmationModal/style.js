@@ -1,7 +1,9 @@
 // @flow
 // $FlowFixMe
+import theme from 'shared/theme';
 import styled from 'styled-components';
 import { FlexRow } from '../../globals';
+import { themed } from 'src/components/theme';
 
 export const Actions = styled(FlexRow)`
   margin-top: 24px;
@@ -16,6 +18,7 @@ export const Actions = styled(FlexRow)`
 export const Message = styled.div`
   line-height: 1.4;
   margin: 8px 24px;
+  color: ${() => themed({ light: theme.text.secondary, dark: theme.textd.secondary})};
 
   p {
     margin-top: 8px;

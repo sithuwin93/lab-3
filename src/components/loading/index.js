@@ -3,7 +3,8 @@ import React from 'react';
 import branch from 'recompose/branch';
 import renderComponent from 'recompose/renderComponent';
 import styled from 'styled-components';
-import { Spinner, FlexCol } from '../globals';
+import { FlexCol } from '../globals';//Spinner, 
+import Spinner from 'src/components/spinner';
 import { Card } from '../card';
 import { ThreadViewContainer, Detail, Content } from '../../views/thread/style';
 import {

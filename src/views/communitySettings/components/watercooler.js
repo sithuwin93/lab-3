@@ -73,7 +73,7 @@ const Watercooler = (props: Props) => {
     const buttonLabel =
       community && community.watercoolerId ? 'Disable' : 'Enable';
     return (
-      <SectionCard data-cy="community-settings-branded-login">
+      <SectionCard elevation="e200" data-cy="community-settings-branded-login">
         <SectionTitle>Open chat</SectionTitle>
         <SectionSubtitle>
           Display an open chat feed on your community’s profile.
@@ -101,7 +101,7 @@ const Watercooler = (props: Props) => {
 
   if (isLoading) {
     return (
-      <SectionCard>
+      <SectionCard elevation="e200">
         <Loading />
       </SectionCard>
     );

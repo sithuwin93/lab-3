@@ -21,7 +21,7 @@ class Header extends React.Component<Props> {
   render() {
     const { avatar, subheading, heading } = this.props;
     return (
-      <StyledHeader>
+      <StyledHeader elevation="e200">
         {avatar && avatar.community && (
           <CommunityAvatar
             community={avatar.community}
