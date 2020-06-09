@@ -46,7 +46,7 @@ const ChatTab = ({ location, community, currentUser }) =>
           <Link to={`/${community.slug}?tab=chat`}>
             <Row isActive={isActive}>
               <Content>
-                <Label>Chat</Label>
+                <Label isActive={isActive}>Chat</Label>
               </Content>
               <Actions>
                 {!currentUser ? (
@@ -211,7 +211,10 @@ class Component extends React.Component<Props> {
                     }
                   >
                     <Content>
-                      <Label>
+                      <Label 
+                        isActive={
+                          !!match && location.search.indexOf('tab=posts') > -1
+                        }>
                         # All{' '}
                         {currentUser && community.communityPermissions.isMember
                           ? 'your '

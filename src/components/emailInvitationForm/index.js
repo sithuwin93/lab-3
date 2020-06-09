@@ -7,7 +7,9 @@ import { addToastWithTimeout } from 'src/actions/toasts';
 import Icon from 'src/components/icon';
 import isEmail from 'validator/lib/isEmail';
 import sendCommunityEmailInvitations from 'shared/graphql/mutations/community/sendCommunityEmailInvites';
-import { OutlineButton } from 'src/components/button';
+// import { OutlineButton } from 'src/components/button';
+import { ThemedButton } from 'src/components/button-new';
+
 import { Error } from '../formElements';
 import { SectionCardFooter } from 'src/components/settingsViews/style';
 import { withCurrentUser } from 'src/components/withCurrentUser';
@@ -414,13 +416,19 @@ class EmailInvitationForm extends React.Component<Props, State> {
         )}
 
         <SectionCardFooter>
-          <OutlineButton
+          {/* <OutlineButton
             loading={isLoading}
             onClick={this.sendInvitations}
             disabled={hasCustomMessage && customMessageError}
           >
             {isLoading ? 'Sending...' : 'Send Invitations'}
-          </OutlineButton>
+          </OutlineButton> */}
+          <ThemedButton 
+            isLoading={isLoading}
+            onClick={this.sendInvitations}
+            isDisabled={hasCustomMessage && customMessageError}>
+            {isLoading ? 'Sending...' : 'Send Invitations'}
+          </ThemedButton>
         </SectionCardFooter>
       </div>
     );

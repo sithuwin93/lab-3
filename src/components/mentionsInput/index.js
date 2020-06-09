@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { MentionsInput, Mention } from 'react-mentions';
+import { MentionsInput, Mention } from 'src/components/react-mentions';
 import { withApollo } from 'react-apollo';
 import { MentionsInputStyle } from './style';
 import MentionSuggestion from './mentionSuggestion';
@@ -46,6 +46,7 @@ const sortSuggestions = (a, b, queryString) => {
 };
 
 const SpectrumMentionsInput = (props: Props) => {
+
   const searchUsers = async (queryString, callback) => {
     const staticSuggestions = !props.staticSuggestions
       ? []
@@ -113,17 +114,20 @@ const SpectrumMentionsInput = (props: Props) => {
     networkDisabled,
     staticSuggestions,
     hasAttachment,
+    singleLine,
+    isFullscreen,
     ...rest
   } = props;
 
   return (
     <MentionsInput
+      isFullscreen={isFullscreen}
+      singleLine={singleLine}
       displayTransform={username => `@${username}`}
       markup="@[__id__]"
       data-cy={props.dataCy}
       {...rest}
-      style={{ ...(props.style || {}), ...MentionsInputStyle }}
-    >
+      style={{ ...(props.style || {}), ...MentionsInputStyle }}>
       <Mention
         trigger="@"
         data={searchUsers}

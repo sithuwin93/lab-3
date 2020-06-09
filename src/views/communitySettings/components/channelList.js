@@ -20,6 +20,8 @@ import {
   SectionCardFooter,
 } from 'src/components/settingsViews/style';
 import { ChannelListItem } from 'src/components/listItems';
+import { ThemedButton } from 'src/components/button-new';
+
 
 type Props = {
   data: {
@@ -66,7 +68,7 @@ class ChannelList extends React.Component<Props> {
           </ListContainer>
 
           <SectionCardFooter>
-            <OutlineButton
+            {/* <OutlineButton
               style={{ alignSelf: 'flex-start' }}
               icon={'plus'}
               onClick={() =>
@@ -80,7 +82,21 @@ class ChannelList extends React.Component<Props> {
               data-cy="create-channel-button"
             >
               Create Channel
-            </OutlineButton>
+            </OutlineButton> */}
+            <ThemedButton
+              style={{ alignSelf: 'flex-start' }}
+              icon={'plus'}
+              onClick={() =>
+                dispatch(
+                  openModal('CREATE_CHANNEL_MODAL', {
+                    community,
+                    id: community.id,
+                  })
+                )
+              }
+              data-cy="create-channel-button">
+              Create Channel
+            </ThemedButton>
           </SectionCardFooter>
         </SectionCard>
       );

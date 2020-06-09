@@ -10,6 +10,8 @@ import {
 import JoinChannel from 'src/components/joinChannelWrapper';
 import LeaveChannel from 'src/components/leaveChannelWrapper';
 import { ActionsRowContainer } from '../style';
+import { ThemedButton } from 'src/components/button-new';
+import Icon from 'src/components/icon';
 
 type Props = {
   channel: ChannelInfoType,
@@ -26,24 +28,48 @@ export const UnconnectedChannelActions = (props: Props) => {
     return (
       <ActionsRowContainer>
         {isTeamMember && (
-          <OutlineButton
+          // <OutlineButton
+          //   data-cy="channel-settings-button"
+          //   to={`/${community.slug}/${channel.slug}/settings`}
+          // >
+          //   Settings
+          // </OutlineButton>
+          <ThemedButton
+            type='link'
             data-cy="channel-settings-button"
-            to={`/${community.slug}/${channel.slug}/settings`}
-          >
+            to={`/${community.slug}/${channel.slug}/settings`}>
             Settings
-          </OutlineButton>
+          </ThemedButton>
         )}
 
         <LeaveChannel
           channel={channel}
           render={({ isLoading, isHovering }) => (
-            <HoverWarnOutlineButton isLoading={isLoading} icon={'door-enter'}>
+            // <HoverWarnOutlineButton isLoading={isLoading} icon={'door-enter'}>
+            //   {isLoading
+            //     ? 'Leaving...'
+            //     : isHovering
+            //     ? 'Leave channel'
+            //     : 'Member'}
+            // </HoverWarnOutlineButton>
+            <ThemedButton
+              isLoading={isLoading}
+              appearance="danger">
+                <Icon 
+                  style={{
+                      position: 'relative',
+                      top: 6,
+                      left: 5,
+                      marginRight: 8
+                  }}
+                  glyph={'door-enter'} 
+                  size={24} />
               {isLoading
                 ? 'Leaving...'
                 : isHovering
                 ? 'Leave channel'
                 : 'Member'}
-            </HoverWarnOutlineButton>
+            </ThemedButton>
           )}
         />
       </ActionsRowContainer>
@@ -53,17 +79,36 @@ export const UnconnectedChannelActions = (props: Props) => {
   return (
     <ActionsRowContainer>
       {isTeamMember && (
-        <OutlineButton to={`/${community.slug}/${channel.slug}/settings`}>
+        // <OutlineButton to={`/${community.slug}/${channel.slug}/settings`}>
+        //   Settings
+        // </OutlineButton>
+        <ThemedButton 
+          type="link"
+          to={`/${community.slug}/${channel.slug}/settings`}>
           Settings
-        </OutlineButton>
+        </ThemedButton>
       )}
 
       <JoinChannel
         channel={channel}
         render={({ isLoading }) => (
-          <PrimaryOutlineButton isLoading={isLoading} icon={'door-enter'}>
+          <ThemedButton 
+            appearance="primary"
+            isLoading={isLoading}>
+            <Icon 
+              style={{
+                position: 'relative',
+                top: 6,
+                left: 5,
+                marginRight: 8
+              }}
+              glyph={'door-enter'} 
+              size={24} />
             {isLoading ? 'Joining...' : 'Join channel'}
-          </PrimaryOutlineButton>
+          </ThemedButton>
+          // <PrimaryOutlineButton isLoading={isLoading} icon={'door-enter'}>
+          //   {isLoading ? 'Joining...' : 'Join channel'}
+          // </PrimaryOutlineButton>
         )}
       />
     </ActionsRowContainer>

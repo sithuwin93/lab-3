@@ -4,9 +4,11 @@ import theme from 'shared/theme';
 import { isDesktopApp } from 'src/helpers/desktop-app-utils';
 import { Truncate } from 'src/components/globals';
 import { MEDIA_BREAK, TITLEBAR_HEIGHT } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const TitlebarContainer = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: flex;
   align-items: center;
   justify-content: ${props =>

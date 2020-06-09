@@ -12,7 +12,7 @@ import { Notice } from 'src/components/listItems/style';
 import {
   Input,
   UnderlineInput,
-  TextArea,
+  // TextArea,
   PhotoInput,
   CoverInput,
   Error,
@@ -20,6 +20,10 @@ import {
 import { ImageInputWrapper } from 'src/components/editForm/style';
 import { Actions, FormContainer, Form } from '../../style';
 import type { Dispatch } from 'redux';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+import { LabelWrapper, Label } from '../createCommunityForm/style';
+import { ThemedButton } from 'src/components/button-new';
 
 type State = {
   name: string,
@@ -260,31 +264,61 @@ class CommunityWithData extends React.Component<Props, State> {
             />
           </ImageInputWrapper>
 
-          <Input defaultValue={name} onChange={this.changeName}>
+          {/* <Input defaultValue={name} onChange={this.changeName}>
             Name
-          </Input>
+          </Input> */}
+          <LabelWrapper>
+            <Label htmlFor="name">
+              Name
+            </Label>
+            <TextField 
+              name="name"
+              defaultValue={name} 
+              onChange={this.changeName}/>
+          </LabelWrapper>
+
           <UnderlineInput defaultValue={slug} disabled>
-            spectrum.chat/
+            parabaik.com/
           </UnderlineInput>
 
           {nameError && (
             <Error>Community names can be up to 20 characters long.</Error>
           )}
 
-          <TextArea
+          {/* <TextArea
             defaultValue={description}
             onChange={this.changeDescription}
           >
             Description
-          </TextArea>
+          </TextArea> */}
+          <LabelWrapper>
+            <Label htmlFor="description">
+              Description
+            </Label>
+            <TextArea
+              defaultValue={description}
+              onChange={this.changeDescription}
+            />            
+          </LabelWrapper>
 
-          <Input
+          <LabelWrapper>
+            <Label htmlFor="website">
+              Optional: Add your community’s website
+            </Label>
+            <TextField
+              name="website"
+              defaultValue={website}
+              onChange={this.changeWebsite}
+              autoFocus={true}
+            />
+          </LabelWrapper>
+          {/* <Input
             defaultValue={website}
             onChange={this.changeWebsite}
             autoFocus={true}
           >
             Optional: Add your community’s website
-          </Input>
+          </Input> */}
 
           {photoSizeError && (
             <Notice style={{ marginTop: '16px' }}>
@@ -295,13 +329,14 @@ class CommunityWithData extends React.Component<Props, State> {
 
         <Actions>
           <div />
-          <Button
-            loading={isLoading}
+          <ThemedButton
+            appearance="primary"
+            isLoading={isLoading}
             onClick={this.save}
-            disabled={photoSizeError}
+            isDisabled={photoSizeError}
           >
             {isLoading ? 'Saving...' : 'Save & Continue'}
-          </Button>
+          </ThemedButton>
         </Actions>
       </FormContainer>
     );

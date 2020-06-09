@@ -12,6 +12,7 @@ import { CommunityAvatar } from 'src/components/avatar';
 import { LoadingSelect, ErrorSelect } from 'src/components/loading';
 import { sortCommunities } from '../utils';
 import { RequiredSelector, CommunityPreview } from '../style';
+import Select, { PopupSelect } from 'src/components/select-new';
 
 type Props = {
   onChange: Function,
@@ -64,7 +65,9 @@ const AvailableCommunitiesDropdown = (props: Props) => {
     {
       const firstCommunity = sortedNodes[0];
       if (!firstCommunity) return null;
-      const fakeEvent = { target: { value: firstCommunity.id } };
+      // const fakeEvent = { target: { value: firstCommunity.id } };
+      const fakeEvent = { value: firstCommunity.id } ;
+
       onChange(fakeEvent);
       return null;
     }
@@ -79,26 +82,39 @@ const AvailableCommunitiesDropdown = (props: Props) => {
         return selectSingleCommunityChild();
 
       return (
-        <RequiredSelector
-          data-cy="composer-community-selector"
-          onChange={onChange}
-          value={id}
-          emphasize={!id}
-        >
-          {/* $FlowIssue */}
-          <React.Fragment>
-            <option value={''}>Choose a community</option>
-
-            {sortedNodes.map(community => {
+        <div style={{width: 212,marginLeft:12}}>
+          <Select style={{width: 212}}
+            data-cy="composer-community-selector"
+            onChange={onChange}
+            defaultalue={id}
+            emphasize={!id}
+            placeHolder="Choose a community"
+            options={sortedNodes.map(community => {
               if (!community) return null;
-              return (
-                <option key={community.id} value={community.id}>
-                  {community.name}
-                </option>
-              );
+              return ({ label: community.name, value: community.id })
             })}
-          </React.Fragment>
-        </RequiredSelector>
+          />
+        </div>
+        // <RequiredSelector
+        //   data-cy="composer-community-selector"
+        //   onChange={onChange}
+        //   value={id}
+        //   emphasize={!id}
+        // >
+        //   {/* $FlowIssue */}
+        //   <React.Fragment>
+        //     <option value={''}>Choose a community</option>
+
+        //     {sortedNodes.map(community => {
+        //       if (!community) return null;
+        //       return (
+        //         <option key={community.id} value={community.id}>
+        //           {community.name}
+        //         </option>
+        //       );
+        //     })}
+        //   </React.Fragment>
+        // </RequiredSelector>
       );
     }
 
@@ -115,26 +131,39 @@ const AvailableCommunitiesDropdown = (props: Props) => {
   if (shouldSelectSingleCommunityChild()) return selectSingleCommunityChild();
 
   return (
-    <RequiredSelector
-      data-cy="composer-community-selector"
-      onChange={onChange}
-      value={id}
-      emphasize={!id}
-    >
-      {/* $FlowIssue */}
-      <React.Fragment>
-        <option value={''}>Choose a community</option>
-
-        {sortedNodes.map(community => {
+    <div style={{width: 212}}>
+      <Select style={{width: 212}}      
+        data-cy="composer-community-selector"
+        onChange={onChange}
+        defaultalue={id}
+        emphasize={!id}
+        placeHolder="Choose a community"
+        options={sortedNodes.map(community => {
           if (!community) return null;
-          return (
-            <option key={community.id} value={community.id}>
-              {community.name}
-            </option>
-          );
+          return ({ label: community.name, value: community.id })
         })}
-      </React.Fragment>
-    </RequiredSelector>
+      />
+    </div>
+    // <RequiredSelector
+    //   data-cy="composer-community-selector"
+    //   onChange={onChange}
+    //   value={id}
+    //   emphasize={!id}
+    // >
+    //   {/* $FlowIssue */}
+    //   <React.Fragment>
+    //     <option value={''}>Choose a community</option>
+
+    //     {sortedNodes.map(community => {
+    //       if (!community) return null;
+    //       return (
+    //         <option key={community.id} value={community.id}>
+    //           {community.name}
+    //         </option>
+    //       );
+    //     })}
+    //   </React.Fragment>
+    // </RequiredSelector>
   );
 };
 

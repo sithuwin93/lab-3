@@ -5,7 +5,6 @@ import { throttle } from 'src/helpers/utils';
 import searchThreadsQuery from 'shared/graphql/queries/search/searchThreads';
 import ThreadFeed from 'src/components/threadFeed';
 import { SearchContainer, SearchInput } from '../style';
-
 const SearchThreadFeed = compose(searchThreadsQuery)(ThreadFeed);
 
 type Props = {
@@ -67,6 +66,7 @@ class Search extends React.Component<Props, State> {
             placeholder={`Search ${user.name}'s conversations...`}
             onChange={this.handleChange}
           />
+
         </SearchContainer>
         {searchString && sendStringToServer && (
           <SearchThreadFeed

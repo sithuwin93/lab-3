@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import theme from 'shared/theme';
 import { FlexRow, Transition, hexa, zIndex } from '../globals';
 import Textarea from 'react-textarea-autosize';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export const StyledLabel = styled.label`
   display: flex;
@@ -146,27 +146,32 @@ export const StyledTextArea = styled(Textarea)`
   }
 `;
 
+// border-bottom: ${props =>
+//   props.disabled
+//     ? '2px solid transparent'
+//     : `2px solid ${themed({ light: props.theme.bg.inactive, dark:props.theme.bgd.inactive })}`};
+
 export const StyledUnderlineInput = styled.input`
   font-size: inherit;
   font-weight: inherit;
+  background: inherit;
   color: ${props =>
     props.disabled ? 
     themed({ light:props.theme.text.alt , dark:props.theme.textd.alt }) : 
     themed({ light: props.theme.text.default, dark: props.theme.textd.default})};
-  border-bottom: ${props =>
-    props.disabled
-      ? '2px solid transparent'
-      : `2px solid ${themed({ light: props.theme.bg.inactive, dark:props.theme.bgd.inactive })}`};
-  width: 50%;
-  transition: ${Transition.hover.off};
 
+    width: 50%;
+  transition: ${Transition.hover.off};
+  border-bottom: 2px solid ${themed({ light: colors.N40, dark: colors.DN40})}};
+
+  
   &:hover {
-    border-color: ${props => (props.disabled ? 'transparent' : 'inherit')};
+    border-color: ${props => (props.disabled ? themed({ light: colors.N40, dark: colors.DN40}) : 'inherit')};//transparent
     transition: ${Transition.hover.on};
   }
 
   &:focus {
-    border-color: ${() => themed({ light: theme.brand.default, dark:theme.brandd.default })};
+    border-color: ${() => themed({ light: colors.B100, dark: colors.B75 })};
     transition: ${Transition.hover.on};
   }
 `;

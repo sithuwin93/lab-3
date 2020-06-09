@@ -14,6 +14,7 @@ import toggleCommunityRedirect from 'shared/graphql/mutations/community/toggleCo
 import toggleCommunityNoindex from 'shared/graphql/mutations/community/toggleCommunityNoindex';
 import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   community: GetCommunityType,
@@ -99,7 +100,7 @@ class RedirectSettings extends React.Component<Props, State> {
             notice to users arriving there.
           </SectionSubtitle>
           <SectionCardFooter>
-            <OutlineButton
+            {/* <OutlineButton
               disabled={this.state.isLoadingRedirect}
               onClick={this.toggleRedirect}
               style={{ alignSelf: 'flex-start' }}
@@ -109,7 +110,18 @@ class RedirectSettings extends React.Component<Props, State> {
                 : this.props.community.redirect
                 ? 'Disable'
                 : 'Enable'}
-            </OutlineButton>
+            </OutlineButton> */}
+            <ThemedButton
+              isDisabled={this.state.isLoadingRedirect}
+              onClick={this.toggleRedirect}
+              style={{ alignSelf: 'flex-start' }}
+            >
+              {this.state.isLoadingRedirect
+                ? 'Loading...'
+                : this.props.community.redirect
+                ? 'Disable'
+                : 'Enable'}
+            </ThemedButton>
           </SectionCardFooter>
           {this.props.community.redirect && (
             <React.Fragment>
@@ -122,7 +134,7 @@ class RedirectSettings extends React.Component<Props, State> {
                 </SectionSubtitle>
               </SectionCardFooter>
               <SectionCardFooter style={{ borderTop: '0', paddingTop: '0' }}>
-                <OutlineButton
+                {/* <OutlineButton
                   disabled={this.state.isLoadingNoindex}
                   onClick={this.toggleNoindex}
                   style={{ alignSelf: 'flex-start' }}
@@ -132,7 +144,17 @@ class RedirectSettings extends React.Component<Props, State> {
                     : this.props.community.noindex
                     ? 'Disable'
                     : 'Enable'}
-                </OutlineButton>
+                </OutlineButton> */}
+                <ThemedButton
+                  isDisabled={this.state.isLoadingNoindex}
+                  onClick={this.toggleNoindex}
+                  style={{ alignSelf: 'flex-start' }}>
+                  {this.state.isLoadingNoindex
+                    ? 'Loading...'
+                    : this.props.community.noindex
+                    ? 'Disable'
+                    : 'Enable'}
+                </ThemedButton>
               </SectionCardFooter>
             </React.Fragment>
           )}

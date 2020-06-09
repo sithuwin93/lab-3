@@ -25,7 +25,7 @@ import Icon from 'src/components/icon';
 import {
   Input,
   UnderlineInput,
-  TextArea,
+  // TextArea,
   PhotoInput,
   CoverInput,
   Error,
@@ -46,6 +46,10 @@ import {
 } from './style';
 import { FormContainer, Form, Actions } from '../../style';
 import type { Dispatch } from 'redux';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+import { LabelWrapper, Label } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type State = {
   name: ?string,
@@ -505,22 +509,34 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
           <Spacer height={8} />
 
-          <Input
+          {/* <Input
             defaultValue={name}
             onChange={this.changeName}
             autoFocus={!(window.innerWidth < 768)}
             onBlur={this.checkSuggestedCommunities}
-            dataCy="community-name-input"
-          >
+            dataCy="community-name-input">
             What is your community called?
-          </Input>
+          </Input> */}
+          <LabelWrapper>
+            <Label htmlFor="name">
+              What is your community called?
+            </Label>
+            <TextField 
+              name="name"
+              defaultValue={name}
+              onChange={this.changeName}
+              autoFocus={!(window.innerWidth < 768)}
+              onBlur={this.checkSuggestedCommunities}
+              dataCy="community-name-input"
+            />
 
-          {nameError && (
-            <Error>
-              Community name has to be between 1 and 20 characters long and
-              can`t have invalid characters.
-            </Error>
-          )}
+            {nameError && (
+              <Error>
+                Community name has to be between 1 and 20 characters long and
+                can`t have invalid characters.
+              </Error>
+            )}
+          </LabelWrapper>
 
           <UnderlineInput
             defaultValue={slug}
@@ -528,7 +544,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
             onBlur={this.checkSuggestedCommunities}
             dataCy="community-slug-input"
           >
-            spectrum.chat/
+            parabaik.com/
           </UnderlineInput>
 
           {slugTaken && (
@@ -573,7 +589,26 @@ class CreateCommunityForm extends React.Component<Props, State> {
               })}
           </CommunitySuggestionsWrapper>
 
-          <TextArea
+          <LabelWrapper>
+            <Label htmlFor="description">
+              Describe it in 140 characters or less
+            </Label>
+
+            <TextArea
+              name="description"
+              defaultValue={description}
+              onChange={this.changeDescription}
+              dataCy="community-description-input"
+            />
+            {descriptionError && (
+              <Error>
+                Oops, there may be some invalid characters or the text is too big
+                (max: 140 characters) - try trimming that up.
+              </Error>
+            )}
+              
+          </LabelWrapper>
+          {/* <TextArea
             defaultValue={description}
             onChange={this.changeDescription}
             dataCy="community-description-input"
@@ -586,15 +621,27 @@ class CreateCommunityForm extends React.Component<Props, State> {
               Oops, there may be some invalid characters or the text is too big
               (max: 140 characters) - try trimming that up.
             </Error>
-          )}
+          )} */}
 
-          <Input
+          {/* <Input
             defaultValue={website}
             onChange={this.changeWebsite}
             dataCy="community-website-input"
           >
             Optional: Add your community’s website
-          </Input>
+          </Input> */}
+
+        <LabelWrapper>
+          <Label htmlFor="website">
+            Optional: Add your community’s website
+          </Label>
+          <TextField 
+            name="website"
+            defaultValue={website}
+            onChange={this.changeWebsite}
+            dataCy="community-website-input"
+          />
+        </LabelWrapper>
 
           <PrivacySelector>
             <PrivacyOption selected={!isPrivate} onClick={this.setPublic}>
@@ -649,7 +696,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Spectrum Code of Conduct
+                Parabaik Code of Conduct
               </a>{' '}
               and agree to enforce it in my community.
             </span>
@@ -664,7 +711,23 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
         <Actions>
           <div />
-          <PrimaryOutlineButton
+          <ThemedButton
+            appearance="primary"
+            onClick={this.create}
+            isDisabled={
+              slugTaken ||
+              slugError ||
+              nameError ||
+              createError ||
+              descriptionError ||
+              !name ||
+              !agreeCoC
+            }
+            isLoading={isLoading}
+            data-cy="community-create-button">
+            {isLoading ? 'Creating...' : 'Create Community & Continue'}
+          </ThemedButton>
+          {/* <PrimaryOutlineButton
             onClick={this.create}
             disabled={
               slugTaken ||
@@ -679,7 +742,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
             data-cy="community-create-button"
           >
             {isLoading ? 'Creating...' : 'Create Community & Continue'}
-          </PrimaryOutlineButton>
+          </PrimaryOutlineButton> */}
         </Actions>
       </FormContainer>
     );

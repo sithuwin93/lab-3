@@ -9,7 +9,7 @@ import Icon from 'src/components/icon';
 import JoinChannelWrapper from 'src/components/joinChannelWrapper';
 import LeaveChannelWrapper from 'src/components/leaveChannelWrapper';
 import ToggleChannelNotifications from 'src/components/toggleChannelNotifications';
-import { OutlineButton, PrimaryOutlineButton } from 'src/components/button';
+import { OutlineButton } from 'src/components/button';
 import Tooltip from 'src/components/tooltip';
 import {
   ChannelRow,
@@ -18,6 +18,7 @@ import {
   Description,
   ChannelActions,
 } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   channel: ?ChannelInfoType,
@@ -81,12 +82,17 @@ const Channel = (props: Props) => {
               <JoinChannelWrapper
                 channel={channel}
                 render={({ isLoading }) => (
-                  <PrimaryOutlineButton
-                    size={'small'}
-                    style={{ width: '100px' }}
-                  >
+                  <ThemedButton 
+                    spacing="compact"
+                    appearance="primary">
                     {isLoading ? 'Joining...' : 'Join'}
-                  </PrimaryOutlineButton>
+                  </ThemedButton>
+                  // <PrimaryOutlineButton
+                  //   size={'small'}
+                  //   style={{ width: '100px' }}
+                  // >
+                  //   {isLoading ? 'Joining...' : 'Join'}
+                  // </PrimaryOutlineButton>
                 )}
               />
             </React.Fragment>
@@ -102,9 +108,12 @@ const Channel = (props: Props) => {
         <LeaveChannelWrapper
           channel={channel}
           render={({ isLoading, isHovering }) => (
-            <OutlineButton size={'small'} style={{ width: '100px' }}>
+            // <OutlineButton size={'small'} style={{ width: '100px' }}>
+            //   {isLoading ? 'Leaving...' : isHovering ? 'Leave' : 'Member'}
+            // </OutlineButton>
+            <ThemedButton spacing="compact">
               {isLoading ? 'Leaving...' : isHovering ? 'Leave' : 'Member'}
-            </OutlineButton>
+            </ThemedButton>
           )}
         />
       );
@@ -113,9 +122,14 @@ const Channel = (props: Props) => {
       <JoinChannelWrapper
         channel={channel}
         render={({ isLoading }) => (
-          <PrimaryOutlineButton size={'small'} style={{ width: '100px' }}>
+          // <PrimaryOutlineButton size={'small'} style={{ width: '100px' }}>
+          //   {isLoading ? 'Joining...' : 'Join'}
+          // </PrimaryOutlineButton>
+          <ThemedButton 
+            spacing="compact"
+            appearance="primary">
             {isLoading ? 'Joining...' : 'Join'}
-          </PrimaryOutlineButton>
+          </ThemedButton>
         )}
       />
     );
@@ -178,14 +192,13 @@ const Channel = (props: Props) => {
         <Link to={`/${channel.community.slug}/${channel.slug}?tab=posts`}>
           <ChannelContent>
             {name && (
-              <Label title={name}>
+              <Label title={name} isActive={isActive}>
                 {channel.isPrivate && (
                   <Icon glyph="private-outline" size={14} />
                 )}
                 # {name}
               </Label>
             )}
-
             {description && <Description>{description}</Description>}
           </ChannelContent>
         </Link>

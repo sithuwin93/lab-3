@@ -25,6 +25,8 @@ import { SERVER_URL } from 'src/api/constants';
 import { Link } from 'react-router-dom';
 import { Loading } from 'src/components/loading';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
+import Icon from 'src/components/icon';
 
 type State = {
   isLoading: boolean,
@@ -134,13 +136,24 @@ class DeleteAccountForm extends React.Component<Props, State> {
                 </WarnButton>
               </div>
             ) : (
-              <HoverWarnOutlineButton
-                data-cy="delete-account-init-button"
-                color={'warn.default'}
+              // <HoverWarnOutlineButton
+              //   data-cy="delete-account-init-button"
+              //   color={'warn.default'}
+              //   onClick={this.initDelete}
+              // >
+              //   Delete my account
+              // </HoverWarnOutlineButton>
+              <ThemedButton
+                iconBefore={
+                <Icon 
+                  glyph={'delete'} 
+                  size={24} />            
+                }
+                appearance="danger"
                 onClick={this.initDelete}
-              >
+                data-cy="delete-account-init-button">
                 Delete my account
-              </HoverWarnOutlineButton>
+              </ThemedButton>
             )}
           </SectionCardFooter>
         </SectionCard>

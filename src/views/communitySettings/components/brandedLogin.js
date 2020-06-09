@@ -18,10 +18,13 @@ import {
 } from 'src/components/settingsViews/style';
 import BrandedLoginToggle from './brandedLoginToggle';
 import { TextButton, OutlineButton } from 'src/components/button';
-import { TextArea, Error } from 'src/components/formElements';
+// import { TextArea, Error } from 'src/components/formElements';
+import { Error } from 'src/components/formElements';
 import saveBrandedLoginSettings from 'shared/graphql/mutations/community/saveBrandedLoginSettings';
 import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
+import TextArea from 'src/components/textarea';
 
 type Props = {
   data: {
@@ -132,7 +135,7 @@ class BrandedLogin extends React.Component<Props, State> {
                   justifyContent: 'flex-start',
                 }}
               >
-                <OutlineButton
+                {/* <OutlineButton
                   style={{ alignSelf: 'flex-start', marginLeft: '8px' }}
                   onSubmit={this.saveCustomMessage}
                   onClick={this.saveCustomMessage}
@@ -141,15 +144,30 @@ class BrandedLogin extends React.Component<Props, State> {
                   data-cy="community-settings-branded-login-save"
                 >
                   {this.state.isLoading ? 'Saving...' : 'Save'}
-                </OutlineButton>
-
-                <TextButton
+                </OutlineButton> */}
+                <ThemedButton
+                  style={{ alignSelf: 'flex-start', marginLeft: '8px' }}
+                  onSubmit={this.saveCustomMessage}
+                  onClick={this.saveCustomMessage}
+                  disabled={messageLengthError}
+                  loading={this.state.isLoading}
+                  data-cy="community-settings-branded-login-save">
+                  {this.state.isLoading ? 'Saving...' : 'Save'}
+                </ThemedButton>
+                {/* <TextButton
                   to={`/${community.slug}/login`}
                   style={{ alignSelf: 'flex-start', marginRight: '8px' }}
                   data-cy="community-settings-branded-login-preview"
                 >
                   Preview
-                </TextButton>
+                </TextButton> */}
+                <ThemedButton
+                  appearance="subtle"
+                  to={`/${community.slug}/login`}
+                  style={{ alignSelf: 'flex-start', marginRight: '8px' }}
+                  data-cy="community-settings-branded-login-preview">
+                  Preview
+                </ThemedButton>
               </SectionCardFooter>
             )}
           </form>

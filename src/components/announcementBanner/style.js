@@ -1,14 +1,16 @@
 // @flow
 import styled from 'styled-components';
 import theme from 'shared/theme';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export const Bar = styled.div`
   display: flex;
-  background: ${() => themed({ light: theme.brand.wash, dark: theme.brandd.wash})};
+  // background: ${() => themed({ light: theme.brand.wash, dark: theme.brandd.wash})};
+  background: ${colors.Y400};
   align-items: center;
-  border-bottom: 1px solid ${() => themed({ light: theme.brand.border, dark: theme.brandd.border})};
-  color: ${() => themed({ light: theme.brand.default, dark:theme.brandd.default })};
+  // border-bottom: 1px solid ${() => themed({ light: theme.brand.border, dark: theme.brandd.border})};
+  // color: ${() => themed({ light: theme.brand.default, dark:theme.brandd.default })};
+  color: white;
   font-size: 14px;
   font-weight: 400;
   padding: 0 8px 0 0;

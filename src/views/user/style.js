@@ -6,6 +6,7 @@ import Card from 'src/components/card';
 import { Transition, zIndex } from 'src/components/globals';
 import { MEDIA_BREAK } from 'src/components/layout';
 import { themed } from 'src/components/theme';
+import TextField from 'src/components/textfield'
 
 export const Row = styled(FlexRow)`
   padding: 8px 16px;
@@ -51,8 +52,8 @@ export const SearchContainer = styled(Card)`
   display: flex;
   padding: 8px 12px;
   transition: ${Transition.hover.off};
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
 
   @media (max-width: ${MEDIA_BREAK}px) {
     border-radius: 0;
@@ -61,23 +62,23 @@ export const SearchContainer = styled(Card)`
   }
 `;
 
-export const SearchInput = styled.input`
+export const SearchInput = styled(TextField)`
   display: flex;
   flex: 1 0 auto;
   align-items: center;
-  width: 100%;
+  width: 100% !important;
   padding: 12px 16px;
-  color: ${() => themed({ light: theme.text.default, dark: theme.textd.default})};
+  // color: ${() => themed({ light: theme.text.default, dark: theme.textd.default})};
   transition: ${Transition.hover.off};
   font-size: 16px;
   font-weight: 500;
-  border-radius: 100px;
-  background: ${() => themed({ light:theme.bg.default , dark: theme.bgd.default})};
-  border: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+  // border-radius: 100px;
+  // background: ${() => themed({ light:theme.bg.default , dark: theme.bgd.default})};
+  // border: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
 
-  &:focus {
-    border: 1px solid ${themed({ light: theme.text.secondary, dark:theme.textd.secondary })};
-  }
+  // &:focus {
+  //   border: 1px solid ${themed({ light: theme.text.secondary, dark:theme.textd.secondary })};
+  // }
 `;
 
 const Column = styled.div`

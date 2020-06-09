@@ -25,6 +25,7 @@ import {
   EditDone,
 } from '../style';
 import ActionsDropdown from './actionsDropdown';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   thread: GetThreadType,
@@ -74,17 +75,29 @@ class ActionBar extends React.Component<Props> {
           </div>
           <div style={{ display: 'flex' }}>
             <EditDone data-cy="cancel-thread-edit-button">
-              <TextButton onClick={this.props.toggleEdit}>Cancel</TextButton>
+              {/* <TextButton onClick={this.props.toggleEdit}>Cancel</TextButton> */}
+              <ThemedButton onClick={this.props.toggleEdit}>
+                Cancel
+              </ThemedButton>
             </EditDone>
             <EditDone>
-              <PrimaryOutlineButton
+              {/* <PrimaryOutlineButton
                 loading={isSavingEdit}
                 disabled={title.trim().length === 0 || isSavingEdit}
                 onClick={this.props.saveEdit}
                 data-cy="save-thread-edit-button"
               >
                 {isSavingEdit ? 'Saving...' : 'Save'}
-              </PrimaryOutlineButton>
+              </PrimaryOutlineButton> */}
+              <ThemedButton
+                style={{flex:'none', marginLeft:8}}
+                appearance="primary"
+                isLoading={isSavingEdit}
+                isDisabled={title.trim().length === 0 || isSavingEdit}
+                onClick={this.props.saveEdit}
+                data-cy="save-thread-edit-button">
+                {isSavingEdit ? 'Saving...' : 'Save'}
+              </ThemedButton>
             </EditDone>
           </div>
         </FixedBottomActionBarContainer>

@@ -5,6 +5,9 @@ import { Truncate } from 'src/components/globals';
 import { themed } from 'src/components/theme';
 
 export const MentionsInputStyle = {
+  input: {
+    color: () => themed({ light:'#091E42' , dark:'#B8C7E0'}),
+  },
   overflow: 'visible',
   suggestions: {
     zIndex: 99999,

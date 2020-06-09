@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 import type { CommunityInfoType } from 'shared/graphql/fragments/community/communityInfo';
-import { PrimaryButton, OutlineButton } from 'src/components/button';
+// import { PrimaryButton, OutlineButton } from 'src/components/button';
 import { openModal } from 'src/actions/modals';
 import JoinCommunity from 'src/components/joinCommunityWrapper';
 import { ActionsRowContainer } from '../style';
+import { ThemedButton } from 'src/components/button-new';
+import Icon from 'src/components/icon';
 
 type Props = {
   community: CommunityInfoType,
@@ -37,20 +39,44 @@ export const UnconnectedCommunityActions = (props: Props) => {
     return (
       <ActionsRowContainer>
         {isTeamMember && (
-          <OutlineButton to={`/${community.slug}/settings`}>
+          // <OutlineButton to={`/${community.slug}/settings`}>
+          //   Settings
+          // </OutlineButton>
+          <ThemedButton
+            to={`/${community.slug}/settings`}
+            type="link"
+            shouldFitContainer
+            appearance="default">
+            <Icon 
+            style={{
+                position: 'relative',
+                top: 6,
+                left: 5,
+                marginRight: 8
+            }}
+            glyph={'settings'} 
+            size={24} />
             Settings
-          </OutlineButton>
+          </ThemedButton>
         )}
 
         {!isOwner && (
-          <OutlineButton
+          // <OutlineButton
+          //   onMouseEnter={onMouseEnter}
+          //   onMouseLeave={onMouseLeave}
+          //   onClick={leaveCommunity}
+          //   data-cy="leave-community-button"
+          // >
+          //   {isHovering ? 'Leave community' : 'Member'}
+          // </OutlineButton>
+          <ThemedButton
+            shouldFitContainer
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onClick={leaveCommunity}
-            data-cy="leave-community-button"
-          >
+            data-cy="leave-community-button">
             {isHovering ? 'Leave community' : 'Member'}
-          </OutlineButton>
+          </ThemedButton>
         )}
       </ActionsRowContainer>
     );
@@ -61,13 +87,31 @@ export const UnconnectedCommunityActions = (props: Props) => {
       <JoinCommunity
         community={community}
         render={({ isLoading }) => (
-          <PrimaryButton
+          // <PrimaryButton
+          //   data-cy="profile-join-button"
+          //   isLoading={isLoading}
+          //   icon={'door-enter'}
+          // >
+          //   {isLoading ? 'Joining...' : 'Join community'}
+          // </PrimaryButton>
+          <ThemedButton
+            shouldFitContainer
             data-cy="profile-join-button"
             isLoading={isLoading}
-            icon={'door-enter'}
-          >
+            appearance="primary">
+            <Icon 
+              style={{
+                  position: 'relative',
+                  top: 6,
+                  left: 5,
+                  marginRight: 8
+              }}
+              glyph={'door-enter'} 
+              size={24} />
+
             {isLoading ? 'Joining...' : 'Join community'}
-          </PrimaryButton>
+          </ThemedButton>
+
         )}
       />
     </ActionsRowContainer>

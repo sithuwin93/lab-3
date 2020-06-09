@@ -73,11 +73,11 @@ const MobileTitlebar = (props: Props) => {
     // from the view directly
     return leftAction;
   };
-
+//elevation="e200"
   return (
     <NavigationContext.Consumer>
       {({ setNavigationIsOpen }) => (
-        <TitlebarContainer {...rest} hasAction={rightAction}>
+        <TitlebarContainer elevation="e100" {...rest} hasAction={rightAction}> 
           <Content>
             {leftAction && (
               <LeftActionContainer>

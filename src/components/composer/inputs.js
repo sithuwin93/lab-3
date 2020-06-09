@@ -75,7 +75,7 @@ export default (props: Props) => {
           top: '0',
           left: '0',
           right: '0',
-          zIndex: '9999',
+          // zIndex: '9999',
           // background: '#FFF',
           minHeight: '52px',
         }}
@@ -122,6 +122,7 @@ export default (props: Props) => {
                 />
 
                 <MentionsInput
+                  isFullscreen={true}
                   onChange={changeBody}
                   value={body === null ? 'Loading...' : body}
                   disabled={body === null}

@@ -9,6 +9,8 @@ import type { GetUserType } from 'shared/graphql/queries/user/getUser';
 import { debounce } from 'src/helpers/utils';
 import { Spinner } from '../globals';
 import { Input, Loading } from './style';
+import TextField from 'src/components/textfield';
+import { LabelWrapper, Label } from './style';
 
 type Props = {
   client: Object,
@@ -143,22 +145,24 @@ class UsernameSearch extends React.Component<Props, State> {
     // eslint-disable-next-line
     const { label, size, dataCy, onValidationResult, ...rest } = this.props;
     return (
-      <React.Fragment>
-        <Input
+      <LabelWrapper>
+        <Label htmlFor="namesearch">
+          {label && label}
+            {isSearching && (
+              <Loading size={size}>
+                <Spinner size={16} color={'brand.default'} />
+              </Loading>
+            )}
+        </Label>
+        <TextField
+          name="namesearch"
           {...rest}
           size={size}
           defaultValue={username}
           onChange={this.handleChange}
           dataCy={dataCy}
-        >
-          {label && label}
-          {isSearching && (
-            <Loading size={size}>
-              <Spinner size={16} color={'brand.default'} />
-            </Loading>
-          )}
-        </Input>
-      </React.Fragment>
+        />          
+      </LabelWrapper>
     );
   }
 }

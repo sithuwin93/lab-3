@@ -13,6 +13,7 @@ import { setTitlebarProps } from 'src/actions/titlebar';
 import { ViewGrid, CenteredGrid } from 'src/components/layout';
 import Login from 'src/views/login';
 import { LogOutButton, Emoji, Heading, Description, Card } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   currentUser: UserInfoType,
@@ -77,13 +78,22 @@ class NewUserOnboarding extends React.Component<Props> {
 
             <SetUsername user={currentUser} save={this.saveUsername} />
 
-            <LogOutButton
+            {/* <LogOutButton
               data-cy="new-user-onboarding-logout"
               target="_self"
               href={`${SERVER_URL}/auth/logout`}
             >
               Log out
-            </LogOutButton>
+            </LogOutButton> */}
+            <ThemedButton
+              appearance="subtle"
+              type="a"
+              data-cy="new-user-onboarding-logout"
+              target="_self"
+              href={`${SERVER_URL}/auth/logout`}
+            >
+              Log out
+            </ThemedButton>
           </Card>
         </CenteredGrid>
       </ViewGrid>

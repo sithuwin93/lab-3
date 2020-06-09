@@ -10,6 +10,7 @@ import { TwitterSigninButton } from './twitter';
 import { FacebookSigninButton } from './facebook';
 import { GoogleSigninButton } from './google';
 import { GithubSigninButton } from './github';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   redirectPath: ?string,
@@ -103,12 +104,18 @@ class LoginButtonSet extends React.Component<Props> {
           {!githubOnly && (
             <div style={{ gridColumn: 'span 2' }}>
               <div style={{ padding: '16px' }} />
-              <OutlineButton
+              {/* <OutlineButton
                 css={{ width: '100%' }}
                 to={`/new/user?r=${postAuthRedirectPath}`}
               >
                 New to Spectrum? Click here to sign up.
-              </OutlineButton>
+              </OutlineButton> */}
+              <ThemedButton
+                type='link'
+                shouldFitContainer
+                to={`/new/user?r=${postAuthRedirectPath}`}>
+                New to Spectrum? Click here to sign up.
+              </ThemedButton>
             </div>
           )}
         </Container>

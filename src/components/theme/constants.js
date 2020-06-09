@@ -13,7 +13,7 @@ export const THEME_MODES = ['light', 'dark'];
 */
 export const borderRadius = () => 3;
 export const gridSize = () => 8;
-export const fontSize = () => 14;
+export const fontSize = () => 16;
 export const fontSizeSmall = () => 11;
 export const fontFamily = () =>
   `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;

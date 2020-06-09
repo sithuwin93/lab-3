@@ -12,7 +12,9 @@ import {
   NavigationWrapper,
   NavigationGrid,
   AvatarGrid,
+  AvatarBottomGrid,
   AvatarLink,
+  AvatarDiv,
   Label,
   IconWrapper,
   Divider,
@@ -32,12 +34,25 @@ import { NavigationContext } from 'src/helpers/navigation-context';
 import { MIN_WIDTH_TO_EXPAND_NAVIGATION } from 'src/components/layout';
 import Button from 'src/components/button-new';
 import { changeTheme } from 'src/actions/theme'
+import { WhiteIconButton, OutlineButton } from 'src/components/button';
+import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
+import LightbulbFilledIcon from '@atlaskit/icon/glyph/lightbulb-filled';
+import WorldIcon from '@atlaskit/icon/glyph/world';
+import { PopupSelect } from 'src/components/select-new';
+// import Dropdown, { DropdownItem, DropdownItemGroup } from 'src/components/dropdown-menu';
+import Modal, { ModalTransition } from 'src/components/modal-dialog';
+import Select from 'src/components/select-new';
+import Dropdown, { DropdownItem, DropdownItemGroup, DropdownMenuStateless } from 'src/components/dropdown-menu';
 
 type Props = {
   history: History,
   currentUser?: Object,
   isLoadingCurrentUser: boolean,
 };
+const options = [
+  { label: 'Myanmar', value: 'mm' },
+  { label: 'English', value: 'en' },
+];
 
 const Navigation = (props: Props) => {
   const { dispatch, currentUser, history, isLoadingCurrentUser } = props;
@@ -45,6 +60,9 @@ const Navigation = (props: Props) => {
   if (isMarketingPage) return null;
   const isWideViewport =
     window && window.innerWidth > MIN_WIDTH_TO_EXPAND_NAVIGATION;
+
+
+
   if (!isLoadingCurrentUser && !currentUser) {
     return (
       <NavigationContext.Consumer>
@@ -220,6 +238,12 @@ const Navigation = (props: Props) => {
     );
   }
 
+  const [ isOpen, setIsOpen ] = React.useState(false)
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+  const actions = [{ text: 'Close', onClick: close }];
+
+  const toggleMenuOpen = () => setIsOpen(!isOpen)
   if (currentUser) {
     return (
       <NavigationContext.Consumer>
@@ -361,16 +385,30 @@ const Navigation = (props: Props) => {
                 )}
               </NavigationGridListScroller>
               <Fixed>
-                <div>
-                  <Button  href={'/'} shouldFitContainer >Language</Button>
-                </div>
-                <ThemeButtonWrapper>
-                  <Button 
-                    onClick={() => dispatch(changeTheme())}
-                    shouldFitContainer>
-                    Theme
-                  </Button>
-                </ThemeButtonWrapper>
+                <Tooltip
+                  content="Switch Theme"
+                  placement={'top'}>
+                  <AvatarBottomGrid>
+                    <AvatarDiv
+                      data-cy="navigation-new-community"
+                      onClick={() => dispatch(changeTheme())}>
+                      <IconWrapper>
+                        <LightbulbFilledIcon size="large" />
+                      </IconWrapper>
+                    </AvatarDiv>
+                  </AvatarBottomGrid>
+                </Tooltip>
+                <Tooltip
+                  content="Change Language"
+                  placement={'top'}>
+                  <AvatarBottomGrid onClick={toggleMenuOpen}>
+                    <AvatarDiv data-cy="navigation-new-community">
+                      <IconWrapper>
+                        {isOpen ? <span style={{fontSize:20}}>🇲🇲</span> : <span style={{fontSize:20}}>🇬🇧</span> } 
+                      </IconWrapper>
+                    </AvatarDiv>
+                  </AvatarBottomGrid>
+                </Tooltip>
               </Fixed>
             </NavigationGrid>
           </NavigationWrapper>
@@ -382,8 +420,66 @@ const Navigation = (props: Props) => {
   return <NavigationWrapper />;
 };
 
+//iconBefore={<LightbulbIcon label="switch theme"/>}
 export default compose(
   withCurrentUser,
   withRouter,
   connect()
 )(Navigation);
+
+
+// <Dropdown 
+// isMenuFixed={true}
+// boundariesElement="window"
+// position="right bottom"
+// trigger={ }>
+// <DropdownItemGroup title="Heading">
+//   <DropdownItem>Myanmar</DropdownItem>
+//   <DropdownItem>English</DropdownItem>
+// </DropdownItemGroup>
+// </Dropdown>
+
+              {/* <ModalTransition>
+                {isOpen && (
+                  <Modal actions={actions} onClose={this.close} heading="Modal Title">
+                    <Select
+                      menuPortalTarget={document.body}
+                      styles={{
+                        menuPortal: base => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                      }}
+                      defaultValue={options.slice(1)}
+                      options={options}
+                      placeholder="Choose a City"
+                    />
+                  </Modal>
+                )}
+              </ModalTransition> */}
+            //   <div style={{display: 'flex',zIndex:9999,justifyContent: 'space-around'}}>
+            //   <Dropdown  
+            //     style={{display: 'flex',zIndex:9999,justifyContent: 'space-around'}}
+            //     isMenuFixed={true}
+            //     position="right"
+            //     boundariesElement="viewport"
+            //     trigger={
+            //       <span tabIndex={0}>
+            //         <AvatarBottomGrid onClick={open}>
+            //           <AvatarDiv style={{width: '100%'}} data-cy="navigation-new-community">
+            //             <IconWrapper>
+            //               <WorldIcon size="large" />
+            //             </IconWrapper>
+            //           </AvatarDiv>
+            //           </AvatarBottomGrid>
+            //       </span>
+            //     }
+            //   >
+            //     <DropdownItemGroup>
+            //       <DropdownItem>Myanmar 111111111111111111111111111111111111111111</DropdownItem>
+            //       <DropdownItem>English</DropdownItem>
+            //     </DropdownItemGroup>
+            //   </Dropdown>
+
+            // </div>
+

@@ -33,6 +33,7 @@ import viewNetworkHandler, {
   type ViewNetworkHandlerType,
 } from 'src/components/viewNetworkHandler';
 import { ViewGrid, SingleColumnGrid } from 'src/components/layout';
+import { ThemedButton } from 'src/components/button-new';
 
 type State = {
   activeStep: number,
@@ -219,15 +220,28 @@ class NewCommunity extends React.Component<Props, State> {
               {// connect a slack team or invite via email
               activeStep === 2 && (
                 <Actions>
-                  <TextButton onClick={() => this.step('previous')}>
+                  {/* <TextButton onClick={() => this.step('previous')}>
                     Back
-                  </TextButton>
+                  </TextButton> */}
+                  <ThemedButton 
+                    appearance="subtle"
+                    onClick={() => this.step('previous')}>
+                    Back
+                  </ThemedButton>
                   {hasInvitedPeople ? (
-                    <Button onClick={() => this.step('next')}>Continue</Button>
+                    // <Button onClick={() => this.step('next')}>Continue</Button>
+                    <ThemedButton 
+                      onClick={() => this.step('next')}>
+                      Continue
+                    </ThemedButton>
                   ) : (
-                    <TextButton onClick={() => this.step('next')}>
+                    // <TextButton onClick={() => this.step('next')}>
+                    //   Skip this step
+                    // </TextButton>
+                    <ThemedButton 
+                      onClick={() => this.step('next')}>
                       Skip this step
-                    </TextButton>
+                    </ThemedButton>
                   )}
                 </Actions>
               )}

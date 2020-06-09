@@ -15,6 +15,7 @@ import { addToastWithTimeout } from 'src/actions/toasts';
 import { DropImageOverlay } from 'src/components/composer/style';
 import uploadImageMutation from 'shared/graphql/mutations/uploadImage';
 import MentionsInput from 'src/components/mentionsInput';
+
 import Tooltip from 'src/components/tooltip';
 import publishThreadMutation from 'shared/graphql/mutations/thread/publishThread';
 import {
@@ -25,8 +26,13 @@ import type { CommunityInfoType } from 'shared/graphql/fragments/community/commu
 import type { History } from 'react-router-dom';
 import { DISCARD_DRAFT_MESSAGE } from 'src/components/composer';
 import { openModal } from 'src/actions/modals';
-import { Container, BodyContainer } from './style';
+import { Container, BodyContainer, StyledInput } from './style';
 import { themed } from 'src/components/theme';
+import Button, { ThemedButton } from 'src/components/button-new';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+
+
 
 type Props = {
   community: CommunityInfoType,
@@ -257,28 +263,24 @@ const MiniComposer = ({
               {titleWarning}
             </p>
           )}
-          <input
+          <TextField
             data-cy="mini-composer-title"
             tabIndex={1}
-            css={{
-              background: themed({ light:theme.bg.default , dark:theme.bgd.default }),
-              border: `1px solid ${
-                titleWarning ? themed({ light:theme.warn.default , dark: theme.warnd.default}) 
-                : themed({ light: theme.bg.border, dark:theme.bgd.border })
-                
-              }`,
-              borderRadius: '8px',
-              width: '100%',
-              padding: '12px',
-              fontSize: '16px',
-            }}
+            titleWarning={titleWarning}
             ref={titleEditor}
             value={title}
             onChange={changeTitle}
             placeholder="What's on your mind?"
-          />
+          />        
         </div>
-        {!expanded && <PrimaryButton tabIndex={-1}>Post</PrimaryButton>}
+        {!expanded && 
+          // <PrimaryButton >Post</PrimaryButton>
+          <ThemedButton
+            appearance="primary"
+            tabIndex={-1}>
+            Post
+          </ThemedButton>
+        }
       </div>
       {expanded && (
         <BodyContainer>
@@ -304,24 +306,40 @@ const MiniComposer = ({
                 <MentionsInput
                   data-cy="mini-composer-body"
                   tabIndex={2}
-                  style={{
-                    background: themed({ light:theme.bg.default , dark:theme.bgd.default }),
-                    border: `1px solid ${themed({ light:theme.bg.border , dark:theme.bgd.border })}`,
-                    borderRadius: '8px',
-                    width: '100%',
-                    lineHeight: '1.4',
-                    input: {
-                      fontSize: '16px',
-                      minHeight: '80px',
-                      padding: '12px',
-                    },
-                  }}
                   inputRef={bodyEditor}
                   value={body}
                   onChange={changeBody}
                   placeholder="(Optional) Add more details..."
-                />
+                  // style={{
+                  //   background: theme.bg.default,
+                  //   border: `1px solid ${theme.bg.border}`,
+                  //   borderRadius: '8px',
+                  //   width: '100%',
+                  //   lineHeight: '1.4',
+                  //   input: {
+                  //     fontSize: '16px',
+                  //     minHeight: '80px',
+                  //     padding: '12px',
+                  //   },
+                  // }}
 
+                  // staticSuggestions={[
+                  //   {
+                  //     betaSupporter: null,
+                  //     coverPhoto: "",
+                  //     description: "",
+                  //     firstName: null,
+                  //     id: "80c546f1-d865-48d9-a1d6-97f9ecb63a8d",
+                  //     isOnline: true,
+                  //     name: "Si Thu Win",
+                  //     profilePhoto: "https://spectrum-proxy.imgix.net/https%3A%2F%2Favatars3.githubusercontent.com%2Fu%2F56015969%3Fv%3D4?w=256&h=256&dpr=2&auto=compress&expires=1591291800000&ixlib=js-1.3.0&s=2e75b9dfb717631586b4fe79154292a6",
+                  //     timezone: 390,
+                  //     totalReputation: 0,
+                  //     username: "si-thu-win",
+                  //     website: "",
+                  //   }
+                  // ]}
+                />
                 <DropImageOverlay
                   css={{
                     top: 0,
@@ -334,6 +352,7 @@ const MiniComposer = ({
               </div>
             )}
           </Dropzone>
+          
           <div
             css={{
               display: 'flex',
@@ -386,15 +405,21 @@ const MiniComposer = ({
               </Tooltip>
             </div>
             <div style={{ display: 'flex' }}>
-              <TextButton
+              {/* <TextButton
                 tabIndex={0}
                 style={{ marginRight: '8px' }}
                 onClick={handleCancel}
                 data-cy="mini-composer-cancel"
               >
                 Cancel
-              </TextButton>
-              <PrimaryButton
+              </TextButton> */}
+              <ThemedButton
+                tabIndex={0}
+                onClick={handleCancel}
+                data-cy="mini-composer-cancel">
+                Cancel
+              </ThemedButton>
+              {/* <PrimaryButton
                 tabIndex={4}
                 data-cy="mini-composer-post"
                 disabled={
@@ -405,7 +430,21 @@ const MiniComposer = ({
                 onClick={publish}
               >
                 {isLoading ? 'Posting...' : 'Post'}
-              </PrimaryButton>
+              </PrimaryButton> */}
+
+              <ThemedButton
+                style={{flex: 'none', marginLeft:8}}
+                appearance="primary"
+                tabIndex={4}
+                data-cy="mini-composer-post"
+                isDisabled={
+                  isLoading ||
+                  title.trim().length === 0 ||
+                  (!fixedChannelId && !selectedChannelId)
+                }
+                onClick={publish}>
+                {isLoading ? 'Posting...' : 'Post'}
+              </ThemedButton>
             </div>
           </div>
         </BodyContainer>
@@ -420,3 +459,6 @@ export default compose(
   publishThreadMutation,
   withRouter
 )(MiniComposer);
+
+
+

@@ -59,7 +59,6 @@ export const ListItemLabel = styled.div`
 
 export const SidebarSection = styled.section`
   ${({ elevation }) => elevations[elevation]}
-
   background: ${() => themed({ light: theme.bg.default, dark:theme.bgd.default })};
   // border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   margin-top: 24px;

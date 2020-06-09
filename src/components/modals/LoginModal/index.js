@@ -6,7 +6,9 @@ import compose from 'recompose/compose';
 import { closeModal } from 'src/actions/modals';
 import ModalContainer from '../modalContainer';
 import { modalStyles } from '../styles';
-import { OutlineButton } from 'src/components/button';
+// import { OutlineButton } from 'src/components/button';
+import { ThemedButton } from 'src/components/button-new';
+
 import LoginButtonSet from 'src/components/loginButtonSet';
 import { Container, CodeOfConduct } from './style';
 import type { Dispatch } from 'redux';
@@ -51,15 +53,20 @@ class LoginModal extends React.Component<Props> {
               signinType={signinType}
               githubOnly
             />
-
-            <OutlineButton
+            {/* <OutlineButton
               css={{ width: '100%' }}
               onClick={this.close}
               to={`/login?r=${redirectPath}`}
             >
               Existing user? Click here to log in
-            </OutlineButton>
-
+            </OutlineButton> */}
+            <ThemedButton
+              type='link'
+              shouldFitContainer
+              onClick={this.close}
+              to={`/login?r=${redirectPath}`}>
+              Existing user? Click here to log in
+            </ThemedButton>
             <div style={{ padding: '16px' }} />
 
             <CodeOfConduct>

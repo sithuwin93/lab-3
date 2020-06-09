@@ -11,6 +11,7 @@ import { Form, Row } from './style';
 import editUserMutation from 'shared/graphql/mutations/user/editUser';
 import { ContinueButton } from '../../style';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   client: Object,
@@ -126,15 +127,23 @@ class SetUsername extends React.Component<Props, State> {
           )}
         </Row>
 
-        <Row>
-          <ContinueButton
+        <Row style={{padding: 24}}>
+          {/* <ContinueButton
             onClick={this.saveUsername}
             disabled={!username || error}
             loading={isLoading}
             data-cy="save-username-button"
           >
             {isLoading ? 'Saving...' : 'Save and Continue'}
-          </ContinueButton>
+          </ContinueButton> */}
+          <ThemedButton
+            appearance="primary"
+            onClick={this.saveUsername}
+            isDisabled={!username || error}
+            isLoading={isLoading}
+            data-cy="save-username-button">
+            {isLoading ? 'Saving...' : 'Save and Continue'}
+          </ThemedButton>
         </Row>
       </Form>
     );

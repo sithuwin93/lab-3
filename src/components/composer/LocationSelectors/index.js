@@ -51,21 +51,23 @@ const ComposerLocationSelectors = (props: Props) => {
 
   return (
     <Dropdowns>
-      <DropdownsLabel>Post to: </DropdownsLabel>
-
-      <CommunitySelector
-        id={selectedCommunityId}
-        onCommunityChange={onCommunitySelectionChanged}
-      />
-
-      {!!selectedCommunityId && (
-        <ChannelSelector
+      <DropdownsLabel>{`Post to:  `}</DropdownsLabel>
+      <div style={{marginLeft: 12}}>
+        <CommunitySelector
           id={selectedCommunityId}
-          selectedChannelId={selectedChannelId}
-          selectedCommunityId={selectedCommunityId}
-          onChannelChange={onChannelSelectionChanged}
+          onCommunityChange={onCommunitySelectionChanged}
         />
-      )}
+      </div>
+      <div style={{marginLeft: 12}}>
+        {!!selectedCommunityId && (
+          <ChannelSelector
+            id={selectedCommunityId}
+            selectedChannelId={selectedChannelId}
+            selectedCommunityId={selectedCommunityId}
+            onChannelChange={onChannelSelectionChanged}
+          />
+        )}
+      </div>      
     </Dropdowns>
   );
 };

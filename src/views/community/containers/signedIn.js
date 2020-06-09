@@ -143,7 +143,7 @@ const Component = (props: Props) => {
             <Sidebar community={community} />
           </SecondaryColumn>
 
-          <PrimaryColumn elevation="e200">
+          <PrimaryColumn > 
             <CommunityFeeds community={community} />
           </PrimaryColumn>
         </SecondaryPrimaryColumnGrid>
@@ -158,3 +158,4 @@ export const SignedIn = compose(
   setCommunityLastSeenMutation,
   connect()
 )(Component);
+//elevation="e200"

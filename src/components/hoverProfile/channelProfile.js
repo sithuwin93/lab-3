@@ -21,6 +21,7 @@ import {
   Description,
   Actions,
 } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type ProfileProps = {
   channel: GetChannelType,
@@ -79,13 +80,28 @@ class HoverProfile extends Component<ProfileProps> {
                 render={state => {
                   if (isChannelMember) {
                     return (
-                      <OutlineButton
+                      // <OutlineButton
+                      //   isMember={true}
+                      //   icon={'checkmark'}
+                      //   loading={state.isLoading}
+                      // >
+                      //   {state.isLoading ? 'Leaving...' : 'Joined'}
+                      // </OutlineButton>
+                      <ThemedButton
                         isMember={true}
-                        icon={'checkmark'}
-                        loading={state.isLoading}
-                      >
+                        isLoading={state.isLoading}>
+                        <Icon 
+                          style={{
+                            position: 'relative',
+                            top: 6,
+                            left: 5,
+                            marginRight: 8
+                          }}
+                          glyph={'checkmark'} 
+                          size={24} />
                         {state.isLoading ? 'Leaving...' : 'Joined'}
-                      </OutlineButton>
+                      </ThemedButton>
+
                     );
                   } else {
                     return (
@@ -100,7 +116,19 @@ class HoverProfile extends Component<ProfileProps> {
 
             {(isGlobalModerator || isGlobalOwner) && (
               <Link to={`/${channel.community.slug}/${channel.slug}/settings`}>
-                <OutlineButton icon={'settings'}>Settings</OutlineButton>
+                {/* <OutlineButton icon={'settings'}>Settings</OutlineButton> */}
+                <ThemedButton>
+                  <Icon 
+                    style={{
+                      position: 'relative',
+                      top: 6,
+                      left: 5,
+                      marginRight: 8
+                    }}
+                    glyph={'settings'} 
+                    size={24} />
+                  Settings
+                </ThemedButton>
               </Link>
             )}
           </Actions>

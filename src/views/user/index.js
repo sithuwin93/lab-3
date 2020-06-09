@@ -48,6 +48,7 @@ import Icon from 'src/components/icon';
 import { MobileUserAction } from 'src/components/titlebar/actions';
 import { FeedsContainer } from './style';
 import { InfoContainer } from 'src/views/community/style';
+import { ThemedButton } from 'src/components/button-new';
 
 const ThreadFeedWithData = compose(
   connect(),
@@ -184,6 +185,7 @@ class UserView extends React.Component<Props, State> {
       },
       location,
       currentUser,
+      history
     } = this.props;
     const { hasThreads } = this.state;
 
@@ -334,15 +336,25 @@ class UserView extends React.Component<Props, State> {
                             when conversations are joined.
                           </NullColumnSubheading>
                           {isCurrentUser && (
-                            <PrimaryOutlineButton
+                            <ThemedButton
                               to={{
                                 pathname: '/new/thread',
                                 state: { modal: true },
                               }}
-                            >
-                              <Icon glyph={'post'} size={24} />
+                              type="link"
+                              shouldFitContainer
+                              appearance="primary">
+                              <Icon 
+                                style={{
+                                  position: 'relative',
+                                  top: 6,
+                                  left: 5,
+                                  marginRight: 8
+                                }}
+                                glyph={'post'} 
+                                size={24} />
                               New post
-                            </PrimaryOutlineButton>
+                            </ThemedButton>
                           )}
                         </span>
                       </NullColumn>

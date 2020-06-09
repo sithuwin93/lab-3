@@ -15,7 +15,7 @@ import Icon from 'src/components/icon';
 import {
   Input,
   UnderlineInput,
-  TextArea,
+  // TextArea,
   PhotoInput,
   Error,
   CoverInput,
@@ -32,6 +32,11 @@ import {
 } from 'src/components/editForm/style';
 import { SectionCard, SectionTitle } from 'src/components/settingsViews/style';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+import { LabelWrapper, Label } from '../style';
+
 
 type State = {
   name: string,
@@ -291,7 +296,11 @@ class EditForm extends React.Component<Props, State> {
           <FormTitle>This community doesn’t exist yet.</FormTitle>
           <Description>Want to make it?</Description>
           <Actions>
-            <PrimaryOutlineButton>Create</PrimaryOutlineButton>
+            {/* <PrimaryOutlineButton>Create</PrimaryOutlineButton> */}
+            <ThemedButton
+              appearance="primary">
+              Create
+            </ThemedButton>
           </Actions>
         </SectionCard>
       );
@@ -323,39 +332,74 @@ class EditForm extends React.Component<Props, State> {
             />
           </ImageInputWrapper>
 
-          <Input
+          {/* <Input
             dataCy="community-settings-name-input"
             defaultValue={name}
             onChange={this.changeName}
           >
             Name
-          </Input>
+          </Input> */}
+          <LabelWrapper>
+            <Label htmlFor="name">
+              Name
+            </Label>
+            <TextField 
+              name="name"
+              dataCy="community-settings-name-input"
+              defaultValue={name}
+              onChange={this.changeName}            
+            />
+          </LabelWrapper>
+
           <UnderlineInput defaultValue={slug} disabled>
-            spectrum.chat/
+            parabaik.com/
           </UnderlineInput>
 
           {nameError && (
             <Error>Community names can be up to 20 characters long.</Error>
           )}
 
-          <TextArea
+
+          <LabelWrapper>
+            <Label htmlFor="description">
+              Description
+            </Label>
+            <TextArea
+              name="description"
+              defaultValue={description}
+              onChange={this.changeDescription}
+              dataCy="community-settings-description-input"
+            />
+          </LabelWrapper>
+          {/* <TextArea
             defaultValue={description}
             onChange={this.changeDescription}
             dataCy="community-settings-description-input"
           >
             Description
-          </TextArea>
+          </TextArea> */}
 
-          <Input
+          {/* <Input
             defaultValue={website}
             onChange={this.changeWebsite}
-            dataCy="community-settings-website-input"
-          >
+            dataCy="community-settings-website-input">
             Optional: Add your community’s website
-          </Input>
+          </Input> */}
+
+          <LabelWrapper>
+            <Label htmlFor="website">
+              Optional: Add your community’s website
+            </Label>
+            <TextField
+              name="website"
+              defaultValue={website}
+              onChange={this.changeWebsite}
+              dataCy="community-settings-website-input"
+            />
+          </LabelWrapper>
 
           <Actions>
-            <PrimaryOutlineButton
+            {/* <PrimaryOutlineButton
               loading={isLoading}
               onClick={this.save}
               disabled={photoSizeError}
@@ -363,7 +407,18 @@ class EditForm extends React.Component<Props, State> {
               data-cy="community-settings-edit-save-button"
             >
               {isLoading ? 'Saving...' : 'Save'}
-            </PrimaryOutlineButton>
+            </PrimaryOutlineButton> */}
+
+            <ThemedButton
+              appearance="primary"
+              isLoading={isLoading}
+              onClick={this.save}
+              isDisabled={photoSizeError}
+              type="submit"
+              data-cy="community-settings-edit-save-button">
+              {isLoading ? 'Saving...' : 'Save'}
+            </ThemedButton>
+
             <TertiaryActionContainer>
               {community.communityPermissions.isOwner && (
                 <Tooltip content={`Delete ${name}`}>

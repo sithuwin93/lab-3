@@ -19,6 +19,7 @@ import {
   SigninLink,
   HeadingIconWrapper,
 } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type NullCardProps = {
   noShadow?: boolean,
@@ -209,11 +210,17 @@ export const Upsell404Community = () => {
   return (
     <Actions>
       <Link to={'/'}>
-        <OutlineButton large>Take me back</OutlineButton>
+        {/* <OutlineButton large>Take me back</OutlineButton> */}
+        <ThemedButton shouldFitContainer>
+          Take me back
+        </ThemedButton>
       </Link>
 
       <Link to={'/new/community'}>
-        <Button large>Create a community</Button>
+        {/* <Button large>Create a community</Button> */}
+        <ThemedButton shouldFitContainer>
+          Create a community
+        </ThemedButton>
       </Link>
     </Actions>
   );
@@ -281,6 +288,9 @@ export const UpsellTeamMembers = (props: TeamMemberProps) => {
         >
           Add {props.small ? 'more' : ''} team members
         </OutlineButton>
+        {/* <ThemedButton>
+          Add {props.small ? 'more' : ''} team members
+        </ThemedButton> */}
       </Link>
     </MiniNullCard>
   );

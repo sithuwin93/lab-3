@@ -248,8 +248,10 @@ export const baseTheme = {
       focusSelected: { light: colors.N20, dark: colors.DN400 },
     },
     primary: {
-      default: { light: colors.N0, dark: colors.DN30 },
-      disabled: { light: colors.N70, dark: colors.DN30 },
+      // default: { light: colors.N0, dark: colors.DN30 },
+      default: { light: colors.N0, dark: colors.N0 },
+      disabled: { light: colors.N70, dark: colors.DN100 },
+      // disabled: { light: colors.N70, dark: colors.DN30 },
       selected: { light: colors.N20, dark: colors.DN400 },
       focusSelected: { light: colors.N20, dark: colors.DN400 },
     },

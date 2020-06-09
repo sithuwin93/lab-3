@@ -12,7 +12,7 @@ import GithubProfile from 'src/components/githubProfile';
 import { GithubSigninButton } from 'src/components/loginButtonSet/github';
 import {
   Input,
-  TextArea,
+  // TextArea,
   Error,
   Success,
   PhotoInput,
@@ -39,6 +39,10 @@ import { SectionCard, SectionTitle } from 'src/components/settingsViews/style';
 import type { Dispatch } from 'redux';
 import type { GetCurrentUserSettingsType } from 'shared/graphql/queries/user/getCurrentUserSettings';
 import isEmail from 'validator/lib/isEmail';
+import { ThemedButton } from 'src/components/button-new';
+import { LabelWrapper, Label } from '../style';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
 
 type State = {
   website: ?string,
@@ -353,7 +357,23 @@ class UserWithData extends React.Component<Props, State> {
 
           <div style={{ height: '8px' }} />
 
-          <Input
+          <LabelWrapper>
+            <Label htmlFor="name">
+              Name
+            </Label>
+            <TextField 
+              name="name"
+              type="text"
+              defaultValue={name}
+              onChange={this.changeName}
+              placeholder={"What's your name?"}
+              dataCy="user-name-input"
+            />
+
+            {nameError && <Error>Names can be up to 50 characters.</Error>}
+          </LabelWrapper>
+          
+          {/* <Input
             type="text"
             defaultValue={name}
             onChange={this.changeName}
@@ -363,7 +383,7 @@ class UserWithData extends React.Component<Props, State> {
             Name
           </Input>
 
-          {nameError && <Error>Names can be up to 50 characters.</Error>}
+          {nameError && <Error>Names can be up to 50 characters.</Error>} */}
 
           <UsernameSearch
             type={'text'}
@@ -380,26 +400,70 @@ class UserWithData extends React.Component<Props, State> {
             <Notice style={{ marginTop: '16px' }}>{usernameError}</Notice>
           )}
 
-          <TextArea
+          <LabelWrapper>
+            <Label htmlFor="website">
+              Bio
+            </Label>
+            <TextArea
+              defaultValue={description}
+              onChange={this.changeDescription}
+              placeholder={'Introduce yourself to the class...'}
+              dataCy="user-description-input"
+            />
+            {descriptionError && <Error>Bios can be up to 140 characters.</Error>}
+
+          </LabelWrapper>
+          {/* <TextArea
             defaultValue={description}
             onChange={this.changeDescription}
             placeholder={'Introduce yourself to the class...'}
             dataCy="user-description-input"
-          >
+          />
             Bio
           </TextArea>
 
-          {descriptionError && <Error>Bios can be up to 140 characters.</Error>}
+          {descriptionError && <Error>Bios can be up to 140 characters.</Error>} */}
 
-          <Input
+          <LabelWrapper>
+            <Label htmlFor="website">
+              Optional: Add your website
+            </Label>
+            <TextField 
+              name="website"
+              type="text"
+              defaultValue={website}
+              onChange={this.changeWebsite}
+              dataCy="user-website-input"
+            />
+
+          </LabelWrapper>
+          {/* <Input
             defaultValue={website}
             onChange={this.changeWebsite}
             dataCy="user-website-input"
           >
             Optional: Add your website
-          </Input>
+          </Input> */}
 
-          <Input
+          <LabelWrapper>
+            <Label htmlFor="email">
+              Email
+            </Label>
+            <TextField 
+              name="email"
+              type="text"
+              defaultValue={email}
+              onChange={this.changeEmail}
+              placeholder={'Email address'}
+              dataCy="user-email-input"
+            />
+
+            {didChangeEmail && (
+              <Success>A confirmation email has been sent to {email}.</Success>
+            )}
+            {emailError && <Error>{emailError}</Error>}
+          </LabelWrapper>
+          {/* <Input
             type="text"
             defaultValue={email}
             onChange={this.changeEmail}
@@ -412,7 +476,7 @@ class UserWithData extends React.Component<Props, State> {
           {didChangeEmail && (
             <Success>A confirmation email has been sent to {email}.</Success>
           )}
-          {emailError && <Error>{emailError}</Error>}
+          {emailError && <Error>{emailError}</Error>} */}
 
           <GithubProfile
             id={user.id}
@@ -432,11 +496,8 @@ class UserWithData extends React.Component<Props, State> {
                 );
               } else {
                 return (
-                  <Input
-                    disabled
-                    defaultValue={`github.com/${profile.username}`}
-                  >
-                    <div>
+                  <LabelWrapper>
+                    <Label htmlFor="github">
                       Your GitHub Profile ·{' '}
                       <span>
                         <a
@@ -445,16 +506,21 @@ class UserWithData extends React.Component<Props, State> {
                           Refresh username
                         </a>
                       </span>
-                    </div>
-                  </Input>
+                    </Label>
+                    <TextField
+                      name="github"
+                      isDisabled
+                      defaultValue={`github.com/${profile.username}`}
+                    />
+                  </LabelWrapper>
                 );
               }
             }}
           />
 
           <Actions>
-            <PrimaryOutlineButton
-              disabled={
+            <ThemedButton 
+              isDisabled={
                 !name ||
                 nameError ||
                 !username ||
@@ -462,14 +528,16 @@ class UserWithData extends React.Component<Props, State> {
                 isLoading ||
                 !!emailError
               }
-              loading={isLoading}
+              isLoading={isLoading}
               onClick={this.save}
-              data-cy="save-button"
-            >
-              {isLoading ? 'Saving...' : 'Save'}
-            </PrimaryOutlineButton>
+              data-cy="save-button" 
+              appearance="primary"
+              iconBefore={<Icon 
+                glyph={'save'} 
+                size={24} />}>                
+                {isLoading ? 'Saving...' : 'Save'}
+            </ThemedButton>     
           </Actions>
-
           {createError && (
             <Error>Please fix any errors above to save your profile.</Error>
           )}

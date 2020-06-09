@@ -3,7 +3,7 @@ import theme from 'shared/theme';
 // $FlowFixMe
 import styled from 'styled-components';
 import { zIndex } from 'src/components/globals';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export const ButtonRow = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export const Input = styled.div`
   padding: 4px 12px;
   border-radius: 8px;
   border: 2px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
-  background: #fff;
+  background: ${themed({ light: colors.N10, dark: colors.DN10 })};
   font-weight: 500;
   color: ${() => themed({ light: theme.text.alt, dark: theme.textd.alt})};
   padding-right: 72px;
@@ -72,7 +72,7 @@ export const Input = styled.div`
     top: 0;
     right: 0;
     bottom: 0;
-    background: #fff;
+    background: ${themed({ light: colors.N10, dark: colors.DN10 })};
     padding: 4px 12px;
     border-left: 2px solid ${themed({ light:theme.bg.border, dark: theme.bgd.border})};
     border-radius: 0 8px 8px 0;

@@ -8,7 +8,8 @@ import {
   DESKTOP_APP_MAC_URL,
 } from 'src/helpers/desktop-app-utils';
 import { isMac } from 'src/helpers/is-os';
-import { OutlineButton } from 'src/components/button';
+// import { OutlineButton } from 'src/components/button';
+import { ThemedButton } from 'src/components/button-new';
 import {
   Container,
   Card,
@@ -68,7 +69,11 @@ class DesktopAppUpsell extends React.Component<{}, State> {
             <Subtitle>A better way to keep up with your communities.</Subtitle>
 
             <a href={DESKTOP_APP_MAC_URL} onClick={this.download}>
-              <OutlineButton>Download</OutlineButton>
+              {/* <OutlineButton>Download</OutlineButton> */}
+              <ThemedButton 
+                appearance="default">
+                Download
+              </ThemedButton>     
             </a>
           </Content>
         </Card>

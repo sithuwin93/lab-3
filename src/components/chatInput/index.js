@@ -27,6 +27,9 @@ import type { Dispatch } from 'redux';
 import { MarkdownHint } from 'src/components/markdownHint';
 import { useAppScroller } from 'src/hooks/useAppScroller';
 import { MEDIA_BREAK } from 'src/components/layout';
+import { ThemedButton } from 'src/components/button-new';
+import MentionsInput from '../mentionsInput';
+import TextField from 'src/components/textfield';
 
 const QuotedMessage = connect()(
   getMessageById(props => {
@@ -336,7 +339,8 @@ const ChatInput = (props: Props) => {
                   </RemovePreviewButton>
                 </PreviewWrapper>
               )}
-              <Input
+              <MentionsInput
+                singleLine={true}
                 hasAttachment={!!props.quotedMessage || !!mediaPreview}
                 networkDisabled={networkDisabled}
                 placeholder="Your message here..."
@@ -352,14 +356,16 @@ const ChatInput = (props: Props) => {
                 }}
                 staticSuggestions={props.participants}
               />
+              {/* <TextField /> */}
             </InputWrapper>
-            <PrimaryButton
-              data-cy="chat-input-send-button"
-              onClick={submit}
+            <ThemedButton
               style={{ flex: 'none', marginLeft: '8px' }}
-            >
+              appearance="primary"
+              data-cy="chat-input-send-button"
+              onClick={submit}>
               Send
-            </PrimaryButton>
+            </ThemedButton>
+
           </Form>
         </ChatInputWrapper>
       </ChatInputContainer>

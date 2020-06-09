@@ -15,6 +15,7 @@ import getComposerLink from 'src/helpers/get-composer-link';
 import JoinChannel from 'src/components/joinChannelWrapper';
 import JoinCommunity from 'src/components/joinCommunityWrapper';
 import { withCurrentUser } from 'src/components/withCurrentUser';
+import { ThemedButton } from 'src/components/button-new';
 
 type CommunityProps = {
   community: CommunityInfoType,
@@ -27,15 +28,21 @@ export const MobileCommunityAction = (props: CommunityProps) => {
 
   if (isMember) {
     return (
-      <OutlineButton
-        size={'small'}
-        to={{
-          pathname,
-          search,
-        }}
-      >
+      <ThemedButton
+        type='link'
+        to={{pathname,search}}
+        spacing="compact">
         New post
-      </OutlineButton>
+      </ThemedButton>
+      // <OutlineButton
+      //   size={'small'}
+      //   to={{
+      //     pathname,
+      //     search,
+      //   }}
+      // >
+      //   New post
+      // </OutlineButton>
     );
   }
 
@@ -43,9 +50,15 @@ export const MobileCommunityAction = (props: CommunityProps) => {
     <JoinCommunity
       community={community}
       render={({ isLoading }) => (
-        <PrimaryButton size={'small'} isLoading={isLoading}>
+        // <PrimaryButton size={'small'} isLoading={isLoading}>
+        //   {isLoading ? 'Joining...' : 'Join'}
+        // </PrimaryButton>
+        <ThemedButton
+          appearance="primary"
+          isLoading={isLoading}
+          spacing="compact">
           {isLoading ? 'Joining...' : 'Join'}
-        </PrimaryButton>
+        </ThemedButton>
       )}
     />
   );
@@ -65,15 +78,21 @@ export const MobileChannelAction = (props: ChannelProps) => {
 
   if (isMember) {
     return (
-      <OutlineButton
-        size={'small'}
-        to={{
-          pathname,
-          search,
-        }}
-      >
+      // <OutlineButton
+      //   size={'small'}
+      //   to={{
+      //     pathname,
+      //     search,
+      //   }}
+      // >
+      //   New post
+      // </OutlineButton>
+      <ThemedButton
+        spacing="compact"
+        type='link'
+        to={{ pathname,search }}>
         New post
-      </OutlineButton>
+      </ThemedButton>
     );
   }
 
@@ -81,9 +100,15 @@ export const MobileChannelAction = (props: ChannelProps) => {
     <JoinChannel
       channel={channel}
       render={({ isLoading }) => (
-        <PrimaryButton size={'small'} isLoading={isLoading}>
+        // <PrimaryButton size={'small'} isLoading={isLoading}>
+        //   {isLoading ? 'Joining...' : 'Join'}
+        // </PrimaryButton>
+        <ThemedButton
+          appearance="primary"
+          spacing="compact"
+          isLoading={isLoading}>
           {isLoading ? 'Joining...' : 'Join'}
-        </PrimaryButton>
+        </ThemedButton>
       )}
     />
   );
@@ -99,12 +124,18 @@ const User = (props: UserProps) => {
 
   if (currentUser && currentUser.id === user.id) {
     return (
-      <OutlineButton
-        size={'small'}
-        to={`/users/${currentUser.username}/settings`}
-      >
+      // <OutlineButton
+      //   size={'small'}
+      //   to={`/users/${currentUser.username}/settings`}
+      // >
+      //   Settings
+      // </OutlineButton>
+      <ThemedButton
+        type='link'
+        spacing="compact"
+        to={`/users/${currentUser.username}/settings`}>
         Settings
-      </OutlineButton>
+      </ThemedButton>
     );
   }
 

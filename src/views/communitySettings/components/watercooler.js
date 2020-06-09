@@ -24,6 +24,7 @@ import disableCommunityWatercooler from 'shared/graphql/mutations/community/disa
 import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
 import type { History } from 'react-router';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   data: {
@@ -84,16 +85,26 @@ const Watercooler = (props: Props) => {
               style={{ marginRight: '8px' }}
               to={`/${community.slug}?tab=chat`}
             >
-              <TextButton>Go to open chat</TextButton>
+              <ThemedButton
+                appearance="subtle">
+                Go to open chat
+              </ThemedButton>
+              {/* <TextButton>Go to open chat</TextButton> */}
             </Link>
           )}
-          <OutlineButton
+          {/* <OutlineButton
             loading={saving}
             onClick={community.watercoolerId ? disable : enable}
             type="submit"
           >
             {saving ? 'Saving...' : buttonLabel}
-          </OutlineButton>
+          </OutlineButton> */}
+          <ThemedButton
+            isLoading={saving}
+            onClick={community.watercoolerId ? disable : enable}
+            type="submit">
+            {saving ? 'Saving...' : buttonLabel}
+          </ThemedButton>
         </SectionCardFooter>
       </SectionCard>
     );

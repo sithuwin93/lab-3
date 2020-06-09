@@ -23,7 +23,8 @@ const CommunitySelector = (props: Props) => {
   const { data, onCommunityChange, id } = props;
   const { loading, error, community } = data;
 
-  const onChange = (evt: any) => onCommunityChange(evt.target.value);
+  // const onChange = (evt: any) => onCommunityChange(evt.target.value);
+  const onChange = (evt: any) => onCommunityChange(evt.value);
 
   if (loading) return <LoadingSelect />;
 

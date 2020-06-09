@@ -11,6 +11,7 @@ import { LoadingSelect, ErrorSelect } from 'src/components/loading';
 import Icon from 'src/components/icon';
 import { sortChannels } from '../utils';
 import { RequiredSelector, ChannelPreview } from '../style';
+import Select from 'src/components/select-new';
 
 type Props = {
   id: string,
@@ -41,7 +42,8 @@ const ChannelSelector = (props: Props) => {
   if (error)
     return <ErrorSelect>Something went wrong, try refreshing</ErrorSelect>;
 
-  const onChange = (evt: any) => onChannelChange(evt.target.value);
+  // const onChange = (evt: any) => onChannelChange(evt.target.value);
+  const onChange = (evt: any) => onChannelChange(evt.value);
 
   const { search } = location;
   const { composerChannelId } = querystring.parse(search);
@@ -87,7 +89,8 @@ const ChannelSelector = (props: Props) => {
     {
       const firstChannel = sortedNodes[0];
       if (!firstChannel) return null;
-      const fakeEvent = { target: { value: firstChannel.id } };
+      // const fakeEvent = { target: { value: firstChannel.id } };
+      const fakeEvent = { value: firstChannel.id };
       onChange(fakeEvent);
       return null;
     }
@@ -100,28 +103,41 @@ const ChannelSelector = (props: Props) => {
     if (!channel) {
       if (shouldSelectSingleChannelChild()) return selectSingleChannelChild();
       return (
-        <RequiredSelector
-          className={className}
-          data-cy="composer-channel-selector"
-          onChange={onChange}
-          value={channelIsValid ? selectedChannelId : ''}
-          emphasize={!selectedChannelId}
-          {...rest}
-        >
-          {/* $FlowIssue */}
-          <React.Fragment>
-            <option value={''}>Choose a channel</option>
-
-            {sortedNodes.map(channel => {
+        <div style={{width: 212, zIndex:11 }}>
+          <Select
+            onChange={onChange}          
+            className={className}
+            data-cy="composer-channel-selector"
+            options={sortedNodes.map(channel => {
               if (!channel) return null;
-              return (
-                <option key={channel.id} value={channel.id}>
-                  {channel.name}
-                </option>
-              );
-            })}
-          </React.Fragment>
-        </RequiredSelector>
+              return ({ label: channel.name, value: channel.id });
+            })}     
+            placeholder="Choose a channel"
+            {...rest}/>
+        </div>
+
+        // <RequiredSelector
+        //   className={className}
+        //   data-cy="composer-channel-selector"
+        //   onChange={onChange}
+        //   value={channelIsValid ? selectedChannelId : ''}
+        //   emphasize={!selectedChannelId}
+        //   {...rest}
+        // >
+        //   {/* $FlowIssue */}
+        //   <React.Fragment>
+        //     <option value={''}>Choose a channel</option>
+
+        //     {sortedNodes.map(channel => {
+        //       if (!channel) return null;
+        //       return (
+        //         <option key={channel.id} value={channel.id}>
+        //           {channel.name}
+        //         </option>
+        //       );
+        //     })}
+        //   </React.Fragment>
+        // </RequiredSelector>
       );
     }
 
@@ -135,28 +151,39 @@ const ChannelSelector = (props: Props) => {
 
   if (shouldSelectSingleChannelChild()) return selectSingleChannelChild();
   return (
-    <RequiredSelector
-      className={className}
-      data-cy="composer-channel-selector"
-      onChange={onChange}
-      value={channelIsValid ? selectedChannelId : ''}
-      emphasize={!selectedChannelId}
-      {...rest}
-    >
-      {/* $FlowIssue */}
-      <React.Fragment>
-        <option value={''}>Choose a channel</option>
+    // <RequiredSelector
+    //   className={className}
+    //   data-cy="composer-channel-selector"
+    //   onChange={onChange}
+    //   value={channelIsValid ? selectedChannelId : ''}
+    //   emphasize={!selectedChannelId}
+    //   {...rest}
+    // >
+    //   {/* $FlowIssue */}
+    //   <React.Fragment>
+    //     <option value={''}>Choose a channel</option>
 
-        {sortedNodes.map(channel => {
+    //     {sortedNodes.map(channel => {
+    //       if (!channel) return null;
+    //       return (
+    //         <option key={channel.id} value={channel.id}>
+    //           # {channel.name}
+    //         </option>
+    //       );
+    //     })}
+    //   </React.Fragment>
+    // </RequiredSelector>
+    <div style={{width: 212, zIndex:11}}>
+      <Select
+        onChange={onChange}
+        className={className}
+        data-cy="composer-channel-selector"
+        options={sortedNodes.map(channel => {
           if (!channel) return null;
-          return (
-            <option key={channel.id} value={channel.id}>
-              # {channel.name}
-            </option>
-          );
-        })}
-      </React.Fragment>
-    </RequiredSelector>
+          return ({ label: `# ${channel.name}`, value: channel.id });
+        })}    
+        placeholder="Choose a channel"/>
+    </div>
   );
 };
 

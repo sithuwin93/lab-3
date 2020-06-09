@@ -10,7 +10,7 @@ import Badge from 'src/components/badges';
 import type { Dispatch } from 'redux';
 import InitDirectMessageWrapper from 'src/components/initDirectMessageWrapper';
 import ConditionalWrap from 'src/components/conditionalWrap';
-import { OutlineButton } from 'src/components/button';
+// import { OutlineButton } from 'src/components/button';
 import {
   RowWithAvatar,
   UserAvatarContainer,
@@ -21,6 +21,7 @@ import {
   Actions,
   CardLink,
 } from './style';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   userObject: UserInfoType,
@@ -110,7 +111,10 @@ const User = (props: Props) => {
           {messageButton && (
             <InitDirectMessageWrapper
               user={userObject}
-              render={<OutlineButton size={'small'}>Message</OutlineButton>}
+              render={
+                // <OutlineButton size={'small'}>Message</OutlineButton>
+                <ThemedButton spacing="compact">Message</ThemedButton>
+              }
             />
           )}
 

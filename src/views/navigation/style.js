@@ -116,11 +116,33 @@ export const NavigationGridListScroller = styled.div`
   overflow-y: auto;
   position: relative;
   padding-top: 1px;
+
+  &&::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &&::-webkit-scrollbar-track {
+    background: ${themed({light: colors.N10, dark: colors.N500})}; 
+  }
+   
+  &&::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: ${themed({light: colors.N30,dark:colors.N800})};
+
+  }
+  
+  &&::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  
 `;
 
 
 export const Fixed = styled.div`
+  border-top: 1px solid ${() => themed({ light: theme.bg.border, dark: theme.bgd.border})};
   grid-area: fixed;
+  // padding: 8px 12px 8px 12px;
   width: 100%;
   display: grid;    
   @media (max-width: ${MEDIA_BREAK}px) {
@@ -133,12 +155,13 @@ export const Fixed = styled.div`
 
 export const ThemeButtonWrapper = styled.div`  
   @media (max-width: ${MEDIA_BREAK}px) {
-    text-align: right;
+    text-align: center;
   }
   @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
-    text-align: right;
+    text-align: center;
   }
 `
+
 export const NavigationGrid = styled.div`
   ${({ elevation }) => elevations[elevation]}
   display: grid;
@@ -158,7 +181,7 @@ export const NavigationGrid = styled.div`
   max-width: ${NAVBAR_WIDTH}px;
   overflow: hidden;
   overflow-y: auto;
-  padding: 12px 0 16px;
+  padding: 12px 0 0px;
   
   ${isDesktopApp() &&
     css`
@@ -182,7 +205,7 @@ export const NavigationGrid = styled.div`
     width: 100%;
     max-width: ${NAVBAR_EXPANDED_WIDTH}px;
     grid-gap: 0px;
-    padding: 12px 0;
+    padding: 12px 0 0;
 
     ${isDesktopApp() &&
       css`
@@ -195,7 +218,7 @@ export const NavigationGrid = styled.div`
     width: 100%;
     max-width: ${NAVBAR_EXPANDED_WIDTH}px;
     grid-gap: 0px;
-    padding: 12px 0;
+    padding: 12px 0 0;
 
     ${isDesktopApp() &&
       css`
@@ -282,6 +305,59 @@ export const AvatarGrid = styled.div`
   }
 `;
 
+
+export const AvatarBottomGrid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  color: ${props => (props.isActive ? 
+    themed({ light: colors.B400, dark: colors.B100 })
+    : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
+  
+  font-weight: ${props => (props.isActive ? '600' : '500')};
+  background: ${props =>
+    props.isActive ? 
+    themed({ light:hexa(theme.text.default, 0.04), dark:hexa(theme.textd.default, 0.04) })
+     : themed({ light: theme.bg.default, dark:theme.bgd.default })};
+
+  &:hover {
+    background: ${props =>
+      props.isActive ? 
+      themed({ light: hexa(theme.brand.default, 0.04), dark:hexa(theme.brandd.default, 0.04) }) 
+      : themed({ light: theme.bg.wash, dark:theme.bgd.wash })};
+    color: ${props =>
+      props.isActive ? 
+      themed({ light: theme.brand.default, dark: theme.brandd.default}) : 
+      themed({ light: theme.text.secondary, dark:theme.textd.secondary })};
+
+    img,
+    a img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    ${BlackDot} {
+      background-color: ${() => themed({ light: theme.warn.alt, dark:theme.warnd.alt })};
+    }
+  }
+
+  @media (max-width: ${MEDIA_BREAK}px) {
+    img,
+    a img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
+    img,
+    a img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
+`;
+
 export const AvatarLink = styled(Link)`
   display: flex;
   flex-direction: column;
@@ -299,6 +375,28 @@ export const AvatarLink = styled(Link)`
   @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
     flex-direction: row;
     justify-content: flex-start;
+    padding: 8px 20px 8px 12px;
+  }
+`;
+
+export const AvatarDiv = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  position: relative;
+  color: inherit !important;
+  @media (max-width: ${MEDIA_BREAK}px) {
+    flex-direction: row;
+    justify-content: center;
+    padding: 8px 20px 8px 12px;
+  }
+
+  @media (min-width: ${MIN_WIDTH_TO_EXPAND_NAVIGATION}px) {
+    flex-direction: row;
+    justify-content: center;
     padding: 8px 20px 8px 12px;
   }
 `;

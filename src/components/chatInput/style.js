@@ -30,7 +30,7 @@ export const ChatInputWrapper = styled.div`
   padding: 8px 12px 0 12px;
   background-color: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
   border-top: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
-  box-shadow: -1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })}, 1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
+  // box-shadow: -1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })}, 1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })};
 
   @media (max-width: ${MEDIA_BREAK}px) {
     bottom: ${props => (props.focus ? '0' : 'auto')};
@@ -57,39 +57,42 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   align-items: stretch;
   flex: auto;
-  padding: ${props => (props.hasAttachment ? '16px' : '9px 16px 8px 16px')};
   transition: padding 0.2s ease-in-out;
   min-height: 40px;
   max-width: calc(100% - 32px);
   border-radius: 24px;
-  border: 1px solid
-    ${props =>
-      props.networkDisabled
-        ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
-        : themed({ light: props.theme.bg.border, dark: props.theme.bgd.border})};
-  transition: border 0.3s ease-out;
-  color: ${props =>
-    props.networkDisabled
-      ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
-      : themed({ light: props.theme.text.secondary, dark: props.theme.textd.secondary})};
-  background: ${props =>
-    props.networkDisabled
-      ? themed({ light: hexa(props.theme.special.default, 0.1), dark: hexa(props.theme.speciald.default, 0.1)})
-      : themed({ light: props.theme.bg.default, dark: props.theme.bgd.default})};
+  padding: 0px;
 
-  &:hover,
-  &:focus {
-    border-color: ${props =>
-      props.networkDisabled
-        ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
-        : themed({ light: props.theme.text.alt, dark: props.theme.textd.alt})};
-    transition: border-color 0.2s ease-in;
-  }
-
-  @media (max-width: ${MEDIA_BREAK}px) {
-    padding-left: 16px;
-  }
 `;
+//   padding: ${props => (props.hasAttachment ? '16px' : '0px')};
+// padding: ${props => (props.hasAttachment ? '16px' : '9px 16px 8px 16px')};
+// border: 1px solid
+// ${props =>
+//   props.networkDisabled
+//     ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
+//     : themed({ light: props.theme.bg.border, dark: props.theme.bgd.border})};
+// transition: border 0.3s ease-out;
+// color: ${props =>
+// props.networkDisabled
+//   ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
+//   : themed({ light: props.theme.text.secondary, dark: props.theme.textd.secondary})};
+// background: ${props =>
+// props.networkDisabled
+//   ? themed({ light: hexa(props.theme.special.default, 0.1), dark: hexa(props.theme.speciald.default, 0.1)})
+//   : themed({ light: props.theme.bg.default, dark: props.theme.bgd.default})};
+
+// &:hover,
+// &:focus {
+// border-color: ${props =>
+//   props.networkDisabled
+//     ? themed({ light: props.theme.special.default, dark: props.theme.speciald.default})
+//     : themed({ light: props.theme.text.alt, dark: props.theme.textd.alt})};
+// transition: border-color 0.2s ease-in;
+// }
+// @media (max-width: ${MEDIA_BREAK}px) {
+//   padding-left: 16px;
+// }
+
 
 export const Input = styled(MentionsInput).attrs(props => ({
   dataCy: props.dataCy || 'chat-input',
@@ -248,7 +251,7 @@ export const PreviewWrapper = styled.div`
   position: relative;
   padding: 0;
   padding-bottom: 8px;
-  border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
 
   ${QuoteWrapper} {
     margin: 0;

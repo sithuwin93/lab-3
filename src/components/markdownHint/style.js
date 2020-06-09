@@ -6,7 +6,8 @@ import { themed } from 'src/components/theme';
 
 export const MarkdownHintContainer = styled.div`
   width: 100%;
-  background: ${theme.bg.default};
+  background: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};;
+  // background: ${theme.bg.default};
 `;
 
 export const StyledMarkdownHint = styled.div`

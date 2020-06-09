@@ -32,7 +32,7 @@ export const theme = {
   // },
   brand: {
     default: '#0052cc',
-    alt: '#0052cc',
+    alt: '#0052CC',
     // alt: '#4c9aff',
     wash: '#deebff',
     border: '#b3d4ff',
@@ -40,7 +40,7 @@ export const theme = {
   },
   brandd: {
     default: '#4c9aff',
-    alt: '#0052cc',
+    alt: '#4C9AFF',
     wash: '#0747a6',
     border: '#b3d4ff',
     dark: '#deebff',

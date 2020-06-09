@@ -3,6 +3,7 @@ import React from 'react';
 import { OutlineButton, PrimaryButton } from 'src/components/button';
 import { Emoji, Heading, Description, ActionsRow, Card } from './style';
 import { ViewGrid, CenteredGrid } from 'src/components/layout';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   emoji?: string,
@@ -28,10 +29,24 @@ export const ErrorView = (props: Props) => {
           <Heading>{heading}</Heading>
           <Description>{subheading}</Description>
           <ActionsRow>
-            <OutlineButton href={'mailto:hi@spectrum.chat'}>
+            {/* <OutlineButton href={'mailto:hi@spectrum.chat'}>
               Contact us
-            </OutlineButton>
-            <PrimaryButton to={'/'}>Go home</PrimaryButton>
+            </OutlineButton> */}
+            <ThemedButton
+              shouldFitContainer
+              type="a"
+              href={'mailto:hi@spectrum.chat'}
+              >
+              Contact us
+            </ThemedButton>
+            {/* <PrimaryButton to={'/'}>Go home</PrimaryButton> */}
+            <ThemedButton  
+              shouldFitContainer
+              appearance="primary"
+              type="link"
+              to={'/'}>
+              Go home
+            </ThemedButton>
           </ActionsRow>
         </Card>
       </CenteredGrid>

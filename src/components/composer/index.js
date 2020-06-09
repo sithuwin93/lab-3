@@ -43,6 +43,7 @@ import {
   storeDraftThread,
   clearDraftThread,
 } from 'src/helpers/thread-draft-handling';
+import { ThemedButton } from 'src/components/button-new';
 
 type State = {
   title: string,
@@ -535,14 +536,20 @@ class ComposerWithData extends React.Component<Props, State> {
               </Tooltip>
             </InputHints>
             <ButtonRow>
-              <TextButton
+              {/* <TextButton
                 data-cy="composer-cancel-button"
                 hoverColor="warn.alt"
                 onClick={this.discardDraft}
               >
                 Cancel
-              </TextButton>
-              <PrimaryButton
+              </TextButton> */}
+              <ThemedButton
+                appearance="subtle"
+                data-cy="composer-cancel-button"
+                onClick={this.discardDraft}>
+                Cancel
+              </ThemedButton>
+              {/* <PrimaryButton
                 data-cy="composer-publish-button"
                 onClick={this.publishThread}
                 loading={isLoading}
@@ -556,7 +563,25 @@ class ComposerWithData extends React.Component<Props, State> {
                 }
               >
                 {isLoading ? 'Publishing...' : 'Publish'}
-              </PrimaryButton>
+              </PrimaryButton> */}
+
+              <ThemedButton
+                style={{marginLeft:8}}
+                shouldFitContainer
+                appearance="primary"
+                data-cy="composer-publish-button"
+                onClick={this.publishThread}
+                isLoading={isLoading}
+                isDisabled={
+                  !title ||
+                  title.trim().length === 0 ||
+                  isLoading ||
+                  networkDisabled ||
+                  !selectedChannelId ||
+                  !selectedCommunityId
+                }>
+                {isLoading ? 'Publishing...' : 'Publish'}
+              </ThemedButton>
             </ButtonRow>
           </Actions>
         </Container>

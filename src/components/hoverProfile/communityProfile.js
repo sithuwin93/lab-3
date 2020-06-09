@@ -22,6 +22,8 @@ import {
   Description,
   Actions,
 } from './style';
+import { ThemedButton } from 'src/components/button-new';
+import Icon from 'src/components/icon';
 
 type ProfileProps = {
   community: GetCommunityType,
@@ -84,7 +86,19 @@ class HoverProfile extends Component<ProfileProps> {
 
             {(isModerator || isOwner) && (
               <Link to={`/${community.slug}/settings`}>
-                <OutlineButton icon={'settings'}>Settings</OutlineButton>
+                {/* <OutlineButton icon={'settings'}>Settings</OutlineButton> */}
+                <ThemedButton>
+                <Icon 
+                  style={{
+                    position: 'relative',
+                    top: 6,
+                    left: 5,
+                    marginRight: 8
+                  }}
+                  glyph={'settings'} 
+                  size={24} />
+                  Settings
+                </ThemedButton>
               </Link>
             )}
           </Actions>

@@ -1,7 +1,6 @@
 //@flow
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import compose from 'recompose/compose';
 import { CommunityListItem } from 'src/components/entities';
 import { ErrorBoundary } from 'src/components/error';
@@ -9,6 +8,7 @@ import { Loading } from 'src/components/loading';
 import { PrimaryOutlineButton } from 'src/components/button';
 import { getUserCommunityConnection } from 'shared/graphql/queries/user/getUserCommunityConnection';
 import type { GetUserCommunityConnectionType } from 'shared/graphql/queries/user/getUserCommunityConnection';
+import { ThemedButton } from 'src/components/button-new';
 
 type Props = {
   data: {
@@ -34,9 +34,16 @@ class CommunityList extends React.Component<Props> {
     ) {
       return (
         <div style={{ padding: '16px' }}>
-          <PrimaryOutlineButton style={{ flex: '1' }} to={'/explore'}>
+          {/* <PrimaryOutlineButton style={{ flex: '1' }} to={'/explore'}>
             Explore communities
-          </PrimaryOutlineButton>
+          </PrimaryOutlineButton> */}
+          <ThemedButton 
+            type="link"
+            to={'/explore'}            
+            shouldFitContainer
+            appearance="primary">
+            Explore communities
+          </ThemedButton>
         </div>
       );
     }
@@ -77,7 +84,6 @@ class CommunityList extends React.Component<Props> {
 }
 
 export default compose(
-  withRouter,
   getUserCommunityConnection,
   connect()
 )(CommunityList);

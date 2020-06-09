@@ -6,10 +6,14 @@ import type { UserInfoType } from 'shared/graphql/fragments/user/userInfo';
 import getCommunityThreads from 'shared/graphql/queries/community/getCommunityThreadConnection';
 import searchThreads from 'shared/graphql/queries/search/searchThreads';
 import ThreadFeed from 'src/components/threadFeed';
-import Select from 'src/components/select';
+// import Select from 'src/components/select';
+import Select from 'src/components/select-new';
+
 import { withCurrentUser } from 'src/components/withCurrentUser';
 import { PostsFeedsSelectorContainer, SearchInput } from '../style';
 import MiniComposer from 'src/components/composerMini';
+import TextField from 'src/components/textfield';
+
 
 const CommunityThreadFeed = compose(getCommunityThreads)(ThreadFeed);
 const SearchThreadFeed = compose(searchThreads)(ThreadFeed);
@@ -57,27 +61,45 @@ export const PostsFeeds = withCurrentUser((props: Props) => {
     search(e.target.value);
   };
 
+  // <SearchInput
+  //   onChange={handleClientSearch}
+  //   type="search"
+  //   placeholder="Search"
+  //   value={clientSearchQuery}
+  // />
   return (
     <React.Fragment>
       <PostsFeedsSelectorContainer>
-        <Select
+        {/* <Select
           value={activeFeed}
-          onChange={e => setActiveFeed(e.target.value)}
-        >
+          onChange={e => setActiveFeed(e.target.value)}>
           <option key="latest" value="latest">
             Latest
           </option>
           <option key="trending" value="trending">
             Popular
           </option>
-        </Select>
+        </Select> */}
+        <div style={{width:200,zIndex:12}}>
+          <Select            
+            className="single-select"
+            classNamePrefix="react-select"
+            defaultValue={{ label: activeFeed, value: activeFeed }}
+            onChange={e => setActiveFeed(e.value)}
+            options={[
+              { label: 'latest', value: 'latest' },
+              { label: 'trending', value: 'trending' },
+            ]}
+          />
+        </div>
 
-        <SearchInput
-          onChange={handleClientSearch}
-          type="search"
-          placeholder="Search"
-          value={clientSearchQuery}
-        />
+      <TextField  
+        onChange={handleClientSearch}
+        type="search"
+        placeholder="Search"
+        value={clientSearchQuery}
+        width="medium"/>
+
       </PostsFeedsSelectorContainer>
       {currentUser && isMember && (
         <MiniComposer community={community} currentUser={currentUser} />

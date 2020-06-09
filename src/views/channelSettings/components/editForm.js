@@ -18,7 +18,7 @@ import { NullCard } from 'src/components/upsell';
 import {
   Input,
   UnderlineInput,
-  TextArea,
+  // TextArea,
   Error,
 } from 'src/components/formElements';
 import { SectionCard, SectionTitle } from 'src/components/settingsViews/style';
@@ -35,6 +35,10 @@ import {
   Location,
 } from 'src/components/editForm/style';
 import type { Dispatch } from 'redux';
+import { ThemedButton } from 'src/components/button-new';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+import { LabelWrapper, Label } from '../style';
 
 type State = {
   name: string,
@@ -214,7 +218,25 @@ class ChannelWithData extends React.Component<Props, State> {
           </Location>
           <SectionTitle>Channel Settings</SectionTitle>
           <Form onSubmit={this.save}>
-            <Input
+
+            <LabelWrapper>
+              <Label htmlFor="name">
+                Name
+              </Label>
+              <TextField 
+                name="name"
+                defaultValue={name}
+                id="name"
+                onChange={this.handleChange}
+                dataCy="channel-name-input"              
+              />
+              {nameError && (
+                <Error>Channel name can`t have invalid characters.</Error>
+              )}
+
+            </LabelWrapper>
+
+            {/* <Input
               defaultValue={name}
               id="name"
               onChange={this.handleChange}
@@ -224,23 +246,43 @@ class ChannelWithData extends React.Component<Props, State> {
             </Input>
             {nameError && (
               <Error>Channel name can`t have invalid characters.</Error>
-            )}
+            )} */}
+
             <UnderlineInput defaultValue={slug} disabled>
               {`URL: /${channel.community.slug}/`}
             </UnderlineInput>
-            <TextArea
+
+            <LabelWrapper>
+              <Label htmlFor="description">
+                Name
+              </Label>
+              <TextArea
+                name="description"
+                id="description"
+                defaultValue={description}
+                onChange={this.handleChange}
+                dataCy="channel-description-input"
+              />
+              {descriptionError && (
+                <Error>
+                  Oops, there may be some invalid characters - try fixing that up.
+                </Error>
+              )}
+
+            </LabelWrapper>
+            {/* <TextArea
               id="description"
               defaultValue={description}
               onChange={this.handleChange}
               dataCy="channel-description-input"
             >
               Description
-            </TextArea>
-            {descriptionError && (
+            </TextArea> */}
+            {/* {descriptionError && (
               <Error>
                 Oops, there may be some invalid characters - try fixing that up.
               </Error>
-            )}
+            )} */}
             {/* {slug !== 'general' &&
               <Checkbox
                 id="isPrivate"
@@ -279,14 +321,21 @@ class ChannelWithData extends React.Component<Props, State> {
             )}
 
             <Actions>
-              <PrimaryOutlineButton
+              {/* <PrimaryOutlineButton
                 onClick={this.save}
                 disabled={nameError || descriptionError}
                 loading={isLoading}
                 data-cy="save-button"
               >
                 {isLoading ? 'Saving...' : 'Save'}
-              </PrimaryOutlineButton>
+              </PrimaryOutlineButton> */}
+              <ThemedButton
+                onClick={this.save}
+                isDisabled={nameError || descriptionError}
+                isLoading={isLoading}
+                data-cy="save-button">
+                {isLoading ? 'Saving...' : 'Save'}
+              </ThemedButton>
               {slug !== 'general' && (
                 <TertiaryActionContainer>
                   <Tooltip content={`Delete ${name}`}>

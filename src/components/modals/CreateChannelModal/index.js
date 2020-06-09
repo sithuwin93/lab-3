@@ -27,11 +27,14 @@ import {
 import {
   Input,
   UnderlineInput,
-  TextArea,
+  // TextArea,
   Error,
   Checkbox,
 } from '../../formElements';
-import { Form, Actions } from './style';
+import { LabelWrapper, Label, Form, Actions } from './style';
+import TextField from 'src/components/textfield';
+import TextArea from 'src/components/textarea';
+import { ThemedButton } from 'src/components/button-new';
 
 type State = {
   name: string,
@@ -292,7 +295,25 @@ class CreateChannelModal extends React.Component<Props, State> {
         */}
         <ModalContainer title={'Create a Channel'} closeModal={this.close}>
           <Form>
-            <Input
+
+          <LabelWrapper>
+            <Label htmlFor="name">
+              Channel Name
+            </Label>
+            <TextField
+              id="name"
+              defaultValue={name}
+              onChange={this.changeName}
+              autoFocus={true}
+            />
+            {nameError && (
+              <Error>
+                Channel name has to be between 1 and 20 characters long and
+                can`t have invalid characters.
+              </Error>
+            )}
+          </LabelWrapper>
+            {/* <Input
               id="name"
               defaultValue={name}
               onChange={this.changeName}
@@ -306,7 +327,7 @@ class CreateChannelModal extends React.Component<Props, State> {
                 Channel name has to be between 1 and 20 characters long and
                 can`t have invalid characters.
               </Error>
-            )}
+            )} */}
 
             <UnderlineInput defaultValue={slug} onChange={this.changeSlug}>
               {`/${community.slug}/`}
@@ -321,7 +342,25 @@ class CreateChannelModal extends React.Component<Props, State> {
 
             {slugError && <Error>Slugs can be up to 24 characters long.</Error>}
 
-            <TextArea
+            <LabelWrapper>
+              <Label htmlFor="description">
+                Describe it in 140 characters or less
+              </Label>
+              <TextArea
+                name="description"
+                id="slug"
+                defaultValue={description}
+                onChange={this.changeDescription}
+              />
+              {descriptionError && (
+                <Error>
+                  Oops, there may be some invalid characters or the text is too
+                  big (max: 140 characters) - try trimming that up.
+                </Error>
+              )}
+            </LabelWrapper> 
+
+            {/* <TextArea
               id="slug"
               defaultValue={description}
               onChange={this.changeDescription}
@@ -334,7 +373,7 @@ class CreateChannelModal extends React.Component<Props, State> {
                 Oops, there may be some invalid characters or the text is too
                 big (max: 140 characters) - try trimming that up.
               </Error>
-            )}
+            )} */}
 
             <Checkbox
               id="isPrivate"
@@ -351,14 +390,26 @@ class CreateChannelModal extends React.Component<Props, State> {
             </UpsellDescription>
 
             <Actions>
-              <TextButton onClick={this.close}>Cancel</TextButton>
-              <PrimaryOutlineButton
+              {/* <TextButton onClick={this.close}>Cancel</TextButton> */}
+              <ThemedButton
+                appearance="subtle"
+                onClick={this.close}>
+                Cancel
+              </ThemedButton>
+              {/* <PrimaryOutlineButton
                 disabled={!name || !slug || slugTaken}
                 loading={loading}
                 onClick={this.create}
               >
                 {loading ? 'Creating...' : 'Create Channel'}
-              </PrimaryOutlineButton>
+              </PrimaryOutlineButton> */}
+              <ThemedButton
+                appearance="primary"
+                isDisabled={!name || !slug || slugTaken}
+                isLoading={loading}
+                onClick={this.create}>
+                {loading ? 'Creating...' : 'Create Channel'}
+              </ThemedButton>
             </Actions>
 
             {createError && (

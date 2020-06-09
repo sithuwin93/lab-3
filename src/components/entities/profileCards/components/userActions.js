@@ -6,14 +6,16 @@ import type { Dispatch } from 'redux';
 import type { UserInfoType } from 'shared/graphql/fragments/user/userInfo';
 import { openModal } from 'src/actions/modals';
 import { withCurrentUser } from 'src/components/withCurrentUser';
-import {
-  PrimaryOutlineButton,
-  HoverWarnOutlineButton,
-  OutlineButton,
-} from 'src/components/button';
+// import {
+//   PrimaryOutlineButton,
+//   HoverWarnOutlineButton,
+//   OutlineButton,
+// } from 'src/components/button';
 import InitDirectMessageWrapper from 'src/components/initDirectMessageWrapper';
 import { ActionsRowContainer } from '../style';
 import { isAdmin } from 'src/helpers/is-admin';
+import { ThemedButton } from 'src/components/button-new';
+import Icon from 'src/components/icon';
 
 type Props = {
   user: UserInfoType,
@@ -37,28 +39,66 @@ export const UnconnectedUserActions = (props: Props) => {
   return (
     <ActionsRowContainer>
       {currentUser && currentUser.id === user.id && (
-        <OutlineButton to={`/users/${user.username}/settings`}>
+        // <OutlineButton to={`/users/${user.username}/settings`}>
+        //   Settings
+        // </OutlineButton>
+        <ThemedButton 
+          type="link"
+          appearance="default"
+          shouldFitContainer 
+          to={`/users/${user.username}/settings`}>
+          <Icon 
+            style={{
+              position: 'relative',
+              top: 6,
+              left: 5,
+              marginRight: 8
+            }}
+            glyph={'settings'} 
+            size={24} />
+
           Settings
-        </OutlineButton>
+        </ThemedButton>     
       )}
 
       <InitDirectMessageWrapper
         user={user}
         render={
-          <PrimaryOutlineButton data-cy="message-user-button">
+          // <PrimaryOutlineButton data-cy="message-user-button">
+          //   Message
+          // </PrimaryOutlineButton>
+          <ThemedButton
+            data-cy="message-user-button"
+            shouldFitContainer
+            appearance={'primary'}>
             Message
-          </PrimaryOutlineButton>
+          </ThemedButton>
         }
       />
 
       {currentUser && user.id !== currentUser.id && (
-        <HoverWarnOutlineButton onClick={initReport}>
+        // <HoverWarnOutlineButton onClick={initReport}>
+        //   Report
+        // </HoverWarnOutlineButton>
+        <ThemedButton
+          shouldFitContainer
+          onClick={initReport}
+          appearance={'danger'}>
           Report
-        </HoverWarnOutlineButton>
+        </ThemedButton>
+      
       )}
 
       {currentUser && user.id !== currentUser.id && isAdmin(currentUser.id) && (
-        <HoverWarnOutlineButton onClick={initBan}>Ban</HoverWarnOutlineButton>
+        // <HoverWarnOutlineButton 
+        // onClick={initBan}>Ban</HoverWarnOutlineButton>
+        <ThemedButton
+          shouldFitContainer
+          onClick={initBan}
+          appearance={'danger'}>
+          Ban
+        </ThemedButton>
+
       )}
     </ActionsRowContainer>
   );

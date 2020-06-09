@@ -9,6 +9,7 @@ import Content from './Content';
 import InnerWrapper from './InnerWrapper';
 import IconWrapper from './IconWrapper';
 import LoadingSpinner from './LoadingSpinner';
+import { Link } from 'react-router-dom';
 
 const Wrapper = React.forwardRef((props,ref) => {
   switch (props.type) {
@@ -16,6 +17,9 @@ const Wrapper = React.forwardRef((props,ref) => {
       return <span {...props} ref={ref}/>
     case 'a':
       return <a {...props} ref={ref}/>
+    case 'link':
+      return <Link {...props} ref={ref}/>
+  
     default:
       return <button {...props} ref={ref}/>
   }
@@ -150,7 +154,6 @@ export class Button extends React.Component {
       }
       return styles;
     };
-    
     return (
       <Theme.Provider value={theme}>
         <GlobalTheme.Consumer>

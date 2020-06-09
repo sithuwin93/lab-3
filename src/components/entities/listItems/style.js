@@ -4,12 +4,37 @@ import styled, { css } from 'styled-components';
 import { Truncate } from 'src/components/globals';
 import { Link } from 'react-router-dom';
 import { hexa } from 'src/components/globals';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export const CardLink = styled(Link)`
   display: block;
   position: relative;
 `;
+
+// export const Row = styled.div`
+//   padding: 12px 16px;
+//   align-items: center;
+//   display: grid;
+//   grid-template-rows: auto;
+//   grid-template-areas: 'content actions';
+//   grid-template-columns: 1fr auto;
+//   background: ${props =>
+//     props.isActive ? themed({ light: hexa(theme.text.default, 0.04), dark: hexa(theme.textd.default, 0.04)})
+//     :themed({ light: theme.bg.default, dark: theme.bgd.default})};
+//   border-bottom: 1px solid ${themed({ light:theme.bg.divider , dark:theme.bgd.divider })};
+//   grid-gap: 16px;
+
+//   &:hover {
+//     background: ${() =>themed({ light: theme.bg.wash, dark:theme.bgd.wash })};
+//     cursor: pointer;
+//   }
+
+//   ${props =>
+//     props.isActive &&
+//     css`
+//       box-shadow: inset 3px 0 0 ${themed({ light: theme.text.default, dark: theme.textd.default})};
+//     `}
+// `;
 
 export const Row = styled.div`
   padding: 12px 16px;
@@ -19,10 +44,14 @@ export const Row = styled.div`
   grid-template-areas: 'content actions';
   grid-template-columns: 1fr auto;
   background: ${props =>
-    props.isActive ? themed({ light: hexa(theme.text.default, 0.04), dark: hexa(theme.textd.default, 0.04)})
-    :themed({ light: theme.bg.default, dark: theme.bgd.default})};
+    props.isActive ? 
+    themed({ light:hexa(theme.text.default, 0.04), dark:hexa(theme.textd.default, 0.04) })
+     : themed({ light: theme.bg.default, dark:theme.bgd.default })};
   border-bottom: 1px solid ${themed({ light:theme.bg.divider , dark:theme.bgd.divider })};
   grid-gap: 16px;
+  color: ${props => (props.isActive ? 
+    themed({ light: colors.B400, dark: colors.B100 })
+    : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
 
   &:hover {
     background: ${() =>themed({ light: theme.bg.wash, dark:theme.bgd.wash })};
@@ -32,7 +61,8 @@ export const Row = styled.div`
   ${props =>
     props.isActive &&
     css`
-      box-shadow: inset 3px 0 0 ${themed({ light: theme.text.default, dark: theme.textd.default})};
+      box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
+      background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
     `}
 `;
 
@@ -72,7 +102,12 @@ export const Content = styled.div`
 `;
 
 export const Label = styled.div`
-  color: ${() => themed({ light: theme.text.default, dark: theme.textd.default})};
+  // color: ${() => themed({ light: theme.text.default, dark: theme.textd.default})};
+  color: ${props => (props.isActive ? 
+    themed({ light: colors.B400, dark: colors.B100 })
+    : themed({ light:theme.text.alt , dark:theme.textd.alt }))};
+  
+
   font-size: 15px;
   font-weight: 600;
   line-height: 1.2;

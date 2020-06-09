@@ -176,6 +176,7 @@ export const Overview = () => {
   );
 };
 
+
 export const Centralized = () => {
   const ThisContent = styled(Content)`
     img {
@@ -645,6 +646,8 @@ export const Yours = () => {
             <ThisSecondaryCTA to="/explore">
               Explore communities
             </ThisSecondaryCTA>
+   
+
           </Actions>
         </FlexCol>
       </ThisContent>

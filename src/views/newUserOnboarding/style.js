@@ -41,7 +41,7 @@ export const Description = styled.p`
 `;
 
 export const Card = styled.div`
-  background: ${() => themed({ light:theme.bg.wash , dark:theme.bgd.wash })};
+  // background: ${() => themed({ light:theme.bg.wash , dark:theme.bgd.wash })};
   padding: 16px;
   text-align: center;
   max-width: 480px;

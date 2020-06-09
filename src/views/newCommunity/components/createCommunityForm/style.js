@@ -3,6 +3,22 @@ import theme from 'shared/theme';
 import styled, { css } from 'styled-components';
 import { FlexCol, FlexRow } from 'src/components/globals';
 import { themed } from 'src/components/theme';
+import { subtleHeading } from 'src/components/theme/colors';
+import { fontSize, gridSize } from 'src/components/theme/constants';
+import { headingSizes } from 'src/components/theme/typography';
+
+export const LabelWrapper = styled.div`
+  margin-top: 12px;
+`
+
+export const Label = styled.label`
+  font-size: ${headingSizes.h400.size / fontSize()}em;
+  font-style: inherit;
+  line-height: ${headingSizes.h200.lineHeight /headingSizes.h200.size};
+  color: ${subtleHeading()};
+  font-weight: 600px;
+  margin-top: ${gridSize() * 2}px;
+`
 
 export const DeleteCoverWrapper = styled(FlexRow)`
   justify-content: flex-end;
