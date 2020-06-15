@@ -27,6 +27,8 @@ import { Loading } from 'src/components/loading';
 import type { Dispatch } from 'redux';
 import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   isLoading: boolean,
@@ -41,6 +43,7 @@ type Props = {
   data: {
     user: GetUserCommunityConnectionType,
   },
+  t: i18n.TFunction
 };
 
 class DeleteAccountForm extends React.Component<Props, State> {
@@ -77,7 +80,7 @@ class DeleteAccountForm extends React.Component<Props, State> {
     this.props
       .deleteCurrentUser()
       .then(() =>
-        this.props.dispatch(addToastWithTimeout('success', 'Account deleted'))
+        this.props.dispatch(addToastWithTimeout('success', this.props.t('usersSettings:AccountDeleted')))
       )
       .then(() => (window.location.href = `${SERVER_URL}/auth/logout`))
       .catch(err =>
@@ -89,23 +92,21 @@ class DeleteAccountForm extends React.Component<Props, State> {
     const { isLoading, ownsCommunities, deleteInited } = this.state;
     const {
       data: { user },
+      t,
     } = this.props;
 
     if (user) {
       return (
         <SectionCard elevation="e200" data-cy="delete-account-container">
-          <SectionTitle>Delete my account</SectionTitle>
+          <SectionTitle>{t('usersSettings:DeleteMyAccount')}</SectionTitle>
           <SectionSubtitle>
-            You can delete your account at any time.{' '}
-            <Link to={'/faq'}>Read more about how we delete accounts</Link>.
+            {t('usersSettings:YouCanDeleteYourAccountAtAnyTime')}{' '}
+            <Link to={'/faq'}>{t('usersSettings:ReadMoreAboutHowWeDeleteAccounts')}</Link>.
           </SectionSubtitle>
 
           {ownsCommunities && (
             <Notice data-cy="owns-communities-notice">
-              You currently own communities on Spectrum. When your account is
-              deleted these communities will not be deleted. Spectrum reserves
-              the right to manage your communities after your account is
-              deleted.
+              {t('usersSettings:OwnsCommunitiesDescription')}
             </Notice>
           )}
 
@@ -119,21 +120,36 @@ class DeleteAccountForm extends React.Component<Props, State> {
                 }}
               >
                 {!isLoading && (
-                  <OutlineButton
+                  <ThemedButton
+                    shouldFitContainer
                     data-cy="delete-account-cancel-button"
                     onClick={this.cancelDelete}
-                    style={{ marginBottom: '16px', alignSelf: 'stretch' }}
-                  >
-                    Cancel
-                  </OutlineButton>
+                    style={{ marginBottom: '16px', alignSelf: 'stretch' }}>
+                    {t('Cancel')}
+                  </ThemedButton>
+                  // <OutlineButton
+                  //   data-cy="delete-account-cancel-button"
+                  //   onClick={this.cancelDelete}
+                  //   style={{ marginBottom: '16px', alignSelf: 'stretch' }}
+                  // >
+                  //   {t('Cancel')}
+                  // </OutlineButton>
                 )}
-                <WarnButton
+                {/* <WarnButton
                   data-cy="delete-account-confirm-button"
                   loading={isLoading}
                   onClick={this.confirmDelete}
                 >
-                  {isLoading ? 'Deleting...' : 'Confirm and delete my account'}
-                </WarnButton>
+                  {isLoading ? t('Deleting') : t('usersSettings:ConfirmAndDeleteMyAccount')}
+                </WarnButton> */}
+                <ThemedButton
+                  appearance="danger"
+                  shouldFitContainer
+                  data-cy="delete-account-confirm-button"
+                  isLoading={isLoading}
+                  onClick={this.confirmDelete}>
+                  {isLoading ? t('Deleting') : t('usersSettings:ConfirmAndDeleteMyAccount')}
+                </ThemedButton>
               </div>
             ) : (
               // <HoverWarnOutlineButton
@@ -152,7 +168,7 @@ class DeleteAccountForm extends React.Component<Props, State> {
                 appearance="danger"
                 onClick={this.initDelete}
                 data-cy="delete-account-init-button">
-                Delete my account
+                {t('usersSettings:DeleteMyAccount')}
               </ThemedButton>
             )}
           </SectionCardFooter>
@@ -177,4 +193,4 @@ export default compose(
   deleteCurrentUserMutation,
   getCurrentUserCommunityConnection,
   viewNetworkHandler
-)(DeleteAccountForm);
+)(withTranslation(['common','usersSettings'])(DeleteAccountForm));

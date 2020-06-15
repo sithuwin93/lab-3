@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Icon from 'src/components/icon';
 import { NullColumn, NullColumnHeading, NullColumnSubheading } from './style';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   viewContext:
@@ -21,12 +22,14 @@ const NullState = ({
   communityId,
   channelId,
 }: Props) => {
+  const { t } = useTranslation(['common','community']);
+
   let hd;
   let cp;
 
   if (viewContext && viewContext === 'communityProfile') {
-    hd = 'Start a conversation';
-    cp = 'Ask a question, share a tip, or anything else that’s on your mind.';
+    hd = t('community:StartAConversation');
+    cp = t('community:AskAQuestionShareATipOrAnythingElseThatsOnYourMind');
   }
 
   if (viewContext && viewContext === 'channelProfile') {

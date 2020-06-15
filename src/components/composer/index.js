@@ -44,6 +44,8 @@ import {
   clearDraftThread,
 } from 'src/helpers/thread-draft-handling';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   title: string,
@@ -71,6 +73,7 @@ type Props = {
   isEditing: boolean,
   isModal?: boolean,
   previousLocation?: Location,
+  t: i18n.TFunction
 };
 
 export const DISCARD_DRAFT_MESSAGE =
@@ -125,10 +128,10 @@ class ComposerWithData extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, t } = this.props;
     dispatch(
       setTitlebarProps({
-        title: 'New post',
+        title: t('NewPost'),
       })
     );
 
@@ -343,7 +346,7 @@ class ComposerWithData extends React.Component<Props, State> {
         this.props.dispatch(
           addToastWithTimeout(
             'error',
-            `Uploading image failed - ${err.message}`
+            this.props.t('UploadingImageFailed', {err: err.message})
           )
         );
       });
@@ -370,7 +373,7 @@ class ComposerWithData extends React.Component<Props, State> {
       return dispatch(
         addToastWithTimeout(
           'error',
-          'Not connected to the internet - check your internet connection or try again'
+          this.props.t('NotConnectedToTheInternet')
         )
       );
     }
@@ -382,7 +385,7 @@ class ComposerWithData extends React.Component<Props, State> {
       return dispatch(
         addToastWithTimeout(
           'error',
-          'Error connecting to the server - hang tight while we try to reconnect'
+          this.props.t('ErrorConnectingToTheServer')
         )
       );
     }
@@ -434,7 +437,7 @@ class ComposerWithData extends React.Component<Props, State> {
         // redirect the user to the thread
         // if they are in the inbox, select it
         this.props.dispatch(
-          addToastWithTimeout('success', 'Thread published!')
+          addToastWithTimeout('success', this.props.t('ThreadPublished'))
         );
         if (this.props.location.pathname === '/new/thread') {
           this.props.history.replace(getThreadLink(data.publishThread));
@@ -466,7 +469,7 @@ class ComposerWithData extends React.Component<Props, State> {
       selectedChannelId,
       selectedCommunityId,
     } = this.state;
-
+    console.log('selectedCommunityId',selectedCommunityId)
     const {
       networkOnline,
       websocketConnection,
@@ -510,12 +513,12 @@ class ComposerWithData extends React.Component<Props, State> {
 
           {networkDisabled && (
             <DisabledWarning>
-              Lost connection to the internet or server...
+              {this.props.t('LostConnectionToTheInternetOrServer')}
             </DisabledWarning>
           )}
           <Actions>
             <InputHints>
-              <Tooltip content={'Upload photo'}>
+              <Tooltip content={this.props.t('UploadPhoto')}>
                 <MediaLabel>
                   <MediaInput
                     type="file"
@@ -526,7 +529,7 @@ class ComposerWithData extends React.Component<Props, State> {
                   <Icon glyph="photo" />
                 </MediaLabel>
               </Tooltip>
-              <Tooltip content={'Style with Markdown'}>
+              <Tooltip content={this.props.t('StyleWithMarkdown')}>
                 <DesktopLink
                   target="_blank"
                   href="https://guides.github.com/features/mastering-markdown/"
@@ -547,7 +550,7 @@ class ComposerWithData extends React.Component<Props, State> {
                 appearance="subtle"
                 data-cy="composer-cancel-button"
                 onClick={this.discardDraft}>
-                Cancel
+                {this.props.t('Cancel')}
               </ThemedButton>
               {/* <PrimaryButton
                 data-cy="composer-publish-button"
@@ -580,7 +583,7 @@ class ComposerWithData extends React.Component<Props, State> {
                   !selectedChannelId ||
                   !selectedCommunityId
                 }>
-                {isLoading ? 'Publishing...' : 'Publish'}
+                {isLoading ? this.props.t('Publishing') : this.props.t('Publish')}
               </ThemedButton>
             </ButtonRow>
           </Actions>
@@ -602,4 +605,4 @@ export default compose(
   publishThread,
   withRouter,
   connect(mapStateToProps)
-)(ComposerWithData);
+)(withTranslation('common')(ComposerWithData));

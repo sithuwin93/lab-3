@@ -24,6 +24,8 @@ import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
 import { LabelWrapper, Label } from '../createCommunityForm/style';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   name: string,
@@ -46,6 +48,7 @@ type Props = {
   dispatch: Dispatch<Object>,
   communityUpdated: Function,
   editCommunity: Function,
+  t: i18n.TFunction
 };
 
 class CommunityWithData extends React.Component<Props, State> {
@@ -213,7 +216,7 @@ class CommunityWithData extends React.Component<Props, State> {
         // community was returned
         if (community !== undefined) {
           this.props.dispatch(
-            addToastWithTimeout('success', 'Community saved!')
+            addToastWithTimeout('success', this.props.t('newCommunity:CommunitySaved'))
           );
           this.props.communityUpdated(community);
         }
@@ -227,7 +230,7 @@ class CommunityWithData extends React.Component<Props, State> {
         this.props.dispatch(
           addToastWithTimeout(
             'error',
-            `Something went wrong and we weren't able to save these changes. ${err}`
+            `${this.props.t('newCommunity:SomethingWentWrongAndWeWerentAbleToSaveTheseChanges')}. ${err}`
           )
         );
       });
@@ -245,7 +248,7 @@ class CommunityWithData extends React.Component<Props, State> {
       nameError,
       isLoading,
     } = this.state;
-
+    const { t } = this.props;
     return (
       <FormContainer>
         <Form onSubmit={this.save}>
@@ -269,7 +272,7 @@ class CommunityWithData extends React.Component<Props, State> {
           </Input> */}
           <LabelWrapper>
             <Label htmlFor="name">
-              Name
+              {t('Name')}
             </Label>
             <TextField 
               name="name"
@@ -282,7 +285,7 @@ class CommunityWithData extends React.Component<Props, State> {
           </UnderlineInput>
 
           {nameError && (
-            <Error>Community names can be up to 20 characters long.</Error>
+            <Error>{t('newCommunity:CommunityNameEditError')}</Error>
           )}
 
           {/* <TextArea
@@ -292,8 +295,8 @@ class CommunityWithData extends React.Component<Props, State> {
             Description
           </TextArea> */}
           <LabelWrapper>
-            <Label htmlFor="description">
-              Description
+            <Label htmlFor="description">              
+              {t('Description')}
             </Label>
             <TextArea
               defaultValue={description}
@@ -303,7 +306,7 @@ class CommunityWithData extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="website">
-              Optional: Add your community’s website
+              {t('newCommunity:OptionalAddYourCommunityWebsite')}
             </Label>
             <TextField
               name="website"
@@ -322,7 +325,7 @@ class CommunityWithData extends React.Component<Props, State> {
 
           {photoSizeError && (
             <Notice style={{ marginTop: '16px' }}>
-              Photo uploads should be less than 3mb
+              {t('newCommunity:PhotoUploadsShouldBeLessThan3mb')}
             </Notice>
           )}
         </Form>
@@ -335,7 +338,7 @@ class CommunityWithData extends React.Component<Props, State> {
             onClick={this.save}
             isDisabled={photoSizeError}
           >
-            {isLoading ? 'Saving...' : 'Save & Continue'}
+            {isLoading ? t('Saving') : t('SaveContinue')}
           </ThemedButton>
         </Actions>
       </FormContainer>
@@ -348,5 +351,5 @@ const Community = compose(
   editCommunityMutation,
   withRouter,
   connect()
-)(CommunityWithData);
+)(withTranslation(['common','newCommunity'])(CommunityWithData));
 export default Community;

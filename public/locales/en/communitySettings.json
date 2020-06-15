@@ -1,0 +1,27 @@
+{
+    "ReturnToCommunity": "Return to {{name}}",
+    "OpenChatEnabled": "Open chat enabled!",
+    "OpenChatDisabled": "Open chat disabled.",
+    "OpenChat": "Open chat",
+    "DisplayAnOpenChatFeedOnYourCommunitysProfile":"Display an open chat feed on your community’s profile.",
+    "GoToOpenChat": "Go to open chat",
+
+    "BrandedLogin":"Branded Login",
+    "BrandedLoginDescription": "Display a custom login message when people are signing up to Parabaik directly from your community’s profile",
+    "SetACustomMessageForTheLoginScreen":"Set a custom message for the login screen",
+    "CustomLoginMessagesShouldBeUnder280Characters.":"Custom login messages should be under 280 characters.",
+
+    "BrandedLoginDisabled": "Branded login disabled",
+    "BrandedLoginEnabled": "Branded login enabled",
+    "EnableCustomBrandedLogin":"Enable custom branded login",
+
+    "CommunitySettingSaved":"Community setting saved",
+    "MigrateYourCommunityElsewhere":"Migrate your community elsewhere",
+    "MigrateYourCommunityElsewhereDescription1": "Enabling this setting will redirect your community and channel pages to your community's website.",
+    "MigrateYourCommunityElsewhereDescription2": "Existing conversations will stay accessible on Parabaik at their current URLs, but no new members can join and no new conversations can be created.",
+
+    "OptionalPreventThreadsInMyCommunityFromBeingIndexed":"Optional: Prevent threads in my community from being indexed by search engines while redirection is active.",
+
+    "CommunitySaved":"Community saved!",
+    "AreYouSureYouWantToDeleteYourCommunity":"Are you sure you want to delete your community, "
+}

@@ -25,6 +25,7 @@ import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
 import type { History } from 'react-router';
 import { ThemedButton } from 'src/components/button-new';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: {
@@ -39,6 +40,8 @@ type Props = {
 
 const Watercooler = (props: Props) => {
   // $FlowIssue
+  const { t } = useTranslation(['common','communitySettings']);
+
   const [saving, setSaving] = React.useState(false);
   const {
     dispatch,
@@ -54,7 +57,7 @@ const Watercooler = (props: Props) => {
       })
       .then(() => {
         setSaving(false);
-        dispatch(addToastWithTimeout('success', 'Open chat enabled!'));
+        dispatch(addToastWithTimeout('success', t('communitySettings:OpenChatEnabled')));
       });
   };
 
@@ -65,7 +68,7 @@ const Watercooler = (props: Props) => {
         id: community.id,
       })
       .then(() => {
-        dispatch(addToastWithTimeout('neutral', 'Open chat disabled.'));
+        dispatch(addToastWithTimeout('neutral', t('communitySettings:OpenChatDisabled')));
         setSaving(false);
       });
   };
@@ -75,9 +78,9 @@ const Watercooler = (props: Props) => {
       community && community.watercoolerId ? 'Disable' : 'Enable';
     return (
       <SectionCard elevation="e200" data-cy="community-settings-branded-login">
-        <SectionTitle>Open chat</SectionTitle>
+        <SectionTitle>{t('communitySettings:OpenChat')}</SectionTitle>
         <SectionSubtitle>
-          Display an open chat feed on your community’s profile.
+          {t('communitySettings:DisplayAnOpenChatFeedOnYourCommunitysProfile')}
         </SectionSubtitle>
         <SectionCardFooter>
           {community && community.watercoolerId && (
@@ -87,7 +90,7 @@ const Watercooler = (props: Props) => {
             >
               <ThemedButton
                 appearance="subtle">
-                Go to open chat
+                {t('communitySettings:GoToOpenChat')}
               </ThemedButton>
               {/* <TextButton>Go to open chat</TextButton> */}
             </Link>
@@ -103,7 +106,7 @@ const Watercooler = (props: Props) => {
             isLoading={saving}
             onClick={community.watercoolerId ? disable : enable}
             type="submit">
-            {saving ? 'Saving...' : buttonLabel}
+            {saving ? t('Saving') : buttonLabel}
           </ThemedButton>
         </SectionCardFooter>
       </SectionCard>

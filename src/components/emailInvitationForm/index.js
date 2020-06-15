@@ -23,12 +23,15 @@ import {
   CustomMessageTextAreaStyles,
   HiddenInput,
 } from './style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   id: string,
   dispatch: Dispatch<Object>,
   currentUser: Object,
   sendEmailInvites: Function,
+  t: i18n.TFunction
 };
 
 type ContactProps = {
@@ -117,7 +120,7 @@ class EmailInvitationForm extends React.Component<Props, State> {
       });
 
       return dispatch(
-        addToastWithTimeout('error', 'No emails entered - try again!')
+        addToastWithTimeout('error', t('newCommunity:InviteYourSlackTeamToYourCommunity'))
       );
     }
 
@@ -269,7 +272,7 @@ class EmailInvitationForm extends React.Component<Props, State> {
         parsed = JSON.parse(reader.result);
       } catch (err) {
         this.setState({
-          importError: 'Only .json files are supported for import.',
+          importError: t('newCommunity:OnlyJsonFilesAreSupportedForImport'),
         });
         return;
       }
@@ -304,7 +307,7 @@ class EmailInvitationForm extends React.Component<Props, State> {
 
       if (validated.length > 5000) {
         this.setState({
-          importError: 'Cannot invite more than 5,000 emails.',
+          importError: t('newCommunity:CannotInviteMoreThan5000Emails'),
         });
         return;
       }
@@ -342,7 +345,7 @@ class EmailInvitationForm extends React.Component<Props, State> {
       customMessageError,
       importError,
     } = this.state;
-
+    const { t } = this.props;
     return (
       <div>
         {importError && <Error>{importError}</Error>}
@@ -427,7 +430,7 @@ class EmailInvitationForm extends React.Component<Props, State> {
             isLoading={isLoading}
             onClick={this.sendInvitations}
             isDisabled={hasCustomMessage && customMessageError}>
-            {isLoading ? 'Sending...' : 'Send Invitations'}
+            {isLoading ? t('Sending') : t('SendInvitations')}
           </ThemedButton>
         </SectionCardFooter>
       </div>
@@ -439,4 +442,4 @@ export const CommunityInvitationForm = compose(
   withCurrentUser,
   sendCommunityEmailInvitations,
   connect()
-)(EmailInvitationForm);
+)(withTranslation(['common','newCommunity'])(EmailInvitationForm));

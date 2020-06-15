@@ -16,6 +16,8 @@ import type { ContextRouter } from 'react-router';
 import { ErrorView, LoadingView } from 'src/views/viewHelpers';
 import { ViewGrid } from 'src/components/layout';
 import { setTitlebarProps } from 'src/actions/titlebar';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   data: {
@@ -23,15 +25,16 @@ type Props = {
   },
   isLoading: boolean,
   hasError: boolean,
+  t: i18n.TFunction,
   ...$Exact<ContextRouter>,
 };
 
 class UserSettings extends React.Component<Props> {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, t } = this.props;
     return dispatch(
       setTitlebarProps({
-        title: 'Settings',
+        title: t('Settings'),
       })
     );
   }
@@ -42,6 +45,7 @@ class UserSettings extends React.Component<Props> {
       match,
       isLoading,
       currentUser,
+      t
     } = this.props;
 
     if (isLoading) {
@@ -57,7 +61,7 @@ class UserSettings extends React.Component<Props> {
     if (user && user.id && currentUser.id === user.id) {
       const subheading = {
         to: `/users/${user.username}`,
-        label: `Return to profile`,
+        label: t('usersSettings:ReturnToProfile'),
       };
 
       const avatar = {
@@ -67,13 +71,13 @@ class UserSettings extends React.Component<Props> {
 
       return (
         <React.Fragment>
-          <Head title={'My settings'} />
+          <Head title={t('usersSettings:MySettings')} />
           <ViewGrid>
             <View data-cy="user-settings">
               <Header
                 avatar={avatar}
                 subheading={subheading}
-                heading={'My Settings'}
+                heading={t('usersSettings:MySettings')}
               />
 
               <Route path={`${match.url}`}>
@@ -94,4 +98,4 @@ export default compose(
   viewNetworkHandler,
   withCurrentUser,
   connect()
-)(UserSettings);
+)(withTranslation(['common','usersSettings'])(UserSettings));

@@ -22,6 +22,7 @@ import { withCurrentUser } from 'src/components/withCurrentUser';
 import JoinCommunity from 'src/components/joinCommunityWrapper';
 import LockedMessages from 'src/views/thread/components/lockedMessages';
 import { FeedsContainer, SidebarSection, InfoContainer } from '../style';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   community: CommunityInfoType,
@@ -31,6 +32,7 @@ type Props = {
 };
 
 const Feeds = (props: Props) => {
+  const { t } = useTranslation('common');
   const { community, location, history, currentUser } = props;
   const { search } = location;
   const { tab } = querystring.parse(search);
@@ -81,9 +83,8 @@ const Feeds = (props: Props) => {
                       <PrimaryOutlineButton
                         isLoading={isLoading}
                         icon={'door-enter'}
-                        data-cy="join-community-chat-upsell"
-                      >
-                        {isLoading ? 'Joining...' : 'Join community to chat'}
+                        data-cy="join-community-chat-upsell">
+                        {isLoading ? t('Joining') : t('JoinCommunityToChat')}
                       </PrimaryOutlineButton>
                     </LockedMessages>
                   )}
@@ -190,7 +191,7 @@ const Feeds = (props: Props) => {
               isActive={segment === tab}
               onClick={() => changeTab(segment)}
             >
-              {segment[0].toUpperCase() + segment.substr(1)}
+              {t(segment[0].toUpperCase() + segment.substr(1))}
             </Segment>
           );
         })}

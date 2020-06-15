@@ -7,9 +7,12 @@ import { SectionCard } from 'src/components/settingsViews/style';
 import { ThemedButton } from 'src/components/button-new';
 import { withRouter, type History } from 'react-router';
 import Icon from 'src/components/icon';
+import { useTranslation } from 'react-i18next';
 
 
 export default () => {
+  const { t } = useTranslation('common');
+
   return (
     <LogoutWrapper>
       <SectionCard elevation="e200">
@@ -32,7 +35,7 @@ export default () => {
             glyph={'sign-out'} 
             size={24} />
 
-          Log out
+          {t('LogOut')}
         </ThemedButton>
       </SectionCard>
     </LogoutWrapper>

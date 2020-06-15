@@ -15,6 +15,7 @@ import { ThreadHeading } from 'src/views/thread/style';
 import { SegmentedControl, Segment } from 'src/components/segmentedControl';
 import MentionsInput from 'src/components/mentionsInput';
 import ThreadRenderer from '../threadRenderer';
+import { withTranslation } from 'react-i18next';
 
 type Props = {
   title: string,
@@ -26,9 +27,10 @@ type Props = {
   bodyRef?: Function,
   onKeyDown?: Function,
   isEditing: boolean,
+  t: i18n.TFunction
 };
 
-export default (props: Props) => {
+const MyComponent = (props: Props) => {
   // $FlowIssue
   const [showPreview, setShowPreview] = React.useState(false);
   // $FlowIssue
@@ -44,6 +46,7 @@ export default (props: Props) => {
     bodyRef,
     onKeyDown,
     isEditing,
+    t
   } = props;
 
   const onClick = (show: boolean) => {
@@ -57,7 +60,7 @@ export default (props: Props) => {
       })
         .then(res => {
           if (res.status < 200 || res.status >= 300)
-            throw new Error('Oops, something went wrong');
+            throw new Error(t('OopsSomethingWentWrong'));
           return res.json();
         })
         .then(json => {
@@ -81,10 +84,10 @@ export default (props: Props) => {
         }}
       >
         <Segment isActive={!showPreview} onClick={() => onClick(false)}>
-          Write
+          {t('Write')}
         </Segment>
         <Segment isActive={showPreview} onClick={() => onClick(true)}>
-          Preview
+          {t('Preview')}
         </Segment>
       </SegmentedControl>
       <ThreadInputs>
@@ -93,7 +96,7 @@ export default (props: Props) => {
           <RenderWrapper>
             <ThreadHeading>{title}</ThreadHeading>
             {previewBody === null ? (
-              <p>Loading...</p>
+              <p>{t('Loading')}</p>
             ) : (
               <ThreadRenderer body={previewBody} />
             )}
@@ -117,18 +120,18 @@ export default (props: Props) => {
                   onChange={changeTitle}
                   style={ThreadTitle}
                   value={title}
-                  placeholder="What do you want to talk about?"
+                  placeholder={t('WhatDoYouWantToTalkAbout')}
                   autoFocus={autoFocus}
                 />
 
                 <MentionsInput
                   isFullscreen={true}
                   onChange={changeBody}
-                  value={body === null ? 'Loading...' : body}
+                  value={body === null ? t('Loading') : body}
                   disabled={body === null}
                   style={ThreadDescription}
                   inputRef={bodyRef}
-                  placeholder="Elaborate here if necessary (optional)"
+                  placeholder={t('ElaborateHereIfNecessary')}
                   className={'threadComposer'}
                   dataCy="rich-text-editor"
                   onKeyDown={onKeyDown}
@@ -142,3 +145,5 @@ export default (props: Props) => {
     </InputsGrid>
   );
 };
+
+export default withTranslation('common')(MyComponent);

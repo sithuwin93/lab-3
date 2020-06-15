@@ -122,13 +122,13 @@ export const NavigationGridListScroller = styled.div`
   }
   
   &&::-webkit-scrollbar-track {
-    background: ${themed({light: colors.N10, dark: colors.N500})}; 
+    background: ${themed({light: colors.N10, dark: '#283447'})}; 
   }
    
   &&::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: ${themed({light: colors.N30,dark:colors.N800})};
+    background-color: ${themed({light: colors.N30,dark:colors.N300})};
 
   }
   

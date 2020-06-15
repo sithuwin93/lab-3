@@ -16,12 +16,15 @@ import JoinChannel from 'src/components/joinChannelWrapper';
 import JoinCommunity from 'src/components/joinCommunityWrapper';
 import { withCurrentUser } from 'src/components/withCurrentUser';
 import { ThemedButton } from 'src/components/button-new';
+import { useTranslation } from 'react-i18next';
 
 type CommunityProps = {
   community: CommunityInfoType,
 };
 
 export const MobileCommunityAction = (props: CommunityProps) => {
+  const { t } = useTranslation('common');
+
   const { community } = props;
   const { isMember } = community.communityPermissions;
   const { pathname, search } = getComposerLink({ communityId: community.id });
@@ -32,7 +35,7 @@ export const MobileCommunityAction = (props: CommunityProps) => {
         type='link'
         to={{pathname,search}}
         spacing="compact">
-        New post
+        {t('NewPost')}
       </ThemedButton>
       // <OutlineButton
       //   size={'small'}

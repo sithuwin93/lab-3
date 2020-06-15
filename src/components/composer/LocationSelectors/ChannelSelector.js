@@ -12,6 +12,9 @@ import Icon from 'src/components/icon';
 import { sortChannels } from '../utils';
 import { RequiredSelector, ChannelPreview } from '../style';
 import Select from 'src/components/select-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
+import { SelectWrapper } from '../style';
 
 type Props = {
   id: string,
@@ -25,6 +28,7 @@ type Props = {
     error: ?string,
     community: ?GetCommunityChannelConnectionType,
   },
+  t: i18n.TFunction
 };
 
 const ChannelSelector = (props: Props) => {
@@ -35,7 +39,8 @@ const ChannelSelector = (props: Props) => {
     selectedCommunityId,
     location,
     className,
-    ...rest
+    t,
+    ...rest,
   } = props;
   const { loading, error, community } = data;
   if (loading) return <LoadingSelect />;
@@ -103,7 +108,7 @@ const ChannelSelector = (props: Props) => {
     if (!channel) {
       if (shouldSelectSingleChannelChild()) return selectSingleChannelChild();
       return (
-        <div style={{width: 212, zIndex:11 }}>
+        <SelectWrapper style={{ zIndex:11 }}>
           <Select
             onChange={onChange}          
             className={className}
@@ -112,9 +117,9 @@ const ChannelSelector = (props: Props) => {
               if (!channel) return null;
               return ({ label: channel.name, value: channel.id });
             })}     
-            placeholder="Choose a channel"
+            placeholder={t('ChooseAChannel')}
             {...rest}/>
-        </div>
+        </SelectWrapper>
 
         // <RequiredSelector
         //   className={className}
@@ -173,7 +178,7 @@ const ChannelSelector = (props: Props) => {
     //     })}
     //   </React.Fragment>
     // </RequiredSelector>
-    <div style={{width: 212, zIndex:11}}>
+    <SelectWrapper style={{zIndex:11}}>
       <Select
         onChange={onChange}
         className={className}
@@ -182,12 +187,12 @@ const ChannelSelector = (props: Props) => {
           if (!channel) return null;
           return ({ label: `# ${channel.name}`, value: channel.id });
         })}    
-        placeholder="Choose a channel"/>
-    </div>
+        placeholder={t('ChooseAChannel')}/>
+    </SelectWrapper>
   );
 };
 
 export default compose(
   withRouter,
   getCommunityChannelConnection
-)(ChannelSelector);
+)(withTranslation(['common'])(ChannelSelector));

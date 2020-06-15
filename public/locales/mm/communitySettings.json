@@ -1,0 +1,25 @@
+{
+    "ReturnToCommunity": "{{name}} သို့ပြန်သွားမည်",
+    "OpenChatEnabled": "ဖွင့်စကားပြောခွင့်ပြု!",
+    "OpenChatDisabled": "ဖွင့်စကားပြောခန်းပိတ်ထား",
+    "OpenChat": "ချက်တင်ဖွင့်ပါ",
+    "DisplayAnOpenChatFeedOnYourCommunitysProfile":"သင့်အသိုင်းအဝိုင်း၏ပရိုဖိုင်းတွင်ပွင့်လင်းသော chat feed ကိုပြပါ။",
+    "GoToOpenChat": "ချက်တင်ဖွင့်ရန်သွားပါ",
+
+    "BrandedLogin":"ကုန်အမှတ်တံဆိပ်ဖြင့် ဝင်ပါ",
+    "BrandedLoginDescription": "လူများသည်သင်၏ရပ်ရွာလူမှုအသိုင်းအဝိုင်း၏ပရိုဖိုင်းမှလူများသည်ပါရာဘစ်သို့တိုက်ရိုက်စာရင်းသွင်းကြစဉ်စိတ်ကြိုက် login မက်ဆေ့ခ်ျကိုပြသပါ",
+    "SetACustomMessageForTheLoginScreen":"လော့အင်မျက်နှာပြင်အတွက်စိတ်ကြိုက်မက်ဆေ့ခ်ျတစ်ခုသတ်မှတ်ပါ",
+    "CustomLoginMessagesShouldBeUnder280Characters.":"စိတ်ကြိုက် login မက်ဆေ့ခ်ျများသည်စာလုံးရေ ၂၈၀ အောက်ဖြစ်ရမည်။",
+
+    "BrandedLoginDisabled": "အမှတ်တံဆိပ် login ပိတ်ထားသည်",
+    "BrandedLoginEnabled": "ကုန်အမှတ်တံဆိပ် login ဖွင့်ထားပါသည်",
+    "EnableCustomBrandedLogin":"စိတ်ကြိုက်အမှတ်တံဆိပ် login ဖွင့်ပါ",
+
+    "CommunitySettingSaved":"အသိုင်းအဝိုင်း setting ကိုသိမ်းဆည်းပြီးပါပြီ",
+    "MigrateYourCommunityElsewhere":"သင့်ရပ်ကွက်ကိုအခြားနေရာတစ်နေရာသို့ပြောင်းရွှေ့ပါ",
+    "MigrateYourCommunityElsewhereDescription1": "ဤချိန်ညှိချက်ကိုဖွင့်ထားခြင်းဖြင့်သင်၏အသိုင်းအဝိုင်း၏ ၀ ဘ်ဆိုဒ်သို့စာမျက်နှာများကိုလမ်းကြောင်းပြောင်းပေးလိမ့်မည်။",
+    "MigrateYourCommunityElsewhereDescription2": "လက်ရှိစကားဝိုင်းများကို Parabaik တွင်လက်ရှိ URL များဖြင့်ကြည့်ရှုနိုင်မည်ဖြစ်သော်လည်းအဖွဲ့ဝင်အသစ်များဝင်ရောက်နိုင်ခြင်းနှင့်အသစ်စကားပြောဆိုခြင်းများမပြုလုပ်နိုင်ပါ။",
+
+    "OptionalPreventThreadsInMyCommunityFromBeingIndexed":"Optional - ပြန်လည်နေရာချထားမှုတက်ကြွနေစဉ်ကျွန်ုပ်အသိုင်းအဝိုင်းရှိချည်များကိုရှာဖွေရေးအင်ဂျင်များဖြင့်ရည်ညွှန်းခြင်းကိုတားဆီးပါ။"
+
+}

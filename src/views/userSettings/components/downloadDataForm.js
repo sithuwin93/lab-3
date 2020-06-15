@@ -9,6 +9,8 @@ import {
   SectionCardFooter,
 } from 'src/components/settingsViews/style';
 import { themed } from 'src/components/theme';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const Link = styled.a`
   font-size: 14px;
@@ -24,19 +26,20 @@ const Link = styled.a`
 
 type Props = {
   user: Object,
+  t: i18n.TFunction
 };
 
 class DownloadDataForm extends React.Component<Props> {
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
 
     if (!user) return null;
 
     return (
       <SectionCard elevation="e200" data-cy="download-data-container">
-        <SectionTitle>Download my data</SectionTitle>
+        <SectionTitle>{t('usersSettings:DownloadMyData')}</SectionTitle>
         <SectionSubtitle>
-          You can download your personal data at any time.
+          {t('usersSettings:YouCanDownloadYourPersonalDataAtAnyTime')}
         </SectionSubtitle>
 
         <SectionCardFooter>
@@ -48,7 +51,7 @@ class DownloadDataForm extends React.Component<Props> {
             }
             download
           >
-            Download my data
+            {t('usersSettings:DownloadMyData')}
           </Link>
         </SectionCardFooter>
       </SectionCard>
@@ -56,4 +59,4 @@ class DownloadDataForm extends React.Component<Props> {
   }
 }
 
-export default DownloadDataForm;
+export default withTranslation(['common','usersSettings'])(DownloadDataForm);

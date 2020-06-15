@@ -7,6 +7,8 @@ import enableBrandedLoginMutation from 'shared/graphql/mutations/community/enabl
 import disableBrandedLoginMutation from 'shared/graphql/mutations/community/disableBrandedLogin';
 import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   id: string,
@@ -16,6 +18,7 @@ type Props = {
   enableBrandedLogin: Function,
   disableBrandedLogin: Function,
   dispatch: Dispatch<Object>,
+  t: i18n.TFunction
 };
 
 class BrandedLoginToggle extends React.Component<Props> {
@@ -28,7 +31,7 @@ class BrandedLoginToggle extends React.Component<Props> {
       .disableBrandedLogin({ id: this.props.id })
       .then(() => {
         return this.props.dispatch(
-          addToastWithTimeout('neutral', 'Branded login disabled')
+          addToastWithTimeout('neutral', this.props.t('communitySettings:BrandedLoginDisabled'))
         );
       })
       .catch(err => {
@@ -41,7 +44,7 @@ class BrandedLoginToggle extends React.Component<Props> {
       .enableBrandedLogin({ id: this.props.id })
       .then(() => {
         return this.props.dispatch(
-          addToastWithTimeout('success', 'Branded login enabled')
+          addToastWithTimeout('success', t('communitySettings:BrandedLoginEnabled'))
         );
       })
       .catch(err => {
@@ -51,10 +54,10 @@ class BrandedLoginToggle extends React.Component<Props> {
 
   render() {
     const { isEnabled } = this.props.settings;
-
+    const { t } = this.props;
     return (
       <Checkbox checked={isEnabled} onChange={this.init}>
-        Enable custom branded login
+        {t('communitySettings:EnableCustomBrandedLogin')}
       </Checkbox>
     );
   }
@@ -64,4 +67,4 @@ export default compose(
   connect(),
   enableBrandedLoginMutation,
   disableBrandedLoginMutation
-)(BrandedLoginToggle);
+)(withTranslation(['common','communitySettings'])(BrandedLoginToggle));

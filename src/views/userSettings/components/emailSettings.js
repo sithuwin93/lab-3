@@ -18,8 +18,10 @@ import type { GetCurrentUserSettingsType } from 'shared/graphql/queries/user/get
 import UserEmailConfirmation from 'src/components/userEmailConfirmation';
 import { SectionCard, SectionTitle } from 'src/components/settingsViews/style';
 import type { Dispatch } from 'redux';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-const parseNotificationTypes = notifications => {
+const parseNotificationTypes = (notifications,t) => {
   const types = Object.keys(notifications.types).filter(
     type => type !== '__typename'
   );
@@ -30,46 +32,42 @@ const parseNotificationTypes = notifications => {
         return {
           type,
           emailValue: notifications.types[type].email,
-          label:
-            "Email me when people respond in the threads and private conversations where I'm active - this includes direct messages.",
+          label: t('usersSettings:NewMessageInThreadsLabel'),
           display: 'flex-start',
         };
       case 'newDirectMessage':
         return {
           type,
           emailValue: notifications.types[type].email,
-          label: 'Email me when I receive new direct messages.',
+          label: t('usersSettings:NewDirectMessageLabel'),
           display: 'center',
         };
       case 'newThreadCreated':
         return {
           type,
           emailValue: notifications.types[type].email,
-          label:
-            'Email me when a new thread is published in channels where I receive notifications.',
+          label: t('usersSettings:NewThreadCreatedLabel'),
           display: 'flex-start',
         };
       case 'dailyDigest':
         return {
           type,
           emailValue: notifications.types[type].email,
-          label:
-            'Email me every day with the top conversations in my communities.',
+          label: t('usersSettings:DailyDigestLabel'),
           display: 'center',
         };
       case 'weeklyDigest':
         return {
           type,
           emailValue: notifications.types[type].email,
-          label:
-            'Email me once every week with the top conversations in my communities',
+          label: t('usersSettings:WeeklyDigestLabel'),
           display: 'center',
         };
       case 'newMention':
         return {
           type,
           emailValue: notifications.types[type].email,
-          label: 'Email me if someone @mentions me on Spectrum',
+          label: t('usersSettings:NewMentionLabel'),
           display: 'flex-start',
         };
       default:
@@ -86,6 +84,7 @@ type Props = {
   smallOnly: boolean,
   largeOnly: boolean,
   user: GetCurrentUserSettingsType,
+  t: i18n.TFunction
 };
 
 class EmailSettings extends React.Component<Props> {
@@ -101,7 +100,7 @@ class EmailSettings extends React.Component<Props> {
       .toggleNotificationSettings(input)
       .then(() => {
         return this.props.dispatch(
-          addToastWithTimeout('success', 'Settings saved!')
+          addToastWithTimeout('success', this.props.t('Settings saved!'))
         );
       })
       .catch(err => {
@@ -117,7 +116,7 @@ class EmailSettings extends React.Component<Props> {
       user,
     } = this.props;
 
-    const settings = parseNotificationTypes(notifications).filter(
+    const settings = parseNotificationTypes(notifications,this.props.t).filter(
       notification => notification.hasOwnProperty('emailValue')
     );
 
@@ -128,12 +127,10 @@ class EmailSettings extends React.Component<Props> {
           smallOnly={this.props.smallOnly}
           largeOnly={this.props.largeOnly}
         >
-          <SectionTitle>Turn on email notifications</SectionTitle>
+          <SectionTitle>{this.props.t('usersSettings:TurnOnEmailNotifications')}</SectionTitle>
           <ListContainer>
             <Description>
-              You can customize your email notifications to keep up to date on
-              what’s important to you on Spectrum. Enter your email below and
-              we’ll send you a confirmation link.
+              {this.props.t('usersSettings:TurnOnEmailNotificationsDescription')}
             </Description>
 
             <UserEmailConfirmation user={user} />
@@ -148,7 +145,7 @@ class EmailSettings extends React.Component<Props> {
         smallOnly={this.props.smallOnly}
         largeOnly={this.props.largeOnly}
       >
-        <SectionTitle>Email Preferences</SectionTitle>
+        <SectionTitle>{this.props.t('usersSettings:EmailPreferences')}</SectionTitle>
         <ListContainer>
           {settings.map((setting, i) => {
             return (
@@ -157,13 +154,12 @@ class EmailSettings extends React.Component<Props> {
                   checked={setting.emailValue}
                   onChange={this.handleChange}
                   id={setting.type}
-                  align={setting.display}
-                >
+                  align={setting.display}>
                   <CheckboxContent>
                     {setting.label}
                     {setting.type === 'newMessageInThreads' && (
                       <Notice>
-                        <strong>Trying to mute a specific conversation?</strong>{' '}
+                        <strong>{this.props.t('usersSettings:newMessageInThreadsNoticeStrong')}</strong>{' '}
                         You can turn off email notifications for individual
                         threads by clicking on the notification icon{' '}
                         <InlineIcon>
@@ -175,16 +171,13 @@ class EmailSettings extends React.Component<Props> {
 
                     {setting.type === 'newThreadCreated' && (
                       <Notice>
-                        You can turn off email notifications for individual
-                        channels by turning thread notifications off on in the
-                        sidebar of the individual channel’s page.
+                        {this.props.t('usersSettings:NewThreadCreatedNotice')}
                       </Notice>
                     )}
 
                     {setting.type === 'newMention' && (
                       <Notice>
-                        If you mute a specific conversation, new @mentions will
-                        not send you an email.
+                        {this.props.t('usersSettings:NewMentionNotice')}
                       </Notice>
                     )}
                   </CheckboxContent>
@@ -202,4 +195,5 @@ export default compose(
   toggleUserNotificationSettingsMutation,
   updateUserEmailMutation,
   connect()
-)(EmailSettings);
+)(withTranslation(['common','usersSettings'])(EmailSettings));
+

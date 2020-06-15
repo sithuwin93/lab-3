@@ -29,5 +29,21 @@ export const StyledTextArea = styled.textarea`
   // padding: 12px;
   // margin-left: 12px;
   // margin-bottom: 12px;
+
+  display: block;
+  position: absolute;
+  top: 0px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 100%;
+  // font-family: inherit;
+  // font-size: inherit;
+  height: 100%;
+  bottom: 0px;
+  overflow-y: auto;
+  resize: none;
+  // padding:10px;
+
+  
   
 `

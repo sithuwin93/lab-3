@@ -13,8 +13,10 @@ import { Description } from '../../style';
 import { Loading } from 'src/components/loading';
 import Clipboard from 'react-clipboard.js';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-const Share = ({ community, onboarding }) => {
+const Share = ({ community, onboarding, t }) => {
   if (!community) return <Loading />;
 
   return (
@@ -27,7 +29,7 @@ const Share = ({ community, onboarding }) => {
             community.name
           } community on Parabaik!`}
         >
-          Share on Facebook
+          {t('newCommunity:ShareOnFacebook')}
         </FacebookButton>
 
         <TwitterButton
@@ -37,7 +39,7 @@ const Share = ({ community, onboarding }) => {
             community.slug
           )}`}
         >
-          Share on Twitter
+          {t('newCommunity:ShareOnTwitter')}
         </TwitterButton>
       </ButtonRow>
 
@@ -52,9 +54,8 @@ const Share = ({ community, onboarding }) => {
 
       {onboarding && (
         <ButtonRow>
-          <Description centered>
-            You’re ready to start building your community - you can view it now,
-            or manage your settings at any time
+          <Description style={{width: '100%'}} centered>
+            {t('newCommunity:YoureReadyToStartBuildingYourCommunity')}
           </Description>
           {/* <OutlineButton to={`/${community.slug}/settings`}>
             View community settings
@@ -63,7 +64,7 @@ const Share = ({ community, onboarding }) => {
             type='link'
             to={`/${community.slug}/settings`}
             appearance="subtle">
-            View community settings
+            {t('newCommunity:ViewCommunitySettings')}
           </ThemedButton>
           {/* <PrimaryButton to={`/${community.slug}`}>
             Go to my community
@@ -72,7 +73,7 @@ const Share = ({ community, onboarding }) => {
             type='link'
             to={`/${community.slug}`}
             appearance="primary">
-            Go to my community
+            {t('newCommunity:GoToMyCommunity')}
           </ThemedButton>
         </ButtonRow>
       )}
@@ -80,4 +81,4 @@ const Share = ({ community, onboarding }) => {
   );
 };
 
-export default compose(withRouter)(Share);
+export default compose(withRouter)(withTranslation(['common','newCommunity'])(Share));

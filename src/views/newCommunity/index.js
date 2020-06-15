@@ -34,6 +34,8 @@ import viewNetworkHandler, {
 } from 'src/components/viewNetworkHandler';
 import { ViewGrid, SingleColumnGrid } from 'src/components/layout';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   activeStep: number,
@@ -51,6 +53,7 @@ type Props = {
   data: {
     user: ?GetCurrentUserSettingsType,
   },
+  t: i18n.TFunction
 };
 
 class NewCommunity extends React.Component<Props, State> {
@@ -74,9 +77,9 @@ class NewCommunity extends React.Component<Props, State> {
 
   componentDidMount() {
     const { existingId } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, t } = this.props;
 
-    dispatch(setTitlebarProps({ title: 'New community' }));
+    dispatch(setTitlebarProps({ title: t('NewCommunity') }));
 
     if (!existingId) return;
 
@@ -118,43 +121,41 @@ class NewCommunity extends React.Component<Props, State> {
   };
 
   title = () => {
+    const { t } = this.props;
     const { activeStep, community } = this.state;
     switch (activeStep) {
       case 1: {
-        return community ? 'Update your community' : 'Create a community';
+        return community ? t('newCommunity:UpdateYourCommunity'): t('newCommunity:CreateACommunity');
       }
       case 2: {
-        return `Invite people${
-          community
-            ? ` to the ${community.name} community`
-            : ' to your community'
-        }`;
+        return community? t('newCommunity:InvitePeopleToTheCommunity',{name:community.name}):
+        t('newCommunity:InvitePeopleToYourCommunity');
       }
       case 3: {
-        return 'Done!';
+        return t('newCommunity:Done');
       }
       default: {
-        return 'Create a community';
+        return t('newCommunity:CreateACommunity');
       }
     }
   };
 
   description = () => {
+    const { t } = this.props;
     const { activeStep, community } = this.state;
     switch (activeStep) {
       case 1: {
-        return 'Creating a community on Spectrum is free, forever. To get started, tell us more about your community below.';
+        return t('newCommunity:CreateACommunityDescription');
       }
       case 2: {
-        return `Kickstart ${
-          community ? `the ${community.name} community` : 'your community'
-        } by inviting an existing Slack team or by inviting a handful of folks directly by email. You'll be able to invite more people at any point in the future, too, if you're not quite ready.`;
+        return community ? t('newCommunity:KickstartTheCommunity',{name:community.name}):
+          t('newCommunity:KickstartYourCommunity');
       }
       case 3: {
-        return "You're all set! Your community is live - go check it out, start posting threads, and get the conversations started!";
+        return t('newCommunity:YoureAllSet');
       }
       default: {
-        return 'Create a community';
+        return t('newCommunity:CreateACommunity');
       }
     }
   };
@@ -177,6 +178,7 @@ class NewCommunity extends React.Component<Props, State> {
     const {
       isLoading,
       data: { user },
+      t
     } = this.props;
     const { activeStep, community, hasInvitedPeople } = this.state;
     const title = this.title();
@@ -185,8 +187,8 @@ class NewCommunity extends React.Component<Props, State> {
       return (
         <ViewGrid>
           <Head
-            title={'New community'}
-            description={'Create a new community'}
+            title={t('newCommunity:NewCommunity')}
+            description={t('newCommunity:CreateACommunity')}
           />
           <SingleColumnGrid elevation="e200">
             <Container bg={activeStep === 3 ? 'onboarding' : null} repeat>
@@ -226,13 +228,13 @@ class NewCommunity extends React.Component<Props, State> {
                   <ThemedButton 
                     appearance="subtle"
                     onClick={() => this.step('previous')}>
-                    Back
+                    {t('Back')}
                   </ThemedButton>
                   {hasInvitedPeople ? (
                     // <Button onClick={() => this.step('next')}>Continue</Button>
                     <ThemedButton 
                       onClick={() => this.step('next')}>
-                      Continue
+                      {t('Continue')}
                     </ThemedButton>
                   ) : (
                     // <TextButton onClick={() => this.step('next')}>
@@ -240,7 +242,7 @@ class NewCommunity extends React.Component<Props, State> {
                     // </TextButton>
                     <ThemedButton 
                       onClick={() => this.step('next')}>
-                      Skip this step
+                      {t('SkipThisStep')}
                     </ThemedButton>
                   )}
                 </Actions>
@@ -264,15 +266,14 @@ class NewCommunity extends React.Component<Props, State> {
           <SingleColumnGrid elevation="e200">
             <Container bg={null}>
               <Title>
-                {user.pendingEmail ? 'Confirm' : 'Add'} Your Email Address
+                {user.pendingEmail ? t('ConfirmYourEmailAddress') :t('AddYourEmailAddress')}
               </Title>
               <Description>
-                Before creating a community, please{' '}
-                {user.pendingEmail ? 'confirm' : 'add'} your email address. This
-                email address will be used in the future to send you updates
-                about your community, including moderation events.
+                {user.pendingEmail ?
+                  t('newCommunity:BeforeCreatingACommunityPleaseConfirmYourEmailAddress'):
+                  t('newCommunity:BeforeCreatingACommunityPleaseAddYourEmailAddress')
+                }
               </Description>
-
               <div style={{ padding: '0 24px 24px' }}>
                 <UserEmailConfirmation user={user} />
               </div>
@@ -299,4 +300,4 @@ export default compose(
   connect(),
   getCurrentUserSettings,
   viewNetworkHandler
-)(NewCommunity);
+)(withTranslation(['common','newCommunity'])(NewCommunity));

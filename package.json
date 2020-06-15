@@ -142,8 +142,9 @@
     "hot-shots": "^5.9.2",
     "hpp": "^0.2.2",
     "hsts": "^2.1.0",
-    "i18next": "19.4.3",
+    "i18next": "^19.4.5",
     "i18next-browser-languagedetector": "^4.2.0",
+    "i18next-http-backend": "^1.0.15",
     "i18next-http-middleware": "^1.2.0",
     "idx": "^2.4.0",
     "imgix-core-js": "^1.0.6",
@@ -164,6 +165,7 @@
     "memoize-one": "^5.1.1",
     "moment": "^2.22.2",
     "ms": "^2.1.1",
+    "myanmar-numbers": "^2.1.3",
     "next": "9.3.5",
     "next-compose-plugins": "^2.2.0",
     "next-cookies": "^2.0.3",
@@ -197,7 +199,7 @@
     "react-flip-move": "^3.0.2",
     "react-focus-lock": "^1.19.1",
     "react-helmet-async": "^0.2.0",
-    "react-i18next": "^11.4.0",
+    "react-i18next": "^11.5.0",
     "react-image": "^1.5.1",
     "react-infinite-scroller": "^1.2.4",
     "react-infinite-scroller-fork-mxstbr": "^1.2.7",
@@ -320,6 +322,6 @@
     "webpack-defaults": "webpack-defaults",
     "process:emails:test": "(cd email-template-scripts && python3 inline-html-emails.py && node sendgrid-sync.js)",
     "process:emails:prod": "(cd email-template-scripts && python3 inline-html-emails.py && node sendgrid-sync.js prod)",
-    "process:emails:send": "(cd email-template-scripts && node send-test-emails.js brian@spectrum.chat)",
+    "process:emails:send": "(cd email-template-scripts && node send-test-emails.js brian@spectrum.chat)"
   }
 }

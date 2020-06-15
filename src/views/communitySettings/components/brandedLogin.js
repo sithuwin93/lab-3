@@ -25,6 +25,8 @@ import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
 import { ThemedButton } from 'src/components/button-new';
 import TextArea from 'src/components/textarea';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   data: {
@@ -33,6 +35,7 @@ type Props = {
   ...$Exact<ViewNetworkHandlerType>,
   saveBrandedLoginSettings: Function,
   dispatch: Dispatch<Object>,
+  t: i18n.TFunction
 };
 
 type State = {
@@ -85,7 +88,7 @@ class BrandedLogin extends React.Component<Props, State> {
       })
       .then(() => {
         this.setState({ messageLengthError: false, isLoading: false });
-        return this.props.dispatch(addToastWithTimeout('success', 'Saved!'));
+        return this.props.dispatch(addToastWithTimeout('success', this.props.t('Saved')));
       })
       .catch(err => {
         this.setState({ messageLengthError: false, isLoading: false });
@@ -97,6 +100,7 @@ class BrandedLogin extends React.Component<Props, State> {
     const {
       data: { community },
       isLoading,
+      t
     } = this.props;
     const { messageLengthError } = this.state;
 
@@ -104,10 +108,10 @@ class BrandedLogin extends React.Component<Props, State> {
       const { brandedLogin } = community;
       return (
         <SectionCard elevation="e200" data-cy="community-settings-branded-login">
-          <SectionTitle>Branded Login</SectionTitle>
+          <SectionTitle>{t('communitySettings:BrandedLogin')}</SectionTitle>
           <SectionSubtitle>
-            Display a custom login message when people are signing up to
-            Spectrum directly from your community’s profile
+            {t('communitySettings:BrandedLoginDescription')}
+            
           </SectionSubtitle>
 
           <BrandedLoginToggle settings={brandedLogin} id={community.id} />
@@ -116,7 +120,7 @@ class BrandedLogin extends React.Component<Props, State> {
             {brandedLogin.isEnabled && (
               <TextArea
                 defaultValue={brandedLogin.message}
-                placeholder={'Set a custom message for the login screen'}
+                placeholder={t('communitySettings:SetACustomMessageForTheLoginScreen')}
                 onChange={this.handleChange}
                 dataCy="community-settings-branded-login-input"
               />
@@ -124,7 +128,7 @@ class BrandedLogin extends React.Component<Props, State> {
 
             {messageLengthError && (
               <Error>
-                Custom login messages should be under 280 characters.
+                {t('communitySettings:CustomLoginMessagesShouldBeUnder280Characters')}
               </Error>
             )}
 
@@ -152,7 +156,7 @@ class BrandedLogin extends React.Component<Props, State> {
                   disabled={messageLengthError}
                   loading={this.state.isLoading}
                   data-cy="community-settings-branded-login-save">
-                  {this.state.isLoading ? 'Saving...' : 'Save'}
+                  {this.state.isLoading ? t('Saving') : t('Save')}
                 </ThemedButton>
                 {/* <TextButton
                   to={`/${community.slug}/login`}
@@ -163,10 +167,11 @@ class BrandedLogin extends React.Component<Props, State> {
                 </TextButton> */}
                 <ThemedButton
                   appearance="subtle"
+                  type='link'
                   to={`/${community.slug}/login`}
                   style={{ alignSelf: 'flex-start', marginRight: '8px' }}
                   data-cy="community-settings-branded-login-preview">
-                  Preview
+                  {t('Preview')}
                 </ThemedButton>
               </SectionCardFooter>
             )}
@@ -192,4 +197,4 @@ export default compose(
   viewNetworkHandler,
   saveBrandedLoginSettings,
   connect()
-)(BrandedLogin);
+)(withTranslation(['common','communitySettings'])(BrandedLogin));

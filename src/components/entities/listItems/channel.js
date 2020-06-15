@@ -19,6 +19,7 @@ import {
   ChannelActions,
 } from './style';
 import { ThemedButton } from 'src/components/button-new';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   channel: ?ChannelInfoType,
@@ -39,6 +40,8 @@ const Channel = (props: Props) => {
     currentUser,
     isActive = false,
   } = props;
+  const { t } = useTranslation(['common','community']);
+
   const [isHoveringNotifications, setIsHoveringNotifications] = useState(false);
   if (!channel) return null;
 
@@ -61,7 +64,7 @@ const Channel = (props: Props) => {
       const { isMember } = channelPermissions;
       return (
         <React.Fragment>
-          <Tooltip content="Go to settings">
+          <Tooltip content={t('community:GoToSettings')}>
             <span style={{ marginLeft: '8px', display: 'flex' }}>
               <OutlineButton
                 to={`/${community.slug}/${channel.slug}/settings`}
@@ -85,7 +88,7 @@ const Channel = (props: Props) => {
                   <ThemedButton 
                     spacing="compact"
                     appearance="primary">
-                    {isLoading ? 'Joining...' : 'Join'}
+                    {isLoading ? t('Joining') : t('Join')}
                   </ThemedButton>
                   // <PrimaryOutlineButton
                   //   size={'small'}
@@ -112,7 +115,7 @@ const Channel = (props: Props) => {
             //   {isLoading ? 'Leaving...' : isHovering ? 'Leave' : 'Member'}
             // </OutlineButton>
             <ThemedButton spacing="compact">
-              {isLoading ? 'Leaving...' : isHovering ? 'Leave' : 'Member'}
+              {isLoading ? t('Leaving') : isHovering ? t('Leave') : t('Member')}
             </ThemedButton>
           )}
         />
@@ -128,7 +131,7 @@ const Channel = (props: Props) => {
           <ThemedButton 
             spacing="compact"
             appearance="primary">
-            {isLoading ? 'Joining...' : 'Join'}
+            {isLoading ? t('Joining') : t('Join')}
           </ThemedButton>
         )}
       />
@@ -148,8 +151,8 @@ const Channel = (props: Props) => {
     if (!isMember) return null;
 
     const tipText = receiveNotifications
-      ? 'Mute notifications'
-      : 'Enable channel notifications';
+      ? t('community:MuteNotifications')
+      : t('community:EnableChannelNotifications');
     const glyph = receiveNotifications
       ? isHoveringNotifications
         ? 'mute'

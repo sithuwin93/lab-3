@@ -10,15 +10,18 @@ import {
 import { OutlineButton } from 'src/components/button';
 import Icon from 'src/components/icon';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   community: GetSlackSettingsType,
   isOnboarding: boolean,
+  t: i18n.TFunction
 };
 
 class ImportSlackTeam extends React.Component<Props> {
   render() {
-    const { community, isOnboarding = false } = this.props;
+    const { t, community, isOnboarding = false } = this.props;
 
     const url = isOnboarding
       ? `https://slack.com/oauth/authorize?client_id=201769987287.271382863153&scope=users:read.email%20users:read%20chat:write:bot%20groups:read%20channels:read&state=${
@@ -40,17 +43,16 @@ class ImportSlackTeam extends React.Component<Props> {
       <SectionCard elevation="e200">
         <SectionTitleWithIcon>
           <Icon glyph={'slack-colored'} size={32} />
-          Connect a Slack team
+            {t('ConnectASlackTeam')}
         </SectionTitleWithIcon>
         <SectionSubtitle>
-          Invite your Slack team to your community or get notified when new
-          conversations are created.
+          {t('InviteYourSlackTeamToYourCommunity')}
         </SectionSubtitle>
 
         <SectionCardFooter>
           <a href={url}>
             {/* <OutlineButton>Connect a Slack team</OutlineButton> */}
-            <ThemedButton>Connect a Slack team</ThemedButton>
+            <ThemedButton>{t('ConnectASlackTeam')}</ThemedButton>
           </a>
         </SectionCardFooter>
       </SectionCard>
@@ -58,4 +60,4 @@ class ImportSlackTeam extends React.Component<Props> {
   }
 }
 
-export default ImportSlackTeam;
+export default withTranslation('newCommunity')(ImportSlackTeam);

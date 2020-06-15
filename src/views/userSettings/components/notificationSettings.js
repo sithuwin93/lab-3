@@ -10,6 +10,8 @@ import { ListContainer, Notice } from 'src/components/listItems/style';
 import { SectionCard, SectionTitle } from 'src/components/settingsViews/style';
 import { EmailListItem } from '../style';
 import type { Dispatch } from 'redux';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   webPushBlocked: boolean,
@@ -21,6 +23,7 @@ type Props = {
   dispatch: Dispatch<Object>,
   smallOnly?: boolean,
   largeOnly?: boolean,
+  t: i18n.TFunction
 };
 
 class NotificationSettings extends React.Component<Props, State> {
@@ -57,7 +60,7 @@ class NotificationSettings extends React.Component<Props, State> {
         return this.props.dispatch(
           addToastWithTimeout(
             'error',
-            "Oops, we couldn't enable browser notifications for you. Please try again!"
+            this.props.t('usersSettings:OopsWeCouldntEnableBrowserNotificationsForYou')
           )
         );
       });
@@ -74,7 +77,7 @@ class NotificationSettings extends React.Component<Props, State> {
           return this.props.dispatch(
             addToastWithTimeout(
               'error',
-              "Oops, we couldn't disable browser notifications for you. Please try again!"
+              this.props.t('usersSettings:OopsWeCouldntEnableBrowserNotificationsForYou')
             )
           );
         }
@@ -83,13 +86,14 @@ class NotificationSettings extends React.Component<Props, State> {
         return this.props.dispatch(
           addToastWithTimeout(
             'error',
-            "Oops, we couldn't disable browser notifications for you. Please try again!"
+            this.props.t('usersSettings:OopsWeCouldntEnableBrowserNotificationsForYou')
           )
         );
       });
   };
 
   render() {
+    const { t } = this.props;
     const { webPushBlocked, subscription } = this.state;
     const onChange = !subscription
       ? this.subscribeToWebPush
@@ -101,7 +105,7 @@ class NotificationSettings extends React.Component<Props, State> {
         smallOnly={this.props.smallOnly}
         largeOnly={this.props.largeOnly}
       >
-        <SectionTitle>Notification Preferences</SectionTitle>
+        <SectionTitle>{t('usersSettings:NotificationPreferences')}</SectionTitle>
         <ListContainer>
           <EmailListItem>
             {subscription !== null && (
@@ -110,7 +114,7 @@ class NotificationSettings extends React.Component<Props, State> {
                 disabled={webPushBlocked}
                 onChange={onChange}
               >
-                Enable browser push notifications
+                {t('usersSettings:EnableBrowserPushNotifications')}
               </Checkbox>
             )}
             {webPushBlocked && (
@@ -139,4 +143,4 @@ class NotificationSettings extends React.Component<Props, State> {
 export default compose(
   subscribeToWebPush,
   connect()
-)(NotificationSettings);
+)(withTranslation(['common','usersSettings'])(NotificationSettings));

@@ -227,14 +227,14 @@ class MentionsInput extends React.Component {
   }
 
   renderInput = props => {
-    return <TextField ref={this.setInputRef} {...props} />
+    return <TextField  ref={this.setInputRef} {...props} />
   }
 
   renderTextarea = props => {
     if(props.isFullscreen) {
-      return <StyledTextArea ref={this.setInputRef} {...props}/>
+      return <StyledTextArea spellCheck={true} ref={this.setInputRef} {...props}/>
     } else {
-      return <TextArea ref={this.setInputRef} {...props}/>
+      return <TextArea spellCheck={true}  ref={this.setInputRef} {...props}/>
     }
   }
 
@@ -290,11 +290,12 @@ class MentionsInput extends React.Component {
 
   renderHighlighter = inputStyle => {
     const { selectionStart, selectionEnd } = this.state
-    const { singleLine, children, value, style } = this.props
+    const { isFullscreen,singleLine, children, value, style } = this.props;
+    const newstyle=  isFullscreen ? style('highlighter'): {height:0}
     return (
       <Highlighter
         ref={el => this.highlighterRef = el}
-        style={{...style('highlighter'),height:0}}
+        style={newstyle}
         inputStyle={inputStyle}
         value={value}
         singleLine={singleLine}

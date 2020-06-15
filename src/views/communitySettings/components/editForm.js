@@ -36,6 +36,8 @@ import { ThemedButton } from 'src/components/button-new';
 import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
 import { LabelWrapper, Label } from '../style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 
 type State = {
@@ -52,6 +54,7 @@ type State = {
   photoSizeError: boolean,
   nameError: boolean,
   isLoading: boolean,
+  t: i18n.TFunction
 };
 
 type Props = {
@@ -227,7 +230,7 @@ class EditForm extends React.Component<Props, State> {
         // community was returned
         if (community !== undefined) {
           this.props.dispatch(
-            addToastWithTimeout('success', 'Community saved!')
+            addToastWithTimeout('success', this.props.t('communitySettings:CommunitySaved'))
           );
         }
         return;
@@ -248,7 +251,7 @@ class EditForm extends React.Component<Props, State> {
     const message = (
       <div>
         <p>
-          Are you sure you want to delete your community, <b>{name}</b>?
+          {t('communitySettings:AreYouSureYouWantToDeleteYourCommunity')}<b>{name}</b>?
         </p>{' '}
         <p>
           <b>{communityData.metaData.members} members</b> will be removed from
@@ -299,7 +302,7 @@ class EditForm extends React.Component<Props, State> {
             {/* <PrimaryOutlineButton>Create</PrimaryOutlineButton> */}
             <ThemedButton
               appearance="primary">
-              Create
+              {t('Create')}
             </ThemedButton>
           </Actions>
         </SectionCard>
@@ -452,4 +455,4 @@ export default compose(
   connect(),
   editCommunityMutation,
   withRouter
-)(EditForm);
+)(withTranslation(['common','usersSettings'])(EditForm));

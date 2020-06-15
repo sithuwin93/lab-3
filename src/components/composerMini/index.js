@@ -31,6 +31,7 @@ import { themed } from 'src/components/theme';
 import Button, { ThemedButton } from 'src/components/button-new';
 import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -56,6 +57,8 @@ const MiniComposer = ({
   selectedChannelId: defaultSelectedChannel,
   fixedChannelId,
 }: Props) => {
+  const { t } = useTranslation(['common','community']);
+
   const titleEditor = useRef();
   const bodyEditor = useRef();
   const [selectedChannelId, setSelectedChannelId] = useState(
@@ -71,7 +74,7 @@ const MiniComposer = ({
   const [titleWarning, setTitleWarning] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const titleWarningText =
-    'Tip: good titles are shorter than 80 characters. Add more details below.';
+    t('community:TipGoodTitlesAreShorterThan80Characters');
   useEffect(() => {
     if (title.length >= 80 && !titleWarning) {
       setTitleWarning(titleWarningText);
@@ -270,7 +273,7 @@ const MiniComposer = ({
             ref={titleEditor}
             value={title}
             onChange={changeTitle}
-            placeholder="What's on your mind?"
+            placeholder={t('community:WhatsOnYourMind')}
           />        
         </div>
         {!expanded && 
@@ -278,7 +281,7 @@ const MiniComposer = ({
           <ThemedButton
             appearance="primary"
             tabIndex={-1}>
-            Post
+            {t('Post')}
           </ThemedButton>
         }
       </div>
@@ -309,7 +312,7 @@ const MiniComposer = ({
                   inputRef={bodyEditor}
                   value={body}
                   onChange={changeBody}
-                  placeholder="(Optional) Add more details..."
+                  placeholder={t('community:OptionalAddMoreDetails')}
                   // style={{
                   //   background: theme.bg.default,
                   //   border: `1px solid ${theme.bg.border}`,
@@ -384,7 +387,7 @@ const MiniComposer = ({
                   tabIndex={3}
                 />
               )}
-              <Tooltip content="Open in fullscreen">
+              <Tooltip content={t('community:OpenInFullscreen')}>
                 <span style={{ marginLeft: '8px' }}>
                   <Link
                     data-cy="mini-composer-fullscreen"
@@ -417,7 +420,7 @@ const MiniComposer = ({
                 tabIndex={0}
                 onClick={handleCancel}
                 data-cy="mini-composer-cancel">
-                Cancel
+                {t('Cancel')}
               </ThemedButton>
               {/* <PrimaryButton
                 tabIndex={4}
@@ -443,7 +446,7 @@ const MiniComposer = ({
                   (!fixedChannelId && !selectedChannelId)
                 }
                 onClick={publish}>
-                {isLoading ? 'Posting...' : 'Post'}
+                {isLoading ? t('Posting') : t('Post')}
               </ThemedButton>
             </div>
           </div>

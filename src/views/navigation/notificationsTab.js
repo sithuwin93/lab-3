@@ -22,6 +22,7 @@ import { NavigationContext } from 'src/helpers/navigation-context';
 import formatNotification from 'shared/notification-to-text';
 import { withCurrentUser } from 'src/components/withCurrentUser';
 import { AvatarGrid, AvatarLink, Label, IconWrapper, RedDot } from './style';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   isActive: boolean,
@@ -38,6 +39,7 @@ type Props = {
 };
 
 const NotificationsTab = (props: Props) => {
+  const { t } = useTranslation('common');
   const { count, data, isActive, match, currentUser } = props;
 
   const isWideViewport =
@@ -105,7 +107,7 @@ const NotificationsTab = (props: Props) => {
     <NavigationContext.Consumer>
       {({ setNavigationIsOpen }) => (
         <Tooltip
-          content="Notifications"
+          content={t('Notifications')}
           placement={'left'}
           isEnabled={!isWideViewport}
         >
@@ -123,7 +125,7 @@ const NotificationsTab = (props: Props) => {
                 {count > 0 && <RedDot />}
               </IconWrapper>
 
-              <Label>Notifications</Label>
+              <Label>{t('Notifications')}</Label>
             </AvatarLink>
           </AvatarGrid>
         </Tooltip>

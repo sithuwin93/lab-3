@@ -15,12 +15,15 @@ import toggleCommunityNoindex from 'shared/graphql/mutations/community/toggleCom
 import { addToastWithTimeout } from 'src/actions/toasts';
 import type { Dispatch } from 'redux';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   community: GetCommunityType,
   toggleCommunityRedirect: Function,
   toggleCommunityNoindex: Function,
   dispatch: Dispatch<Object>,
+  t: i18n.TFunction
 };
 
 type State = {
@@ -67,7 +70,7 @@ class RedirectSettings extends React.Component<Props, State> {
       .then(() => {
         this.setState({ isLoadingNoindex: false });
         return this.props.dispatch(
-          addToastWithTimeout('success', 'Community setting saved')
+          addToastWithTimeout('success', t('communitySettings:CommunitySettingSaved'))
         );
       })
       .catch(err => {
@@ -77,22 +80,20 @@ class RedirectSettings extends React.Component<Props, State> {
   };
 
   render() {
-    const { community } = this.props;
+    const { community,t } = this.props;
 
     if (community) {
       return (
         <SectionCard elevation="e200" data-cy="community-settings-redirect">
-          <SectionTitle>Migrate your community elsewhere</SectionTitle>
+          <SectionTitle>{t('communitySettings:MigrateYourCommunityElsewhere')}</SectionTitle>
           <SectionSubtitle style={{ marginTop: '8px' }}>
-            Enabling this setting will redirect your community and channel pages
-            to your community's website.
+            {t('communitySettings:MigrateYourCommunityElsewhereDescription1')}
           </SectionSubtitle>
           <SectionSubtitle style={{ marginTop: '8px' }}>
-            Existing conversations will stay accessible on Spectrum at their
-            current URLs, but no new members can join and no new conversations
-            can be created.
+            {t('communitySettings:MigrateYourCommunityElsewhereDescription2')}            
           </SectionSubtitle>
           <SectionSubtitle style={{ marginTop: '8px' }}>
+            {/* {t('communitySettings:MigrateYourCommunityElsewhereDescription3')} */}
             We recommend redirecting to a page that explains why users were
             redirected from Spectrum. For example, you can include a query param
             in your community website setting (e.g.{' '}
@@ -117,10 +118,10 @@ class RedirectSettings extends React.Component<Props, State> {
               style={{ alignSelf: 'flex-start' }}
             >
               {this.state.isLoadingRedirect
-                ? 'Loading...'
+                ? t('Loading')
                 : this.props.community.redirect
-                ? 'Disable'
-                : 'Enable'}
+                ? t('Disable')
+                : t('Enable')}
             </ThemedButton>
           </SectionCardFooter>
           {this.props.community.redirect && (
@@ -129,8 +130,7 @@ class RedirectSettings extends React.Component<Props, State> {
                 style={{ marginTop: '24px', paddingTop: '24px' }}
               >
                 <SectionSubtitle>
-                  Optional: Prevent threads in my community from being indexed
-                  by search engines while redirection is active.
+                  {t('communitySettings:OptionalPreventThreadsInMyCommunityFromBeingIndexed')}
                 </SectionSubtitle>
               </SectionCardFooter>
               <SectionCardFooter style={{ borderTop: '0', paddingTop: '0' }}>
@@ -150,10 +150,10 @@ class RedirectSettings extends React.Component<Props, State> {
                   onClick={this.toggleNoindex}
                   style={{ alignSelf: 'flex-start' }}>
                   {this.state.isLoadingNoindex
-                    ? 'Loading...'
+                    ? t('Loading')
                     : this.props.community.noindex
-                    ? 'Disable'
-                    : 'Enable'}
+                    ? t('Disable')
+                    : t('Enable')}
                 </ThemedButton>
               </SectionCardFooter>
             </React.Fragment>
@@ -170,4 +170,4 @@ export default compose(
   toggleCommunityRedirect,
   toggleCommunityNoindex,
   connect()
-)(RedirectSettings);
+)(withTranslation(['common','communitySettings'])(RedirectSettings));

@@ -5,15 +5,17 @@ import Tooltip from 'src/components/tooltip';
 import { NavigationContext } from 'src/helpers/navigation-context';
 import { MIN_WIDTH_TO_EXPAND_NAVIGATION } from 'src/components/layout';
 import { AvatarGrid, AvatarLink, Label, IconWrapper } from './style';
+import { useTranslation } from 'react-i18next';
 
 const GlobalComposerTab = () => {
+  const { t } = useTranslation('common');
   const isWideViewport =
     window && window.innerWidth > MIN_WIDTH_TO_EXPAND_NAVIGATION;
   return (
     <NavigationContext.Consumer>
       {({ setNavigationIsOpen }) => (
         <Tooltip
-          content="New post"
+          content={t('NewPost')}
           placement={'left'}
           isEnabled={!isWideViewport}
         >
@@ -27,7 +29,7 @@ const GlobalComposerTab = () => {
                 <Icon glyph="post" />
               </IconWrapper>
 
-              <Label>New Post</Label>
+              <Label>{t('NewPost')}</Label>
             </AvatarLink>
           </AvatarGrid>
         </Tooltip>

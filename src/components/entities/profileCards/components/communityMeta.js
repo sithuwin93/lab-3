@@ -12,14 +12,17 @@ import {
   MetaRow,
   OnlineDot,
 } from '../style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   // TODO: Properly type this
   community: Object,
+  t: i18n.TFunction
 };
 
-export const CommunityMeta = (props: Props) => {
-  const { community } = props;
+const Meta = (props: Props) => {
+  const { community, t } = props;
   const { description, website } = community;
   const formattedDescription = description && renderTextWithLinks(description);
   const formattedWebsite = website && addProtocolToString(website);
@@ -51,12 +54,12 @@ export const CommunityMeta = (props: Props) => {
           <React.Fragment>
             <MetaRow as={Link} to={`/${community.slug}?tab=members`}>
               <Icon glyph={'person'} size={20} />{' '}
-              {community.metaData.members.toLocaleString()} members
+              {t('community:Members',{member: community.metaData.members.toLocaleString()})}
             </MetaRow>
 
             <MetaRow as={Link} to={`/${community.slug}?tab=members`}>
-              <OnlineDot /> {community.metaData.onlineMembers.toLocaleString()}{' '}
-              members online
+              <OnlineDot /> 
+              {t('community:MembersOnline',{member:community.metaData.onlineMembers.toLocaleString()})}
             </MetaRow>
           </React.Fragment>
         )}
@@ -64,3 +67,4 @@ export const CommunityMeta = (props: Props) => {
     </MetaContainer>
   );
 };
+export const CommunityMeta = withTranslation(['common','community'])(Meta)

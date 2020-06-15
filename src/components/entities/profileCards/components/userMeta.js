@@ -14,13 +14,16 @@ import {
   OnlineDot,
   Username,
 } from '../style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   user: UserInfoType,
+  t: i18n.TFunction
 };
 
-export const UserMeta = (props: Props) => {
-  const { user } = props;
+const Meta = (props: Props) => {
+  const { user, t } = props;
   const { description, website, isOnline } = user;
   const formattedDescription = description && renderTextWithLinks(description);
   const formattedWebsite = website && addProtocolToString(website);
@@ -70,10 +73,12 @@ export const UserMeta = (props: Props) => {
 
         {isOnline && (
           <MetaRow>
-            <OnlineDot /> Online now
+            <OnlineDot /> {t('OnlineNow')}
           </MetaRow>
         )}
       </MetaLinksContainer>
     </MetaContainer>
   );
 };
+
+export const UserMeta = withTranslation('common')(Meta)

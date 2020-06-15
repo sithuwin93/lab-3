@@ -41,7 +41,8 @@ import { StyledSingleColumn, StickyHeader } from './style';
 import { updateNotificationsCount } from 'src/actions/notifications';
 import NextPageButton from 'src/components/nextPageButton';
 import { PrimaryButton, OutlineButton } from 'src/components/button';
-
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 type Props = {
   markAllNotificationsSeen?: Function,
   markSingleNotificationSeen: Function,
@@ -61,6 +62,7 @@ type Props = {
   },
   networkOnline: boolean,
   websocketConnection: WebsocketConnectionType,
+  t: i18n.TFunction
 };
 
 type State = {
@@ -192,6 +194,7 @@ class NotificationsPure extends React.Component<Props, State> {
       isLoading,
       hasError,
       isFetchingMore,
+      t
     } = this.props;
 
     const { title, description } = generateMetaInfo({
@@ -428,8 +431,8 @@ class NotificationsPure extends React.Component<Props, State> {
     return (
       <ErrorView
         emoji="😙"
-        heading="No notifications...yet"
-        subheading="Looks like you’re new around here! When you start receiving notifications about conversations on Spectrum, they'll show up here."
+        heading={t('notifications:NoNotificationsYet')}
+        subheading={t('notifications:NoNotificationsYetDescription')}
       />
     );
   }
@@ -449,4 +452,4 @@ export default compose(
   withCurrentUser,
   // $FlowIssue
   connect(map)
-)(NotificationsPure);
+)(withTranslation(['common','notifications'])(NotificationsPure));

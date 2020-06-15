@@ -18,6 +18,7 @@ import { withCurrentUser } from 'src/components/withCurrentUser';
 import { MIN_WIDTH_TO_EXPAND_NAVIGATION } from 'src/components/layout';
 import formatNotification from 'shared/notification-to-text';
 import { AvatarGrid, AvatarLink, Label, IconWrapper, RedDot } from './style';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   count: number,
@@ -33,6 +34,7 @@ type Props = {
 };
 
 const DirectMessagesTab = (props: Props) => {
+  const { t } = useTranslation('common');
   const { count, data, isActive, currentUser } = props;
 
   // $FlowIssue
@@ -85,7 +87,7 @@ const DirectMessagesTab = (props: Props) => {
         <Route path="/messages">
           {({ match }) => (
             <Tooltip
-              content="Messages"
+              content={t('Messages')}
               placement={'left'}
               isEnabled={!isWideViewport}
             >
@@ -108,7 +110,7 @@ const DirectMessagesTab = (props: Props) => {
                     )}
                   </IconWrapper>
 
-                  <Label>Messages</Label>
+                  <Label>{t('Messages')}</Label>
                 </AvatarLink>
               </AvatarGrid>
             </Tooltip>

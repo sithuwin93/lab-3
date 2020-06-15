@@ -16,15 +16,18 @@ import { ActionsRowContainer } from '../style';
 import { isAdmin } from 'src/helpers/is-admin';
 import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   user: UserInfoType,
   currentUser: ?UserInfoType,
   dispatch: Dispatch<Object>,
+  t: i18n.TFunction
 };
 
 export const UnconnectedUserActions = (props: Props) => {
-  const { user, currentUser, dispatch } = props;
+  const { user, currentUser, dispatch, t } = props;
 
   if (!user) return null;
 
@@ -57,7 +60,7 @@ export const UnconnectedUserActions = (props: Props) => {
             glyph={'settings'} 
             size={24} />
 
-          Settings
+          {t('Settings')}
         </ThemedButton>     
       )}
 
@@ -70,8 +73,8 @@ export const UnconnectedUserActions = (props: Props) => {
           <ThemedButton
             data-cy="message-user-button"
             shouldFitContainer
-            appearance={'primary'}>
-            Message
+            appearance={'primary'}>            
+            {t('Message')}
           </ThemedButton>
         }
       />
@@ -84,7 +87,7 @@ export const UnconnectedUserActions = (props: Props) => {
           shouldFitContainer
           onClick={initReport}
           appearance={'danger'}>
-          Report
+          {t('Report')}
         </ThemedButton>
       
       )}
@@ -96,9 +99,8 @@ export const UnconnectedUserActions = (props: Props) => {
           shouldFitContainer
           onClick={initBan}
           appearance={'danger'}>
-          Ban
+          {t('Ban')}
         </ThemedButton>
-
       )}
     </ActionsRowContainer>
   );
@@ -107,4 +109,4 @@ export const UnconnectedUserActions = (props: Props) => {
 export const UserActions = compose(
   withCurrentUser,
   connect()
-)(UnconnectedUserActions);
+)(withTranslation(['common','community'])(UnconnectedUserActions));

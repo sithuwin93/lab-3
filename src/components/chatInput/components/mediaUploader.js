@@ -8,27 +8,30 @@ import {
   PRO_USER_MAX_IMAGE_SIZE_BYTES,
 } from 'src/helpers/images';
 import { MediaLabel, MediaInput, Form } from './style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   onValidated: Function,
   onError: Function,
   currentUser: ?Object,
   isSendingMediaMessage: boolean,
+  t: i18n.TFunction
 };
 
 class MediaUploader extends React.Component<Props> {
   form: any;
 
   validate = (validity: Object, file: ?Object) => {
-    const { currentUser } = this.props;
+    const { currentUser, t } = this.props;
 
-    if (!currentUser) return 'You must be signed in to upload images';
+    if (!currentUser) return  t('YouMustBeSignedInToUploadImages');
     if (!file) return this.props.onError('');
     if (!validity.valid)
-      return "We couldn't validate this upload, please try uploading another file";
+      return t('WeCouldntValidateThisUploadPleaseTryUploadingAnotherFile');
 
     if (file && file.size > PRO_USER_MAX_IMAGE_SIZE_BYTES) {
-      return `Try uploading a file less than ${PRO_USER_MAX_IMAGE_SIZE_STRING}.`;
+      return t('TryUploadingAFileLessThanMb', {size:PRO_USER_MAX_IMAGE_SIZE_STRING});
     }
 
     // if it makes it this far, there is not an error we can detect
@@ -127,4 +130,4 @@ class MediaUploader extends React.Component<Props> {
   }
 }
 
-export default MediaUploader;
+export default withTranslation('common')(MediaUploader);

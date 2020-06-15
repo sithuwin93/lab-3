@@ -17,8 +17,11 @@ import { setTitlebarProps } from 'src/actions/titlebar';
 import Analytics from '../communityAnalytics';
 import Members from '../communityMembers';
 import Overview from './components/overview';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
+  t: i18n.TFunction,
   data: {
     community: GetCommunityType,
   },
@@ -29,10 +32,10 @@ type Props = {
 
 class CommunitySettings extends React.Component<Props> {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, t } = this.props;
     dispatch(
       setTitlebarProps({
-        title: 'Settings',
+        title: t('Settings'),
       })
     );
   }
@@ -44,6 +47,7 @@ class CommunitySettings extends React.Component<Props> {
       match,
       isLoading,
       history,
+      t
     } = this.props;
 
     // this is hacky, but will tell us if we're viewing analytics or the root settings view
@@ -64,24 +68,24 @@ class CommunitySettings extends React.Component<Props> {
       const subnavItems = [
         {
           to: `/${community.slug}/settings`,
-          label: 'Overview',
+          label: t('Overview'),
           activeLabel: 'settings',
         },
         {
           to: `/${community.slug}/settings/members`,
-          label: 'Members',
+          label: t('Members'),
           activeLabel: 'members',
         },
         {
           to: `/${community.slug}/settings/analytics`,
-          label: 'Analytics',
+          label: t('Analytics'),
           activeLabel: 'analytics',
         },
       ];
 
       const subheading = {
         to: `/${community.slug}`,
-        label: `Return to ${community.name}`,
+        label: t('communitySettings:ReturnToCommunity', {name:community.name}),
       };
 
       const avatar = {
@@ -89,7 +93,7 @@ class CommunitySettings extends React.Component<Props> {
         community,
       };
 
-      let title = community.name + ' settings';
+      let title = community.name + ` ${t('Settings')}`;
 
       return (
         <React.Fragment>
@@ -100,7 +104,7 @@ class CommunitySettings extends React.Component<Props> {
               <Header
                 avatar={avatar}
                 subheading={subheading}
-                heading={'Settings'}
+                heading={t('Settings')}
               />
 
               <SegmentedControl>
@@ -149,4 +153,4 @@ export default compose(
   connect(),
   getCommunitySettingsByMatch,
   viewNetworkHandler
-)(CommunitySettings);
+)(withTranslation(['common','communitySettings'])(CommunitySettings));

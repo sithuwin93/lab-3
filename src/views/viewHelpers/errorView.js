@@ -4,6 +4,7 @@ import { OutlineButton, PrimaryButton } from 'src/components/button';
 import { Emoji, Heading, Description, ActionsRow, Card } from './style';
 import { ViewGrid, CenteredGrid } from 'src/components/layout';
 import { ThemedButton } from 'src/components/button-new';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   emoji?: string,
@@ -12,10 +13,12 @@ type Props = {
 };
 
 export const ErrorView = (props: Props) => {
+  const { t } = useTranslation('error');
+
   const {
     emoji = '😣',
-    heading = 'We ran into trouble loading this page',
-    subheading = 'You may be trying to view something that is deleted, or Spectrum is just having a hiccup. If you think something has gone wrong, please contact us.',
+    heading = t('error:WeRanIntoTroubleLoadingThisPage'),
+    subheading = t('error:WeRanIntoTroubleLoadingThisPageDescription'),
     ...rest
   } = props;
 
@@ -35,9 +38,9 @@ export const ErrorView = (props: Props) => {
             <ThemedButton
               shouldFitContainer
               type="a"
-              href={'mailto:hi@spectrum.chat'}
+              href={'mailto:hi@parabaik.com'}
               >
-              Contact us
+              {t('error:ContactUs')}
             </ThemedButton>
             {/* <PrimaryButton to={'/'}>Go home</PrimaryButton> */}
             <ThemedButton  
@@ -45,7 +48,7 @@ export const ErrorView = (props: Props) => {
               appearance="primary"
               type="link"
               to={'/'}>
-              Go home
+              {t('error:GoHome')}
             </ThemedButton>
           </ActionsRow>
         </Card>

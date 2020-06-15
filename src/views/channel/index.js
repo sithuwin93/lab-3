@@ -33,6 +33,8 @@ import CommunitySidebar from 'src/components/communitySidebar';
 import { FeedsContainer } from './style';
 import { InfoContainer } from '../community/style';
 import { FullScreenRedirectView } from 'src/views/viewHelpers/fullScreenRedirect';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   match: {
@@ -50,6 +52,7 @@ type Props = {
   dispatch: Dispatch<Object>,
   history: History,
   location: Location,
+  t: i18n.TFunction
 };
 
 class ChannelView extends React.Component<Props> {
@@ -150,6 +153,7 @@ class ChannelView extends React.Component<Props> {
       currentUser,
       isLoading,
       location,
+      t
     } = this.props;
     const isLoggedIn = currentUser;
     const { search } = location;
@@ -213,7 +217,7 @@ class ChannelView extends React.Component<Props> {
                       data-cy="channel-posts-tab"
                       hideOnDesktop
                     >
-                      Posts
+                      {t('Posts')}
                     </Segment>
 
                     <Segment
@@ -222,7 +226,7 @@ class ChannelView extends React.Component<Props> {
                       hideOnDesktop
                       data-cy="channel-members-tab"
                     >
-                      Members
+                      {t('Members')}
                     </Segment>
 
                     <Segment
@@ -231,7 +235,7 @@ class ChannelView extends React.Component<Props> {
                       data-cy="channel-info-tab"
                       hideOnDesktop
                     >
-                      Info
+                      {t('Info')}
                     </Segment>
                   </SegmentedControl>
 
@@ -288,4 +292,4 @@ export default compose(
   viewNetworkHandler,
   withRouter,
   connect()
-)(ChannelView);
+)(withTranslation(['common'])(ChannelView));

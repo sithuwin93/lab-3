@@ -21,6 +21,7 @@ import {
   CoverImage,
   PhotoInputImage,
 } from './style';
+import { useTranslation } from 'react-i18next';
 
 type InputProps = {
   children?: React$Node,
@@ -112,12 +113,14 @@ type CoverPhotoInputProps = {
 };
 
 export const CoverInput = (props: CoverPhotoInputProps) => {
+  const { t } = useTranslation('newCommunity');
+
   return (
     <CoverInputLabel>
       <InputOverlay
         visible={!props.defaultValue || props.defaultValue.length === 1}
       >
-        <WhiteOutlineButton as={'div'}>Add Cover Photo</WhiteOutlineButton>
+        <WhiteOutlineButton as={'div'}>{t('newCommunity:AddCoverPhoto')}</WhiteOutlineButton>
       </InputOverlay>
       <CoverImage
         src={props.defaultValue ? `${props.defaultValue}` : ''}

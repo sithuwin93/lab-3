@@ -1,0 +1,47 @@
+{
+  "MySettings": "My Settings",
+  "ReturnToProfile": "Return to Profile",
+  "ProfileSettings": "Profile Settings",
+  "Name": "Name",
+  "NamesCanBeUpTo50Characters": "Names can be up to 50 characters.",
+  "Username": "Username",
+  "SetAUsername": "Set a username...",
+  "Bio": "Bio",
+  "BiosCanBeUpTo140Characters": "Bios can be up to 140 characters.",
+  "IntroduceYourselfToTheClass":"Introduce yourself to the class...",
+  "Email": "Email",
+  "EmailAddress": "Email address",
+  "AConfirmationEmailHasBeenSentToEmail":"A confirmation email has been sent to {{email}}.",
+  "OptionalAddYourWebsite":"Optional: Add your website",
+  "ConnectYourGitHubProfile": "Connect your GitHub Profile",
+  "PleaseFixAnyErrorsAboveToSaveYourProfile.": "Please fix any errors above to save your profile.",
+
+  "AccountDeleted":"Account deleted",
+  "DeleteMyAccount":"Delete my account",
+  "YouCanDeleteYourAccountAtAnyTime.":"You can delete your account at any time.",
+  "ReadMoreAboutHowWeDeleteAccounts":"Read more about how we delete accounts",
+  "OwnsCommunitiesDescription": "You currently own communities on Parabaik. When your account is deleted these communities will not be deleted. Spectrum reserves the right to manage your communities after your account is deleted.",
+  "ConfirmAndDeleteMyAccount":"Confirm and delete my account",
+
+  "DownloadMyData": "Download my data",
+  "YouCanDownloadYourPersonalDataAtAnyTime":"You can download your personal data at any time.",
+  
+  "TurnOnEmailNotifications": "Turn on email notifications",
+  "TurnOnEmailNotificationsDescription": "You can customize your email notifications to keep up to date on what’s important to you on Spectrum. Enter your email below and we’ll send you a confirmation link.",
+  "EmailPreferences":"Email Preferences",
+
+  "newMessageInThreadsNoticeStrong": "Trying to mute a specific conversation?",
+  "NewThreadCreatedNotice": "You can turn off email notifications for individual channels by turning thread notifications off on in the sidebar of the individual channel’s page.",
+  "NewMentionNotice": "If you mute a specific conversation, new @mentions will not send you an email.",
+
+  "NewMessageInThreadsLabel": "Email me when people respond in the threads and private conversations where I'm active - this includes direct messages.",
+  "NewDirectMessageLabel": "Email me when I receive new direct messages.",
+  "NewThreadCreatedLabel": "Email me when a new thread is published in channels where I receive notifications.",
+  "DailyDigestLabel": "Email me every day with the top conversations in my communities.",
+  "WeeklyDigestLabel": "Email me once every week with the top conversations in my communities",
+  "NewMentionLabel": "Email me if someone @mentions me on Parabaik",
+
+  "NotificationPreferences":"Notification Preferences",
+  "OopsWeCouldntEnableBrowserNotificationsForYou": "Oops, we couldn't enable browser notifications for you. Please try again!",
+  "EnableBrowserPushNotifications":"Enable browser push notifications"
+}

@@ -43,6 +43,8 @@ import { ThemedButton } from 'src/components/button-new';
 import { LabelWrapper, Label } from '../style';
 import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   website: ?string,
@@ -69,6 +71,7 @@ type Props = {
   client: Object,
   editUser: Function,
   user: GetCurrentUserSettingsType,
+  t: i18n.TFunction
 };
 
 class UserWithData extends React.Component<Props, State> {
@@ -166,7 +169,7 @@ class UserWithData extends React.Component<Props, State> {
 
     if (file && file.size > PRO_USER_MAX_IMAGE_SIZE_BYTES) {
       return this.setState({
-        photoSizeError: `Try uploading a file less than ${PRO_USER_MAX_IMAGE_SIZE_STRING}.`,
+        photoSizeError: this.props.t('TryUploadingAFileLessThanMb', {size:PRO_USER_MAX_IMAGE_SIZE_STRING}),
         isLoading: false,
       });
     }
@@ -198,7 +201,7 @@ class UserWithData extends React.Component<Props, State> {
 
     if (file && file.size > PRO_USER_MAX_IMAGE_SIZE_BYTES) {
       return this.setState({
-        photoSizeError: `Try uploading a file less than ${PRO_USER_MAX_IMAGE_SIZE_STRING}.`,
+        photoSizeError: this.props.t('TryUploadingAFileLessThanMb', {size:PRO_USER_MAX_IMAGE_SIZE_STRING}),
         isLoading: false,
       });
     }
@@ -309,7 +312,7 @@ class UserWithData extends React.Component<Props, State> {
   };
 
   render() {
-    const { user } = this.props;
+    const { t, user } = this.props;
     const {
       name,
       username,
@@ -334,9 +337,9 @@ class UserWithData extends React.Component<Props, State> {
       <SectionCard elevation="e200" data-cy="user-edit-form">
         <Location>
           <Icon glyph="view-back" size={16} />
-          <Link to={`/users/${username}`}>Return to Profile</Link>
+          <Link to={`/users/${username}`}>{t('usersSettings:ReturnToProfile')}</Link>
         </Location>
-        <SectionTitle>Profile Settings</SectionTitle>
+        <SectionTitle>{t('usersSettings:ProfileSettings')}</SectionTitle>
         <Form onSubmit={this.save}>
           <ImageInputWrapper>
             <CoverInput
@@ -359,7 +362,7 @@ class UserWithData extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="name">
-              Name
+              {t('usersSettings:Name')}
             </Label>
             <TextField 
               name="name"
@@ -370,7 +373,7 @@ class UserWithData extends React.Component<Props, State> {
               dataCy="user-name-input"
             />
 
-            {nameError && <Error>Names can be up to 50 characters.</Error>}
+            {nameError && <Error>{t('usersSettings:NamesCanBeUpTo50Characters')}</Error>}
           </LabelWrapper>
           
           {/* <Input
@@ -387,10 +390,10 @@ class UserWithData extends React.Component<Props, State> {
 
           <UsernameSearch
             type={'text'}
-            label="Username"
+            label={t('usersSettings:Username')}
             size={'small'}
             username={username}
-            placeholder="Set a username..."
+            placeholder={t('usersSettings:SetAUsername')}
             onValidationResult={this.handleUsernameValidation}
             onError={this.handleOnError}
             dataCy="user-username-input"
@@ -402,15 +405,18 @@ class UserWithData extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="website">
-              Bio
+              {t('usersSettings:Bio')}
             </Label>
             <TextArea
               defaultValue={description}
               onChange={this.changeDescription}
-              placeholder={'Introduce yourself to the class...'}
+              placeholder={t('usersSettings:IntroduceYourselfToTheClass')}
               dataCy="user-description-input"
             />
-            {descriptionError && <Error>Bios can be up to 140 characters.</Error>}
+            {descriptionError && 
+              <Error>
+                {t('usersSettings:BiosCanBeUpTo140Characters')}
+              </Error>}
 
           </LabelWrapper>
           {/* <TextArea
@@ -426,7 +432,7 @@ class UserWithData extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="website">
-              Optional: Add your website
+              {t('usersSettings:OptionalAddYourWebsite')}
             </Label>
             <TextField 
               name="website"
@@ -447,19 +453,19 @@ class UserWithData extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="email">
-              Email
+              {t('usersSettings:Email')}
             </Label>
             <TextField 
               name="email"
               type="text"
               defaultValue={email}
               onChange={this.changeEmail}
-              placeholder={'Email address'}
+              placeholder={t('usersSettings:EmailAddress')}
               dataCy="user-email-input"
             />
 
             {didChangeEmail && (
-              <Success>A confirmation email has been sent to {email}.</Success>
+              <Success>{t('usersSettings:AConfirmationEmailHasBeenSentToEmail',{email})}</Success>
             )}
             {emailError && <Error>{emailError}</Error>}
           </LabelWrapper>
@@ -484,7 +490,7 @@ class UserWithData extends React.Component<Props, State> {
               if (!profile) {
                 return (
                   <GithubSignin>
-                    <StyledLabel>Connect your GitHub Profile</StyledLabel>
+                    <StyledLabel>{t('usersSettings:ConnectYourGitHubProfile')}</StyledLabel>
                     <GithubSigninButton
                       href={`${SERVER_URL}/auth/github?r=${postAuthRedirectPath}`}
                       preferred={true}
@@ -535,11 +541,11 @@ class UserWithData extends React.Component<Props, State> {
               iconBefore={<Icon 
                 glyph={'save'} 
                 size={24} />}>                
-                {isLoading ? 'Saving...' : 'Save'}
+                {isLoading ? t('Saving') : t('Save')}
             </ThemedButton>     
           </Actions>
           {createError && (
-            <Error>Please fix any errors above to save your profile.</Error>
+            <Error>{t('usersSettings:PleaseFixAnyErrorsAboveToSaveYourProfile')}</Error>
           )}
         </Form>
       </SectionCard>
@@ -552,5 +558,5 @@ const UserSettings = compose(
   withRouter,
   withApollo,
   connect()
-)(UserWithData);
+)(withTranslation(['common','usersSettings'])(UserWithData));
 export default UserSettings;

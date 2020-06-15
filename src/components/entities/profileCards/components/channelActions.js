@@ -12,13 +12,16 @@ import LeaveChannel from 'src/components/leaveChannelWrapper';
 import { ActionsRowContainer } from '../style';
 import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   channel: ChannelInfoType,
+  t: i18n.TFunction
 };
 
 export const UnconnectedChannelActions = (props: Props) => {
-  const { channel } = props;
+  const { channel, t } = props;
   const { community } = channel;
   const { isOwner, isModerator } = community.communityPermissions;
   const isTeamMember = isOwner || isModerator;
@@ -38,7 +41,7 @@ export const UnconnectedChannelActions = (props: Props) => {
             type='link'
             data-cy="channel-settings-button"
             to={`/${community.slug}/${channel.slug}/settings`}>
-            Settings
+            {t('Settings')}
           </ThemedButton>
         )}
 
@@ -65,10 +68,10 @@ export const UnconnectedChannelActions = (props: Props) => {
                   glyph={'door-enter'} 
                   size={24} />
               {isLoading
-                ? 'Leaving...'
+                ? t('Leaving')
                 : isHovering
-                ? 'Leave channel'
-                : 'Member'}
+                ? t('LeaveChannel')
+                : t('Member')}
             </ThemedButton>
           )}
         />
@@ -85,7 +88,7 @@ export const UnconnectedChannelActions = (props: Props) => {
         <ThemedButton 
           type="link"
           to={`/${community.slug}/${channel.slug}/settings`}>
-          Settings
+          {t('Settings')}
         </ThemedButton>
       )}
 
@@ -104,7 +107,7 @@ export const UnconnectedChannelActions = (props: Props) => {
               }}
               glyph={'door-enter'} 
               size={24} />
-            {isLoading ? 'Joining...' : 'Join channel'}
+            {isLoading ? t('Joining') : t('JoinChannel')}
           </ThemedButton>
           // <PrimaryOutlineButton isLoading={isLoading} icon={'door-enter'}>
           //   {isLoading ? 'Joining...' : 'Join channel'}
@@ -115,4 +118,4 @@ export const UnconnectedChannelActions = (props: Props) => {
   );
 };
 
-export const ChannelActions = connect()(UnconnectedChannelActions);
+export const ChannelActions = connect()(withTranslation(['common','community'])(UnconnectedChannelActions));

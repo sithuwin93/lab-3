@@ -19,6 +19,8 @@ import { withCurrentUser } from 'src/components/withCurrentUser';
 import Tooltip from 'src/components/tooltip';
 import { WhiteIconButton } from 'src/components/button';
 import { List, SidebarSectionHeader, SidebarSectionHeading } from '../style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   ...$Exact<ViewNetworkHandlerType>,
@@ -27,6 +29,8 @@ type Props = {
   data: {
     community: GetCommunityMembersType,
   },
+  t: i18n.TFunction
+
 };
 
 class Component extends React.Component<Props> {
@@ -45,7 +49,7 @@ class Component extends React.Component<Props> {
       return (
         <React.Fragment>
           <SidebarSectionHeader>
-            <SidebarSectionHeading>Team</SidebarSectionHeading>
+            <SidebarSectionHeading>{this.props.t('community:Team')}</SidebarSectionHeading>
           </SidebarSectionHeader>
           <Loading style={{ padding: '32px' }} />
         </React.Fragment>
@@ -78,9 +82,9 @@ class Component extends React.Component<Props> {
     return (
       <React.Fragment>
         <SidebarSectionHeader>
-          <SidebarSectionHeading>Team</SidebarSectionHeading>
+          <SidebarSectionHeading>{this.props.t('community:Team')}</SidebarSectionHeading>
           {isOwner && (
-            <Tooltip content={'Manage team'}>
+            <Tooltip content={this.props.t('community:ManageTeam')}>
               <span>
                 <WhiteIconButton to={`/${community.slug}/settings/members`}>
                   <Icon glyph={'settings'} size={24} />
@@ -118,4 +122,4 @@ export const TeamMembersList = compose(
   getCommunityMembersQuery,
   viewNetworkHandler,
   connect()
-)(Component);
+)(withTranslation(['common','community'])(Component));

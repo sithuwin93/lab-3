@@ -13,6 +13,7 @@ export const isAdmin = (id: string): boolean => {
     'gVk5mYwccUOEKiN5vtOouqroGKo1',
     '01p2A7kDCWUjGj6zQLlMQUOSQL42',
     'VToKcde16dREgDkXcDl3hhcrFN33',
+    '6dd3a67b-1314-427f-a4cb-9504d0b7aa65'
   ];
   return admins.indexOf(id) > -1;
 };

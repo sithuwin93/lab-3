@@ -13,6 +13,7 @@ import { withCurrentUser } from 'src/components/withCurrentUser';
 import { PostsFeedsSelectorContainer, SearchInput } from '../style';
 import MiniComposer from 'src/components/composerMini';
 import TextField from 'src/components/textfield';
+import { useTranslation } from 'react-i18next';
 
 
 const CommunityThreadFeed = compose(getCommunityThreads)(ThreadFeed);
@@ -41,6 +42,8 @@ function useDebounce(value, delay) {
 }
 
 export const PostsFeeds = withCurrentUser((props: Props) => {
+  const { t } = useTranslation('common');
+
   const { community, currentUser } = props;
   const { communityPermissions } = community;
   const { isMember } = communityPermissions;
@@ -84,11 +87,11 @@ export const PostsFeeds = withCurrentUser((props: Props) => {
           <Select            
             className="single-select"
             classNamePrefix="react-select"
-            defaultValue={{ label: activeFeed, value: activeFeed }}
+            defaultValue={{ label: t(activeFeed), value: activeFeed }}
             onChange={e => setActiveFeed(e.value)}
             options={[
-              { label: 'latest', value: 'latest' },
-              { label: 'trending', value: 'trending' },
+              { label: t('latest'), value: 'latest' },
+              { label: t('trending'), value: 'trending' },
             ]}
           />
         </div>
@@ -96,7 +99,7 @@ export const PostsFeeds = withCurrentUser((props: Props) => {
       <TextField  
         onChange={handleClientSearch}
         type="search"
-        placeholder="Search"
+        placeholder={t('Search')}
         value={clientSearchQuery}
         width="medium"/>
 

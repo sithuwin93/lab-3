@@ -1,0 +1,23 @@
+{
+    "AreYouSureYouWantToLeaveThisCommunity":"ဒီအသိုင်းအဝိုင်းမှသင်ထွက်ခွာချင်တာသေချာပါသလား။",
+    "Members": "အသင်း၀င် {{member, number}} ယောက်",
+    "MembersOnline": "အသင်း၀င် {{member, number}} ယောက် လိုင်းပေါ်တွင်ရှိသည်",
+    "TipGoodTitlesAreShorterThan80Characters": "အကြံပြုချက်။ ခေါင်းစဉ်ကောင်းများသည်စာလုံးရေ ၈၀ ထက်တိုသည်။ အသေးစိတ်ကိုအောက်တွင်ထည့်ပါ။",
+    "WhatsOnYourMind":"သင်ဘာတွေစဥ်းစားနေလဲ။",
+    "OptionalAddMoreDetails":"(Optional) အသေးစိတ်အချက်အလက်များထည့်ပါ ...",
+    "OpenInFullscreen":"မျက်နှာပြင်အပြည့်ဖွင့်ပါ",
+
+    "StartAConversation":"စကားစပြောပါ",
+    "AskAQuestionShareATipOrAnythingElseThatsOnYourMind":"မေးခွန်းတစ်ခုမေးပါ။ မှတ်ချက်တစ်ခုပေးပါ၊",
+    "Team": "အသင်းအဖွဲ့",
+    "ManageTeam" :"အသင်းအဖွဲ့ ကိုစီမံရန်",
+    "Chat": "စကားပြောဆိုရန်",
+    "MuteChatNotifications": "စကားပြောသတိပေးချက်များကိုအသံတိတ်",
+    "EnableChatNotifications": "ချက်သတိပေးချက်များကိုဖွင့်ပါ",
+    "Channels": "လိုင်းများ",
+    "ManageChannels": "လိုင်းများကို စီမံရန်",
+    "GoToSettings": "ပြင်ဆင်ရန်",
+    "MuteNotifications":"အသိပေးချက်များကိုအသံတိတ်",
+    "EnableChannelNotifications":"ရုပ်သံလိုင်းသတိပေးချက်များကိုဖွင့်"
+
+}

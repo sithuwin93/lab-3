@@ -50,24 +50,20 @@ const ComposerLocationSelectors = (props: Props) => {
   );
 
   return (
-    <Dropdowns>
+    <Dropdowns multiRow={!!selectedCommunityId}>
       <DropdownsLabel>{`Post to:  `}</DropdownsLabel>
-      <div style={{marginLeft: 12}}>
-        <CommunitySelector
+      <CommunitySelector
+        id={selectedCommunityId}
+        onCommunityChange={onCommunitySelectionChanged}
+      />
+      {!!selectedCommunityId && (
+        <ChannelSelector
           id={selectedCommunityId}
-          onCommunityChange={onCommunitySelectionChanged}
+          selectedChannelId={selectedChannelId}
+          selectedCommunityId={selectedCommunityId}
+          onChannelChange={onChannelSelectionChanged}
         />
-      </div>
-      <div style={{marginLeft: 12}}>
-        {!!selectedCommunityId && (
-          <ChannelSelector
-            id={selectedCommunityId}
-            selectedChannelId={selectedChannelId}
-            selectedCommunityId={selectedCommunityId}
-            onChannelChange={onChannelSelectionChanged}
-          />
-        )}
-      </div>      
+      )}
     </Dropdowns>
   );
 };

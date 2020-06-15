@@ -30,6 +30,8 @@ import { MEDIA_BREAK } from 'src/components/layout';
 import { ThemedButton } from 'src/components/button-new';
 import MentionsInput from '../mentionsInput';
 import TextField from 'src/components/textfield';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const QuotedMessage = connect()(
   getMessageById(props => {
@@ -72,6 +74,7 @@ type Props = {
   participants: Array<?Object>,
   onFocus: ?Function,
   onBlur: ?Function,
+  t: i18n.TFunction
 };
 
 export const cleanSuggestionUserObject = (user: ?Object) => {
@@ -85,6 +88,7 @@ export const cleanSuggestionUserObject = (user: ?Object) => {
 };
 
 const ChatInput = (props: Props) => {
+  const { t } = props;
   const cacheKey = `last-content-${props.threadId}`;
   const [text, changeText] = React.useState('');
   const [photoSizeError, setPhotoSizeError] = React.useState('');
@@ -363,7 +367,7 @@ const ChatInput = (props: Props) => {
               appearance="primary"
               data-cy="chat-input-send-button"
               onClick={submit}>
-              Send
+              {t('Send')}
             </ThemedButton>
 
           </Form>
@@ -386,4 +390,4 @@ export default compose(
   sendDirectMessage,
   // $FlowIssue
   connect(map)
-)(ChatInput);
+)(withTranslation(['common'])(ChatInput));

@@ -12,7 +12,7 @@ import {
   NAVBAR_WIDTH,
   MIN_WIDTH_TO_EXPAND_NAVIGATION,
 } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export const DropzoneWrapper = styled.div`
   position: sticky;
@@ -172,23 +172,52 @@ export const InputHints = styled(FlexRow)`
   font-size: 14px;
 `;
 
-export const Dropdowns = styled(FlexRow)`
+// export const Dropdowns = styled(FlexRow)`
+//   display: flex;
+//   flex: 1;
+//   height: 48px;
+//   min-height: 48px;
+//   max-height: 48px;
+//   align-items: center;
+//   background-color: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
+//   border-bottom: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+//   z-index: 9999;
+//   border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+//   padding: 8px;
+//   padding-left: 12px;
+//   font-size: 16px;
+
+//   @media (max-width: ${MEDIA_BREAK}px) {
+//     justify-content: flex-start;
+//   }
+// `;
+
+export const SelectWrapper = styled.div`
+  padding: 3px;
+  width: 212px;
+  @media (max-width: ${MEDIA_BREAK}px) {
+    width: 100%;
+  }
+`
+
+export const Dropdowns = styled.div`
   display: flex;
   flex: 1;
-  height: 48px;
-  min-height: 48px;
-  max-height: 48px;
+  // height: auto;
+  max-height: 58px;
   align-items: center;
   background-color: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
   border-bottom: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   z-index: 9999;
   border-bottom: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
   padding: 8px;
-  padding-left: 12px;
   font-size: 16px;
 
   @media (max-width: ${MEDIA_BREAK}px) {
-    justify-content: flex-start;
+    // justify-content: flex-start;
+    display: block;
+    min-height: ${props => props.multiRow? '110px': '58px'};
+
   }
 `;
 
@@ -280,7 +309,8 @@ export const ThreadInputs = styled(FlexCol)`
   padding: 32px;
   padding-bottom: 0;
   background-color: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
-  z-index: ${zIndex.composer};
+  // z-index: ${zIndex.composer};
+  z-index: 12;
   height: 100%;
 
   @media (max-width: ${MEDIA_BREAK}px) {
@@ -351,4 +381,23 @@ export const InputsGrid = styled.div`
   overflow-y: auto;
   background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
   padding-bottom: 48px;
+  &&::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &&::-webkit-scrollbar-track {
+    background: ${themed({light: colors.N10, dark: '#283447'})}; 
+  }
+   
+  &&::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: ${themed({light: colors.N30,dark:colors.N300})};
+
+  }
+  
+  &&::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
 `;

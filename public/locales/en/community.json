@@ -1,0 +1,23 @@
+{
+    "AreYouSureYouWantToLeaveThisCommunity":"Are you sure you want to leave this community?",
+    "Members": "{{member, number}} members",
+    "MembersOnline": "{{member, number}} members online",
+    "TipGoodTitlesAreShorterThan80Characters": "Tip: good titles are shorter than 80 characters. Add more details below.",
+    "WhatsOnYourMind":"What's on your mind?",
+    "OptionalAddMoreDetails":"(Optional) Add more details...",
+    "OpenInFullscreen":"Open in fullscreen",
+
+    "StartAConversation":"Start a conversation",
+    "AskAQuestionShareATipOrAnythingElseThatsOnYourMind":"Ask a question, share a tip, or anything else that’s on your mind.",
+
+    "Team": "Team",
+    "ManageTeam" :"Manage team",
+    "Chat": "Chat",
+    "MuteChatNotifications": "Mute chat notifications",
+    "EnableChatNotifications": "Enable chat notifications",
+    "Channels": "Channels",
+    "ManageChannels": "Manage channels",
+    "GoToSettings": "Go to settings",
+    "MuteNotifications":"Mute notifications",
+    "EnableChannelNotifications":"Enable channel notifications"
+}

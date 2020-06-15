@@ -25,6 +25,8 @@ import {
   Label,
   Actions,
 } from 'src/components/entities/listItems/style';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   data: {
@@ -35,9 +37,10 @@ type Props = {
   currentUser: Object,
   communitySlug: string,
   location: Location,
+  t: i18n.TFunction
 };
 
-const ChatTab = ({ location, community, currentUser }) =>
+const ChatTab = ({ location, community, currentUser, t }) =>
   !community.watercoolerId ? null : (
     <Route exact path={`/${community.slug}`}>
       {({ match }) => {
@@ -65,8 +68,8 @@ const ChatTab = ({ location, community, currentUser }) =>
                           return <Icon glyph="view-forward" size={24} />;
 
                         const tipText = data.thread.receiveNotifications
-                          ? 'Mute chat notifications'
-                          : 'Enable chat notifications';
+                          ? t('community:MuteChatNotifications')
+                          : t('community:EnableChatNotifications');
                         const glyph = data.thread.receiveNotifications
                           ? 'notification'
                           : 'mute';
@@ -152,13 +155,14 @@ class Component extends React.Component<Props> {
       currentUser,
       data: { community },
       location,
+      t
     } = this.props;
 
     if (isLoading) {
       return (
         <React.Fragment>
           <SidebarSectionHeader>
-            <SidebarSectionHeading>Channels</SidebarSectionHeading>
+            <SidebarSectionHeading>{t('community:Channels')}</SidebarSectionHeading>
           </SidebarSectionHeader>
           <Loading style={{ padding: '32px' }} />
         </React.Fragment>
@@ -184,9 +188,9 @@ class Component extends React.Component<Props> {
       return (
         <React.Fragment>
           <SidebarSectionHeader>
-            <SidebarSectionHeading>Channels</SidebarSectionHeading>
+            <SidebarSectionHeading>{t('community:Channels')}</SidebarSectionHeading>
             {isOwner && (
-              <Tooltip content={'Manage channels'}>
+              <Tooltip content={t('community:ManageChannels')}>
                 <span>
                   <WhiteIconButton to={`/${community.slug}/settings`}>
                     <Icon glyph={'settings'} size={24} />
@@ -198,6 +202,7 @@ class Component extends React.Component<Props> {
 
           <List data-cy="channel-list">
             <ChatTab
+              t ={t}
               location={location}
               community={community}
               currentUser={currentUser}
@@ -260,4 +265,4 @@ export const ChannelsList = compose(
   withCurrentUser,
   withRouter,
   connect()
-)(Component);
+)(withTranslation(['common','community'])(Component));

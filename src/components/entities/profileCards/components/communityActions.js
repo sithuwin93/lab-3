@@ -9,14 +9,17 @@ import JoinCommunity from 'src/components/joinCommunityWrapper';
 import { ActionsRowContainer } from '../style';
 import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type Props = {
   community: CommunityInfoType,
   dispatch: Dispatch<Object>,
+  t: i18n.TFunction
 };
 
 export const UnconnectedCommunityActions = (props: Props) => {
-  const { community, dispatch } = props;
+  const { community, dispatch, t } = props;
 
   const [isHovering, setHover] = useState(false);
   const onMouseEnter = () => setHover(true);
@@ -27,8 +30,8 @@ export const UnconnectedCommunityActions = (props: Props) => {
       openModal('DELETE_DOUBLE_CHECK_MODAL', {
         id: community.id,
         entity: 'team-member-leaving-community',
-        message: 'Are you sure you want to leave this community?',
-        buttonLabel: 'Leave Community',
+        message: t('community:AreYouSureYouWantToLeaveThisCommunity'),
+        buttonLabel: t('LeaveCommunity'),
       })
     );
 
@@ -56,7 +59,7 @@ export const UnconnectedCommunityActions = (props: Props) => {
             }}
             glyph={'settings'} 
             size={24} />
-            Settings
+            {t('Settings')}
           </ThemedButton>
         )}
 
@@ -75,7 +78,7 @@ export const UnconnectedCommunityActions = (props: Props) => {
             onMouseLeave={onMouseLeave}
             onClick={leaveCommunity}
             data-cy="leave-community-button">
-            {isHovering ? 'Leave community' : 'Member'}
+            {isHovering ? t('LeaveCommunity') : t('Member')}
           </ThemedButton>
         )}
       </ActionsRowContainer>
@@ -109,7 +112,7 @@ export const UnconnectedCommunityActions = (props: Props) => {
               glyph={'door-enter'} 
               size={24} />
 
-            {isLoading ? 'Joining...' : 'Join community'}
+            {isLoading ? t('Joining') : t('JoinCommunity')}
           </ThemedButton>
 
         )}
@@ -118,4 +121,4 @@ export const UnconnectedCommunityActions = (props: Props) => {
   );
 };
 
-export const CommunityActions = connect()(UnconnectedCommunityActions);
+export const CommunityActions = connect()(withTranslation(['common','community'])(UnconnectedCommunityActions));

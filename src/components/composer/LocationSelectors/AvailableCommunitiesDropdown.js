@@ -13,6 +13,7 @@ import { LoadingSelect, ErrorSelect } from 'src/components/loading';
 import { sortCommunities } from '../utils';
 import { RequiredSelector, CommunityPreview } from '../style';
 import Select, { PopupSelect } from 'src/components/select-new';
+import { SelectWrapper } from '../style';
 
 type Props = {
   onChange: Function,
@@ -82,8 +83,9 @@ const AvailableCommunitiesDropdown = (props: Props) => {
         return selectSingleCommunityChild();
 
       return (
-        <div style={{width: 212,marginLeft:12}}>
-          <Select style={{width: 212}}
+        <SelectWrapper>
+          <Select 
+            style={{width: '100%'}}
             data-cy="composer-community-selector"
             onChange={onChange}
             defaultalue={id}
@@ -94,7 +96,7 @@ const AvailableCommunitiesDropdown = (props: Props) => {
               return ({ label: community.name, value: community.id })
             })}
           />
-        </div>
+        </SelectWrapper>
         // <RequiredSelector
         //   data-cy="composer-community-selector"
         //   onChange={onChange}
@@ -131,11 +133,11 @@ const AvailableCommunitiesDropdown = (props: Props) => {
   if (shouldSelectSingleCommunityChild()) return selectSingleCommunityChild();
 
   return (
-    <div style={{width: 212}}>
-      <Select style={{width: 212}}      
+    <SelectWrapper>
+      <Select     
         data-cy="composer-community-selector"
         onChange={onChange}
-        defaultalue={id}
+        defaultValue={id}
         emphasize={!id}
         placeHolder="Choose a community"
         options={sortedNodes.map(community => {
@@ -143,7 +145,7 @@ const AvailableCommunitiesDropdown = (props: Props) => {
           return ({ label: community.name, value: community.id })
         })}
       />
-    </div>
+    </SelectWrapper>
     // <RequiredSelector
     //   data-cy="composer-community-selector"
     //   onChange={onChange}

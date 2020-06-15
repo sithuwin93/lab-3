@@ -50,6 +50,8 @@ import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
 import { LabelWrapper, Label } from './style';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 type State = {
   name: ?string,
@@ -78,6 +80,7 @@ type Props = {
   communityCreated: Function,
   dispatch: Dispatch<Object>,
   name: string,
+  t: i18n.TFunction
 };
 class CreateCommunityForm extends React.Component<Props, State> {
   constructor(props) {
@@ -426,7 +429,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
         const { createCommunity } = data;
         this.props.communityCreated(createCommunity);
         this.props.dispatch(
-          addToastWithTimeout('success', 'Community created!')
+          addToastWithTimeout('success', this.props.t('newCommunity:CommunityCreated'))
         );
         return;
       })
@@ -472,9 +475,9 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
     const suggestionString = slugTaken
       ? communitySuggestions && communitySuggestions.length > 0
-        ? 'Were you looking for one of these communities?'
+        ? this.props.t('newCommunity:WereYouLookingForOneOfTheseCommunities')
         : null
-      : "This community name and url are available! We also found communities that might be similar to what you're trying to create, just in case you would rather join an existing community instead!";
+      : this.props.t('newCommunity:ThisCommunityNameAndUrlAreAvailable');
 
     return (
       <FormContainer data-cy="create-community-form">
@@ -503,7 +506,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
           {photoSizeError && (
             <Notice style={{ marginTop: '32px' }}>
-              Photo uploads should be less than 3mb
+              {this.props.t('newCommunity:PhotoUploadsShouldBeLessThan3mb')}
             </Notice>
           )}
 
@@ -519,7 +522,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
           </Input> */}
           <LabelWrapper>
             <Label htmlFor="name">
-              What is your community called?
+              {this.props.t('newCommunity:WhatIsYourCommunityCalled')}
             </Label>
             <TextField 
               name="name"
@@ -532,8 +535,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
             {nameError && (
               <Error>
-                Community name has to be between 1 and 20 characters long and
-                can`t have invalid characters.
+                {this.props.t('newCommunity:CommunityNameError')}
               </Error>
             )}
           </LabelWrapper>
@@ -549,12 +551,11 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
           {slugTaken && (
             <Error>
-              This url is already taken - feel free to change it if you’re set
-              on the name {name}!
+              {this.props.t('CommunityURLError',{name:name})}
             </Error>
           )}
 
-          {slugError && <Error>Slugs can be up to 24 characters long.</Error>}
+          {slugError && <Error>{this.props.t('SlugError')}</Error>}
 
           {suggestionString &&
             !nameError &&
@@ -591,7 +592,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
           <LabelWrapper>
             <Label htmlFor="description">
-              Describe it in 140 characters or less
+              {this.props.t('newCommunity:DescribeItIn140CharactersOrLess')}
             </Label>
 
             <TextArea
@@ -602,8 +603,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
             />
             {descriptionError && (
               <Error>
-                Oops, there may be some invalid characters or the text is too big
-                (max: 140 characters) - try trimming that up.
+                {this.props.t('newCommunity:DescriptionError')}
               </Error>
             )}
               
@@ -633,7 +633,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
         <LabelWrapper>
           <Label htmlFor="website">
-            Optional: Add your community’s website
+            {this.props.t('newCommunity:OptionalAddYourCommunityWebsite')}
           </Label>
           <TextField 
             name="website"
@@ -653,13 +653,10 @@ class CreateCommunityForm extends React.Component<Props, State> {
                   onChange={this.setPublic}
                   data-cy="community-public-selector-input"
                 />
-                Public
+                {this.props.t('Public')}
               </PrivacyOptionLabel>
               <PrivacyOptionText>
-                Anyone can join and view conversations. Public communities will
-                appear in search results, and can appear as suggested
-                communities to non-members. Conversations will be search
-                indexed.
+                {this.props.t('newCommunity:publicDescription')}
               </PrivacyOptionText>
             </PrivacyOption>
 
@@ -671,14 +668,11 @@ class CreateCommunityForm extends React.Component<Props, State> {
                   value="private"
                   onChange={this.setPrivate}
                   data-cy="community-private-selector-input"
-                />
-                Private
+                />                
+                {this.props.t('Private')}
               </PrivacyOptionLabel>
               <PrivacyOptionText>
-                All members must be approved before they can view or join
-                conversations. Private communities will not appear in search
-                results or suggested communities. Conversations will not be
-                search indexed.
+                {this.props.t('newCommunity:privateDescription')}
               </PrivacyOptionText>
             </PrivacyOption>
           </PrivacySelector>
@@ -704,7 +698,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
 
           {createError && (
             <Error>
-              Please fix any errors above before creating this community.
+              {this.props.t('newCommunity:CreateError')}
             </Error>
           )}
         </Form>
@@ -725,7 +719,7 @@ class CreateCommunityForm extends React.Component<Props, State> {
             }
             isLoading={isLoading}
             data-cy="community-create-button">
-            {isLoading ? 'Creating...' : 'Create Community & Continue'}
+            {isLoading ? this.props.t('Creating') : this.props.t('CreateCommunityContinue')}
           </ThemedButton>
           {/* <PrimaryOutlineButton
             onClick={this.create}
@@ -754,4 +748,4 @@ export default compose(
   withRouter,
   connect(),
   withApollo
-)(CreateCommunityForm);
+)(withTranslation(['common','newCommunity'])(CreateCommunityForm));

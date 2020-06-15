@@ -22,7 +22,6 @@ type Props = {
 const CommunitySelector = (props: Props) => {
   const { data, onCommunityChange, id } = props;
   const { loading, error, community } = data;
-
   // const onChange = (evt: any) => onCommunityChange(evt.target.value);
   const onChange = (evt: any) => onCommunityChange(evt.value);
 
@@ -68,7 +67,8 @@ const CommunitySelector = (props: Props) => {
     We can safely pass along a selected id when we know it's a valid community
     and the user has permission to post there
   */
-  return <AvailableCommunitiesDropdown id={id} onChange={onChange} />;
+  // {id:id, name:''}
+  return <AvailableCommunitiesDropdown id={{ label: community.name, value: community.id }} onChange={onChange} />;
 };
 
 export default compose(getCommunityById)(CommunitySelector);

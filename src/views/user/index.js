@@ -49,6 +49,8 @@ import { MobileUserAction } from 'src/components/titlebar/actions';
 import { FeedsContainer } from './style';
 import { InfoContainer } from 'src/views/community/style';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const ThreadFeedWithData = compose(
   connect(),
@@ -70,6 +72,7 @@ type Props = {
   dispatch: Dispatch<Object>,
   history: History,
   location: Location,
+  t: i18n.TFunction
 };
 
 type State = {
@@ -185,7 +188,8 @@ class UserView extends React.Component<Props, State> {
       },
       location,
       currentUser,
-      history
+      history,
+      t
     } = this.props;
     const { hasThreads } = this.state;
 
@@ -234,7 +238,7 @@ class UserView extends React.Component<Props, State> {
 
                 <SidebarSection elevation="e200">
                   <SidebarSectionHeader>
-                    <SidebarSectionHeading>Communities</SidebarSectionHeading>
+                    <SidebarSectionHeading>{t('Communities')}</SidebarSectionHeading>
                   </SidebarSectionHeader>
 
                   <CommunityList
@@ -252,7 +256,7 @@ class UserView extends React.Component<Props, State> {
                       isActive={selectedView === 'posts'}
                       data-cy="user-posts-tab"
                     >
-                      Posts
+                      {t('Posts')}
                     </Segment>
 
                     <Segment
@@ -260,7 +264,7 @@ class UserView extends React.Component<Props, State> {
                       isActive={selectedView === 'activity'}
                       data-cy="user-activity-tab"
                     >
-                      Activity
+                      {t('Activity')}
                     </Segment>
 
                     <Segment
@@ -269,7 +273,7 @@ class UserView extends React.Component<Props, State> {
                       isActive={selectedView === 'info'}
                       data-cy="user-info-tab"
                     >
-                      Info
+                      {t('Info')}
                     </Segment>
 
                     <Segment
@@ -277,7 +281,7 @@ class UserView extends React.Component<Props, State> {
                       isActive={selectedView === 'search'}
                       data-cy="user-search-tab"
                     >
-                      Search
+                      {t('Search')}
                     </Segment>
                   </SegmentedControl>
 
@@ -312,7 +316,7 @@ class UserView extends React.Component<Props, State> {
                       <SidebarSection elevation="e200">
                         <SidebarSectionHeader>
                           <SidebarSectionHeading>
-                            Communities
+                            {t('Communities')}
                           </SidebarSectionHeading>
                         </SidebarSectionHeader>
 
@@ -330,10 +334,9 @@ class UserView extends React.Component<Props, State> {
                       selectedView === 'activity') && (
                       <NullColumn>
                         <span>
-                          <NullColumnHeading>No posts yet</NullColumnHeading>
+                          <NullColumnHeading>{t('NoPostsYet')}</NullColumnHeading>
                           <NullColumnSubheading>
-                            Posts will show up here as they are published and
-                            when conversations are joined.
+                            {t('PostsWillShowUpHereAsTheyArePublishedAndWhenConversationsAreJoined')}
                           </NullColumnSubheading>
                           {isCurrentUser && (
                             <ThemedButton
@@ -353,7 +356,7 @@ class UserView extends React.Component<Props, State> {
                                 }}
                                 glyph={'post'} 
                                 size={24} />
-                              New post
+                              {t('NewPost')}
                             </ThemedButton>
                           )}
                         </span>
@@ -374,9 +377,9 @@ class UserView extends React.Component<Props, State> {
     if (!user) {
       return (
         <ErrorView
-          heading={'We couldn’t find a user with this username'}
+          heading={t('WeCouldntFindAUserWithThisUsername')}
           subheading={
-            'You may be trying to view a profile that is deleted, or Spectrum is just having a hiccup. If you think something has gone wrong, please contact us.'
+            t('WeCouldntFindAUserWithThisUsernameDescription')
           }
         />
       );
@@ -392,4 +395,4 @@ export default compose(
   viewNetworkHandler,
   withRouter,
   connect()
-)(UserView);
+)(withTranslation(['common'])(UserView));
