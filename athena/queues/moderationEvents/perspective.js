@@ -7,7 +7,7 @@ const PERSPECTIVE_API_KEY = process.env.PERSPECTIVE_API_KEY;
 if (!PERSPECTIVE_API_KEY) {
   debug('No API key for Perspective provided, not sending moderation events.');
 }
-
+//AIzaSyA1oMRFjw5LvjlNWbe4oUnLOve-xJyX84w
 export default async (text: string) => {
   if (!PERSPECTIVE_API_KEY) return;
   // $FlowFixMe

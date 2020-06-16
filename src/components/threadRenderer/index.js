@@ -10,5 +10,7 @@ type Props = {
 };
 
 export default (props: Props) => (
-  <div className="markdown">{redraft(props.body, threadRenderer)}</div>
+  <div className="markdown">
+    {redraft(props.body, threadRenderer)}
+    </div>
 );

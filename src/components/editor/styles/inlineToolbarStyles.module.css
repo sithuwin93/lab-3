@@ -1,0 +1,35 @@
+.toolbar {
+  left: 50%;
+  transform: translate(-50%) scale(0);
+  position: absolute;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px -2px rgba(9,30,66,0.25), 0 0 1px rgba(9,30,66,0.31);
+  z-index: 2;
+  box-sizing: border-box;
+  max-width: 252px;
+}
+
+.toolbar:after, .toolbar:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.toolbar:after {
+  border-top-color: #fff;
+  border-width: 4px;
+  margin-left: -4px;
+}
+
+.toolbar:before {
+  border-top-color: #fff;
+  border-width: 6px;
+  margin-left: -6px;
+}
+  

@@ -46,7 +46,12 @@ import {
 import { ThemedButton } from 'src/components/button-new';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-
+import Editor from 'src/components/editor';
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+} from 'draft-js';
 type State = {
   title: string,
   body: string,
@@ -89,7 +94,7 @@ class ComposerWithData extends React.Component<Props, State> {
 
     this.state = {
       title: '',
-      body: '',
+      body: EditorState.createEmpty(),
       isLoading: false,
       postWasPublished: false,
       preview: false,
@@ -119,11 +124,18 @@ class ComposerWithData extends React.Component<Props, State> {
     };
   };
 
+  componentDidMount(){
+    this.titleInput.focus();
+    this.titleInput.style.height = 'inherit';
+    this.titleInput.style.height = `${this.titleInput.scrollHeight}px`;
+  }
+  
   componentWillMount() {
     let { storedBody, storedTitle } = this.getTitleAndBody();
     this.setState({
       title: this.state.title || storedTitle || '',
-      body: this.state.body || storedBody || '',
+      // body: this.state.body || storedBody || '',
+      body: this.state.body || storedBody || EditorState.createEmpty()
     });
   }
 
@@ -191,7 +203,10 @@ class ComposerWithData extends React.Component<Props, State> {
 
   composerHasContent = () => {
     const { title, body } = this.state;
-    return title !== '' || body !== '';
+    const content = body.getCurrentContent();
+    const isEditorEmpty = !content.hasText();
+    // return title !== '' || body !== '';
+    return title != '' || isEditorEmpty
   };
 
   changeTitle = e => {
@@ -206,13 +221,21 @@ class ComposerWithData extends React.Component<Props, State> {
     });
   };
 
-  changeBody = evt => {
-    const body = evt.target.value;
+  // changeBody = evt => {
+  //   const body = evt.target.value;
+  //   this.persistBodyToLocalStorageWithDebounce();
+  //   this.setState({
+  //     body,
+  //   });
+  // };
+
+  changeBody = body => {
     this.persistBodyToLocalStorageWithDebounce();
     this.setState({
       body,
     });
   };
+
 
   closeComposer = (clear?: any) => {
     this.persistBodyToLocalStorage();
@@ -224,7 +247,7 @@ class ComposerWithData extends React.Component<Props, State> {
       this.clearEditorStateAfterPublish();
       this.setState({
         title: '',
-        body: '',
+        body: EditorState.createEmpty(),
         preview: false,
       });
     }
@@ -396,11 +419,15 @@ class ComposerWithData extends React.Component<Props, State> {
     const channelId = selectedChannelId;
     const communityId = selectedCommunityId;
 
+    const contentState = body.getCurrentContent();
+    const raw = convertToRaw(contentState)
+
     const content = {
       title: title.trim(),
       // workaround react-mentions bug by replacing @[username] with @username
       // @see withspectrum/spectrum#4587
-      body: body.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+      // body: body.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+      body: JSON.stringify(raw),
     };
 
     // this.props.mutate comes from a higher order component defined at the
@@ -410,7 +437,7 @@ class ComposerWithData extends React.Component<Props, State> {
       communityId,
       // NOTE(@mxstbr): On android we send plain text content
       // which is parsed as markdown to draftjs on the server
-      type: 'TEXT',
+      type: 'DRAFTJS',
       content,
       // filesToUpload,
     };
@@ -431,7 +458,7 @@ class ComposerWithData extends React.Component<Props, State> {
           isLoading: false,
           postWasPublished: true,
           title: '',
-          body: '',
+          body: EditorState.createEmpty(),
         });
 
         // redirect the user to the thread
@@ -498,8 +525,13 @@ class ComposerWithData extends React.Component<Props, State> {
             onCommunitySelectionChanged={this.setSelectedCommunity}
             onChannelSelectionChanged={this.setSelectedChannel}
           />
-
-          <Inputs
+          <Editor 
+            title={this.state.title}
+            body={this.state.body}
+            changeBody={this.changeBody}
+            changeTitle={this.changeTitle}
+            innerRef={(input) => { this.titleInput = input; }}/>
+          {/* <Inputs
             title={this.state.title}
             body={this.state.body}
             changeBody={this.changeBody}
@@ -509,7 +541,7 @@ class ComposerWithData extends React.Component<Props, State> {
             bodyRef={ref => (this.bodyEditor = ref)}
             onKeyDown={this.handleGlobalKeyPress}
             isEditing={isEditing}
-          />
+          /> */}
 
           {networkDisabled && (
             <DisabledWarning>

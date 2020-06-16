@@ -51,7 +51,7 @@ const MyComponent = (props: Props) => {
 
   const onClick = (show: boolean) => {
     setShowPreview(show);
-
+    console.log("json",body)
     if (show) {
       setPreviewBody(null);
       fetch('https://convert.spectrum.chat/from', {
@@ -64,6 +64,7 @@ const MyComponent = (props: Props) => {
           return res.json();
         })
         .then(json => {
+          console.log("json", json)
           setPreviewBody(json);
         });
     }

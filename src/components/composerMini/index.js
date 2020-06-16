@@ -106,6 +106,7 @@ const MiniComposer = ({
 
   const changeBody = evt => {
     const body = evt.target.value;
+    console.log('body', body)
     setBody(body);
     storeDraftThread({
       body,
