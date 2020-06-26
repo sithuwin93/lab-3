@@ -1,12 +1,6 @@
 import { withApollo } from 'react-apollo';
 import { searchUsersQuery } from 'shared/graphql/queries/search/searchUsers';
-
-import {
-  convertFromRaw,
-  EditorState,
-  getDefaultKeyBinding,
-  RichUtils
-} from 'draft-js';
+import { RichUtils } from 'draft-js';
 import Prism from 'prismjs';
 import React, { useState, Fragment, Component } from 'react';
 import Editor, { composeDecorators } from 'draft-js-plugins-editor';
@@ -24,11 +18,8 @@ import {
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 import createLinkPlugin from 'draft-js-anchor-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
-// import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
-// import createImagePlugin from 'draft-js-image-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createInlineToolbarPlugin,{ Separator } from 'draft-js-inline-toolbar-plugin';
-import CustomImageComponent from './comp/ImageAdd/CustomImageComponent';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 
 // custom plugin
@@ -42,6 +33,7 @@ import createPrismPlugin from './customPlugins/codeBlockAdd/prismPlugin';
 import createCodeEditorTabKeyPlugin from './customPlugins/codeEditorTabKeyPlugin';
 import createResizeablePlugin from './customPlugins/draft-js-resizeable-plugin';
 import createDndFileUploadPlugin from './customPlugins/draft-js-drag-n-drop-upload-plugin';
+import CustomImageComponent from './comp/ImageAdd/CustomImageComponent';
 
 
 
@@ -67,11 +59,10 @@ import mentionsStyles from './styles/mentions.module.css';
 import HeadlinesButton from './comp/HeadlinesButton';
 import { BlockquoteButton } from './comp/CustomeButton'
 
-import { EditorWrapper } from './styled'
 import { themed  } from 'src/components/theme';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
-import mentions from './mentions';
 
+import { EditorInput } from './styled';
 
 const Entry = (props) => {
   const {
@@ -400,13 +391,13 @@ class CustomImageEditor extends Component {
     // }
   
     return (
-      <EditorWrapper onClick={this.focus}>  
+      <EditorInput onClick={this.focus}>  
         <Editor
           onTab={changeIndent}
           editorState={this.props.body}
           onChange={this.props.changeBody}
           plugins={newPlugin}
-          ref={this.props.bodyRef}
+          ref={this.props.ref}
           placeholder="Hello Draft placeholder"
           blockStyleFn={this.getBlockStyle}
           customStyleMap={{
@@ -474,7 +465,7 @@ class CustomImageEditor extends Component {
             entryComponent={Entry}
           />
 
-      </EditorWrapper>
+      </EditorInput>
     );
   }
 }

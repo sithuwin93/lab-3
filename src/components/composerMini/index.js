@@ -37,7 +37,9 @@ import Button, { ThemedButton } from 'src/components/button-new';
 import TextField from 'src/components/textfield';
 import TextArea from 'src/components/textarea';
 import { useTranslation } from 'react-i18next';
-
+import EditorMiniComponent from 'src/components/editor/editormini';
+import createImagePlugin from 'src/components/editor/customPlugins/draft-js-image-plugin';
+import createVideoPlugin from  'src/components/editor/customPlugins/draft-js-video-plugin';
 
 
 type Props = {
@@ -51,6 +53,9 @@ type Props = {
   history: History,
   currentUser: Object,
 };
+
+const imagePlugin = createImagePlugin();
+const videoPlugin = createVideoPlugin();
 
 const MiniComposer = ({
   currentUser,
@@ -109,8 +114,8 @@ const MiniComposer = ({
     });
   };
 
-  const changeBody = evt => {
-    const body = evt.target.value;
+  const changeBody = body => {
+    // const body = evt.target.value;
     setBody(body);
     storeDraftThread({
       body,
@@ -118,6 +123,7 @@ const MiniComposer = ({
   };
 
   const uploadFiles = files => {
+    console.log("uploadFiles",uploadFiles)
     // const currentBodyEditor = bodyEditor.current;
     // if (!currentBodyEditor || !files[0]) return;
 
@@ -133,6 +139,27 @@ const MiniComposer = ({
     // currentBodyEditor.selectionStart = caretPos;
     // currentBodyEditor.selectionEnd = caretPos;
     // currentBodyEditor.focus();
+
+    return uploadImage({
+        image: files[0],
+        type: 'threads',
+      }).then(({ data }) => {
+        console.log("data", data)
+        // changeBody(
+        //   imagePlugin.addImage(
+        //     body,
+        //     data.uploadImage,
+        //   )
+        // );
+      })
+      .catch(err => {
+        dispatch(
+          addToastWithTimeout(
+            'error',
+            t('UploadingImageFailed', {err: err.message})
+          )
+        );
+      });
 
     // return uploadImage({
     //   image: files[0],
@@ -171,8 +198,8 @@ const MiniComposer = ({
       openModal('CLOSE_COMPOSER_CONFIRMATION_MODAL', {
         message: DISCARD_DRAFT_MESSAGE,
         closeComposer: async () => {
-          await storeDraftThread({ title: '', body: '' });
-          await setBody('');
+          await storeDraftThread({ title: '', body: EditorState.createEmpty() });
+          await setBody(EditorState.createEmpty());
           await setTitle('');
           await setExpanded(false);
         },
@@ -208,7 +235,7 @@ const MiniComposer = ({
         setIsLoading(false);
         dispatch(addToastWithTimeout('success', 'Thread published!'));
         await storeDraftThread({ title: '', body: EditorState.createEmpty()});
-        await setBody('');
+        await setBody(EditorState.createEmpty());
         await setTitle('');
         await setExpanded(false);
         return history.push({
@@ -221,6 +248,8 @@ const MiniComposer = ({
         dispatch(addToastWithTimeout('error', err.message));
       });
   };
+
+  const editorFocus = () => bodyRef.current.focus();
 
   const { pathname, search } = getComposerLink({
     communityId: community.id,
@@ -297,26 +326,21 @@ const MiniComposer = ({
       {expanded && (
         <BodyContainer>
           
-          {/* <Editor 
-            title={this.state.title}
-            body={this.state.body}
-            changeBody={this.changeBody}
-            changeTitle={this.changeTitle}
-            innerRef={(input) => { this.titleInput = input; }}
-            bodyRef={ref => (this.bodyEditor = ref)}
-            editorFocus={this.editorFocus}
-            uploadImage={this.props.uploadImage}
-            dispatch={this.props.dispatch}
-            t={this.props.t}/>
-
- */}
-
+          <EditorMiniComponent 
+            body={body}
+            changeBody={changeBody}
+            ref={bodyRef}
+            editorFocus={editorFocus}
+            uploadImage={uploadImage}
+            dispatch={dispatch}
+            t={t}/>
           <div
             css={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '100%',
+              paddingTop: 12,
             }}
           >
             <div css={{ display: 'flex', alignItems: 'center' }}>

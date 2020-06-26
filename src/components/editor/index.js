@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Editor from './editor'
 import TitleInput from './title';
+import { EditorWrapper } from './styled'
 
 
 export default class EditorComponent extends Component {
@@ -14,15 +15,17 @@ export default class EditorComponent extends Component {
           title={title}
           changeTitle={changeTitle}
         />
-        <Editor 
-          body={body}
-          changeBody={changeBody}
-          bodyRef={bodyRef}
-          editorFocus={editorFocus}
-          uploadImage={uploadImage}
-          dispatch={dispatch}
-          t={t}
-        />
+        <EditorWrapper>
+          <Editor 
+            body={body}
+            changeBody={changeBody}
+            bodyRef={bodyRef}
+            editorFocus={editorFocus}
+            uploadImage={uploadImage}
+            dispatch={dispatch}
+            t={t}
+          />
+        </EditorWrapper>
       </div>
     )
   }

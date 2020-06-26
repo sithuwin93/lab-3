@@ -20,7 +20,7 @@ export default class Image extends Component {
     } = otherProps;
     const combinedClassName = clsx(theme.image, className);
     const { src } = contentState.getEntity(block.getEntityAt(0)).getData();
-    const newStyle ={maxWidth: 480}
+    const newStyle = { maxWidth: 480 }
     const style = {...elementProps.style, ...newStyle};
     return (
       <img

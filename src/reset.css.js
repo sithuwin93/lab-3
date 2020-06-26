@@ -2,13 +2,12 @@
 import { createGlobalStyle } from 'styled-components';
 // $FlowIssue
 // import prismGlobalCSS from '!!raw-loader!./components/rich-text-editor/prism-theme.css';
-import prismGlobalCSS from '!!raw-loader!./components/editor/prism.css';
-import draftGlobalCSS from '!!raw-loader!./components/editor/draft.css';
-import draftInlineGlobalCSS from '!!raw-loader!./components/editor/draft-js-inline-toolbar-plugin.css';
-import draftToolbarGlobalCSS from '!!raw-loader!./components/editor/draft-js-side-toolbar-plugin.css';
-import draftEmojiGlobalCSS from '!!raw-loader!./components/editor/draft-js-emoji-plugin.css';
-import draftDividerGlobalCSS from '!!raw-loader!./components/editor/draft-js-divider-plugin.css';
-import draftFocusGlobalCSS from '!!raw-loader!./components/editor/draft-js-focus-plugin.css';
+import prismGlobalCSS from '!!raw-loader!./components/editor/css/prism.css';
+import draftGlobalCSS from '!!raw-loader!./components/editor/css/draft.css';
+import draftInlineGlobalCSS from '!!raw-loader!./components/editor/css/draft-js-inline-toolbar-plugin.css';
+import draftToolbarGlobalCSS from '!!raw-loader!./components/editor/css/draft-js-side-toolbar-plugin.css';
+import draftEmojiGlobalCSS from '!!raw-loader!./components/editor/css/draft-js-emoji-plugin.css';
+import draftFocusGlobalCSS from '!!raw-loader!./components/editor/css/draft-js-focus-plugin.css';
 
 import theme from 'shared/theme';
 import { themed, colors } from 'src/components/theme';
@@ -19,7 +18,6 @@ export default createGlobalStyle`
   ${draftInlineGlobalCSS}
   ${draftToolbarGlobalCSS}
   ${draftEmojiGlobalCSS}
-  ${draftDividerGlobalCSS}
   ${draftFocusGlobalCSS}
   * {
     border: 0;

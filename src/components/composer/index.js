@@ -344,8 +344,8 @@ class ComposerWithData extends React.Component<Props, State> {
   };
 
   uploadFiles = files => {
-    const uploading = `![Uploading ${files[0].name}...]()`;
-    let caretPos = this.bodyEditor.selectionStart;
+    // const uploading = `![Uploading ${files[0].name}...]()`;
+    // let caretPos = this.bodyEditor.selectionStart;
 
     // this.setState(
     //   ({ body }) => ({
