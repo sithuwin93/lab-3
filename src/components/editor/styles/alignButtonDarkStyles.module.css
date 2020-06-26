@@ -3,7 +3,7 @@
 }
 
 .button {
-  background:#172B4D;
+  background: #344563;
   color: #fff;
   font-size: 18px;
   border: 0;
@@ -24,11 +24,11 @@
 }
 
 .active {
-  color: #172B4D;
-  background: #fff;
+  color: #4C9AFF;
+  background: #344563;
 }
 
 .active svg {
-  fill: #172B4D;
+  fill: #4C9AFF;
 }
   

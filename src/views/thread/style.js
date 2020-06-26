@@ -14,6 +14,10 @@ import {
   zIndex,
   Truncate,
 } from 'src/components/globals';
+import {
+  DESKTOP_SITE,
+} from 'src/components/layout';
+
 import { themed, elevation as AkElevations, } from 'src/components/theme';
 const elevations = { ...AkElevations };
 
@@ -185,8 +189,16 @@ export const ThreadContent = styled.div`
 `;
 
 export const ThreadHeading = styled(H1)`
-  font-size: 28px;
-  font-weight: 600;
+  font-family: 'Bree Serif', serif;
+  @media (max-width: ${DESKTOP_SITE}px) {
+    font-size: 28px;
+  }
+  font-size: 36px;
+
+  font-weight: 500;
+  line-height: 56px;
+  // font-size: 28px;
+  // font-weight: 600;
   word-break: break-word;
   margin-bottom: 16px;
 `;

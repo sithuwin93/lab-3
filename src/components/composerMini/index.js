@@ -1,4 +1,9 @@
 // @flow
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+} from 'draft-js';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import compose from 'recompose/compose';
 import { Link, withRouter } from 'react-router-dom';
@@ -69,7 +74,7 @@ const MiniComposer = ({
     !!draftThread.title || !!draftThread.body
   );
   const [title, setTitle] = useState(draftThread.title || '');
-  const [body, setBody] = useState(draftThread.body || '');
+  const [body, setBody] = useState(draftThread.body || EditorState.createEmpty());
   const bodyRef = useRef(body);
   const [titleWarning, setTitleWarning] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +111,6 @@ const MiniComposer = ({
 
   const changeBody = evt => {
     const body = evt.target.value;
-    console.log('body', body)
     setBody(body);
     storeDraftThread({
       body,
@@ -114,46 +118,46 @@ const MiniComposer = ({
   };
 
   const uploadFiles = files => {
-    const currentBodyEditor = bodyEditor.current;
-    if (!currentBodyEditor || !files[0]) return;
+    // const currentBodyEditor = bodyEditor.current;
+    // if (!currentBodyEditor || !files[0]) return;
 
-    const uploading = `![Uploading ${files[0].name}...]()`;
-    let caretPos = currentBodyEditor.selectionStart;
-    setIsLoading(true);
-    setBody(
-      bodyRef.current.substring(0, caretPos) +
-        uploading +
-        bodyRef.current.substring(currentBodyEditor.selectionEnd, body.length)
-    );
-    caretPos = caretPos + uploading.length;
-    currentBodyEditor.selectionStart = caretPos;
-    currentBodyEditor.selectionEnd = caretPos;
-    currentBodyEditor.focus();
+    // const uploading = `![Uploading ${files[0].name}...]()`;
+    // let caretPos = currentBodyEditor.selectionStart;
+    // setIsLoading(true);
+    // setBody(
+    //   bodyRef.current.substring(0, caretPos) +
+    //     uploading +
+    //     bodyRef.current.substring(currentBodyEditor.selectionEnd, body.length)
+    // );
+    // caretPos = caretPos + uploading.length;
+    // currentBodyEditor.selectionStart = caretPos;
+    // currentBodyEditor.selectionEnd = caretPos;
+    // currentBodyEditor.focus();
 
-    return uploadImage({
-      image: files[0],
-      type: 'threads',
-    })
-      .then(({ data }) => {
-        setIsLoading(false);
-        setBody(
-          bodyRef.current.replace(
-            uploading,
-            `![${files[0].name}](${data.uploadImage})`
-          )
-        );
-      })
-      .catch(err => {
-        console.error(err);
-        setIsLoading(false);
-        setBody(bodyRef.current.replace(uploading, ''));
-        dispatch(
-          addToastWithTimeout(
-            'error',
-            `Uploading image failed - ${err.message}`
-          )
-        );
-      });
+    // return uploadImage({
+    //   image: files[0],
+    //   type: 'threads',
+    // })
+    //   .then(({ data }) => {
+    //     setIsLoading(false);
+    //     setBody(
+    //       bodyRef.current.replace(
+    //         uploading,
+    //         `![${files[0].name}](${data.uploadImage})`
+    //       )
+    //     );
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //     setIsLoading(false);
+    //     setBody(bodyRef.current.replace(uploading, ''));
+    //     dispatch(
+    //       addToastWithTimeout(
+    //         'error',
+    //         `Uploading image failed - ${err.message}`
+    //       )
+    //     );
+    //   });
   };
 
   const handleCancel = () => {
@@ -183,15 +187,19 @@ const MiniComposer = ({
 
     setIsLoading(true);
 
+    const contentState = body.getCurrentContent();
+    const raw = convertToRaw(contentState);
+
     const thread = {
       channelId: fixedChannelId || selectedChannelId,
       communityId: community.id,
-      type: 'TEXT',
+      type: 'DRAFTJS',
       content: {
         title: title.trim(),
         // workaround react-mentions bug by replacing @[username] with @username
         // @see withspectrum/spectrum#4587
-        body: body.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+        // body: body.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+        body: JSON.stringify(raw),
       },
     };
 
@@ -199,7 +207,7 @@ const MiniComposer = ({
       .then(async ({ data }) => {
         setIsLoading(false);
         dispatch(addToastWithTimeout('success', 'Thread published!'));
-        await storeDraftThread({ title: '', body: '' });
+        await storeDraftThread({ title: '', body: EditorState.createEmpty()});
         await setBody('');
         await setTitle('');
         await setExpanded(false);
@@ -288,75 +296,21 @@ const MiniComposer = ({
       </div>
       {expanded && (
         <BodyContainer>
-          <Dropzone
-            accept={['image/gif', 'image/jpeg', 'image/png', 'video/mp4']}
-            disableClick
-            multiple={false}
-            onDropAccepted={uploadFiles}
-            style={{ lineHeight: '1.4' }}
-          >
-            {({ getRootProps, getInputProps, isDragActive }) => (
-              <div
-                {...getRootProps({
-                  refKey: 'ref',
-                })}
-                css={{
-                  width: '100%',
-                  position: 'relative',
-                  marginBottom: '8px',
-                }}
-              >
-                <input {...getInputProps()} />
-                <MentionsInput
-                  data-cy="mini-composer-body"
-                  tabIndex={2}
-                  inputRef={bodyEditor}
-                  value={body}
-                  onChange={changeBody}
-                  placeholder={t('community:OptionalAddMoreDetails')}
-                  // style={{
-                  //   background: theme.bg.default,
-                  //   border: `1px solid ${theme.bg.border}`,
-                  //   borderRadius: '8px',
-                  //   width: '100%',
-                  //   lineHeight: '1.4',
-                  //   input: {
-                  //     fontSize: '16px',
-                  //     minHeight: '80px',
-                  //     padding: '12px',
-                  //   },
-                  // }}
-
-                  // staticSuggestions={[
-                  //   {
-                  //     betaSupporter: null,
-                  //     coverPhoto: "",
-                  //     description: "",
-                  //     firstName: null,
-                  //     id: "80c546f1-d865-48d9-a1d6-97f9ecb63a8d",
-                  //     isOnline: true,
-                  //     name: "Si Thu Win",
-                  //     profilePhoto: "https://spectrum-proxy.imgix.net/https%3A%2F%2Favatars3.githubusercontent.com%2Fu%2F56015969%3Fv%3D4?w=256&h=256&dpr=2&auto=compress&expires=1591291800000&ixlib=js-1.3.0&s=2e75b9dfb717631586b4fe79154292a6",
-                  //     timezone: 390,
-                  //     totalReputation: 0,
-                  //     username: "si-thu-win",
-                  //     website: "",
-                  //   }
-                  // ]}
-                />
-                <DropImageOverlay
-                  css={{
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                  }}
-                  visible={isDragActive}
-                />
-              </div>
-            )}
-          </Dropzone>
           
+          {/* <Editor 
+            title={this.state.title}
+            body={this.state.body}
+            changeBody={this.changeBody}
+            changeTitle={this.changeTitle}
+            innerRef={(input) => { this.titleInput = input; }}
+            bodyRef={ref => (this.bodyEditor = ref)}
+            editorFocus={this.editorFocus}
+            uploadImage={this.props.uploadImage}
+            dispatch={this.props.dispatch}
+            t={this.props.t}/>
+
+ */}
+
           <div
             css={{
               display: 'flex',
@@ -466,3 +420,72 @@ export default compose(
 
 
 
+
+{/* <Dropzone
+accept={['image/gif', 'image/jpeg', 'image/png', 'video/mp4']}
+disableClick
+multiple={false}
+onDropAccepted={uploadFiles}
+style={{ lineHeight: '1.4' }}
+>
+{({ getRootProps, getInputProps, isDragActive }) => (
+  <div
+    {...getRootProps({
+      refKey: 'ref',
+    })}
+    css={{
+      width: '100%',
+      position: 'relative',
+      marginBottom: '8px',
+    }}
+  >
+    <input {...getInputProps()} />
+    <MentionsInput
+      data-cy="mini-composer-body"
+      tabIndex={2}
+      inputRef={bodyEditor}
+      value={body}
+      onChange={changeBody}
+      placeholder={t('community:OptionalAddMoreDetails')}
+      // style={{
+      //   background: theme.bg.default,
+      //   border: `1px solid ${theme.bg.border}`,
+      //   borderRadius: '8px',
+      //   width: '100%',
+      //   lineHeight: '1.4',
+      //   input: {
+      //     fontSize: '16px',
+      //     minHeight: '80px',
+      //     padding: '12px',
+      //   },
+      // }}
+
+      // staticSuggestions={[
+      //   {
+      //     betaSupporter: null,
+      //     coverPhoto: "",
+      //     description: "",
+      //     firstName: null,
+      //     id: "80c546f1-d865-48d9-a1d6-97f9ecb63a8d",
+      //     isOnline: true,
+      //     name: "Si Thu Win",
+      //     profilePhoto: "https://spectrum-proxy.imgix.net/https%3A%2F%2Favatars3.githubusercontent.com%2Fu%2F56015969%3Fv%3D4?w=256&h=256&dpr=2&auto=compress&expires=1591291800000&ixlib=js-1.3.0&s=2e75b9dfb717631586b4fe79154292a6",
+      //     timezone: 390,
+      //     totalReputation: 0,
+      //     username: "si-thu-win",
+      //     website: "",
+      //   }
+      // ]}
+    />
+    <DropImageOverlay
+      css={{
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      }}
+      visible={isDragActive}
+    />
+  </div>
+)}
+</Dropzone> */}

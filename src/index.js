@@ -18,7 +18,7 @@ import { subscribeToDesktopPush } from 'src/subscribe-to-desktop-push';
 import RedirectHandler from 'src/components/redirectHandler';
 import i18n from 'shared/i18n';
 import { I18nextProvider } from 'react-i18next';
-
+import 'src/components/editor/draft.css'
 const params = queryString.parse(history.location.search);
 
 // Redirect legacy ?thread=asdf & ?t=asdf URLs to the proper /<community>/<channel>/<thread>

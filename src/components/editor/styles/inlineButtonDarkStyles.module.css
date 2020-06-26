@@ -5,7 +5,7 @@
   }
   
   .button {
-    background: #172B4D;
+    background: #344563;
     color: #fff;
     font-size: 18px;
     border: 0;
@@ -13,7 +13,8 @@
     vertical-align: bottom;
     height: 34px;
     width: 36px;
-    border-radius: 6px;
+    border-radius: 4px;
+    cursor: pointer;
   }
   
   .button svg {
@@ -26,11 +27,11 @@
   }
   
   .active {
-    color: #172B4D;
-    background: #fff;
+    color: #4C9AFF;
+    background: #344563;
   }
   
   .active svg {
-    fill: #172B4D;
+    fill: #4C9AFF;
   }
   

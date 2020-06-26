@@ -9,8 +9,10 @@ type Props = {
   body: RawDraftContentState,
 };
 
-export default (props: Props) => (
-  <div className="markdown">
-    {redraft(props.body, threadRenderer)}
-    </div>
-);
+export default (props: Props) =>{
+  return (
+    <div>
+      {redraft(props.body, threadRenderer)}
+      </div>
+  );
+} 

@@ -1,13 +1,26 @@
 // @flow
 import { createGlobalStyle } from 'styled-components';
 // $FlowIssue
-import prismGlobalCSS from '!!raw-loader!./components/rich-text-editor/prism-theme.css';
+// import prismGlobalCSS from '!!raw-loader!./components/rich-text-editor/prism-theme.css';
+import prismGlobalCSS from '!!raw-loader!./components/editor/prism.css';
+import draftGlobalCSS from '!!raw-loader!./components/editor/draft.css';
+import draftInlineGlobalCSS from '!!raw-loader!./components/editor/draft-js-inline-toolbar-plugin.css';
+import draftToolbarGlobalCSS from '!!raw-loader!./components/editor/draft-js-side-toolbar-plugin.css';
+import draftEmojiGlobalCSS from '!!raw-loader!./components/editor/draft-js-emoji-plugin.css';
+import draftDividerGlobalCSS from '!!raw-loader!./components/editor/draft-js-divider-plugin.css';
+import draftFocusGlobalCSS from '!!raw-loader!./components/editor/draft-js-focus-plugin.css';
+
 import theme from 'shared/theme';
-import { themed } from 'src/components/theme';
+import { themed, colors } from 'src/components/theme';
 
 export default createGlobalStyle`
   ${prismGlobalCSS}
-
+  ${draftGlobalCSS}
+  ${draftInlineGlobalCSS}
+  ${draftToolbarGlobalCSS}
+  ${draftEmojiGlobalCSS}
+  ${draftDividerGlobalCSS}
+  ${draftFocusGlobalCSS}
   * {
     border: 0;
     box-sizing: inherit;
@@ -328,4 +341,46 @@ export default createGlobalStyle`
   .tippy-backdrop {
     background-color: ${themed({ light: theme.text.default, dark: theme.textd.default})};
   }
+
+  .public-DraftStyleDefault-ol, .public-DraftStyleDefault-ul {
+    display: table;
+  }
+
+  .ol-level-0 {
+    display: table;
+  }
+
+  .ol-level-1 {
+    list-style-type: lower-alpha;
+  }
+
+  .ol-level-2 {
+    list-style-type: lower-roman;
+  }
+
+  .ol-level-4 {
+    list-style-type: lower-alpha;
+  }
+
+  /* Quotes */
+  blockquote{
+    line-height: 1.5;
+    // border-left: 4px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+    color: ${() => themed({ light: theme.text.alt, dark:theme.textd.alt })};
+    padding: 4px 12px 4px 16px;
+	  font-family: Lobster, cursive !important;
+    font-style: italic;
+  }
+
+  blockquote> div > span::before {
+    content: open-quote;
+  }
+  blockquote> div > span::after {
+    content: close-quote;
+  }
+  blockquote > div > span {
+    quotes: "“" "”" "‘" "’";
+  }
+  
+  
 `;

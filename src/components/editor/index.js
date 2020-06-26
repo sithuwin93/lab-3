@@ -6,7 +6,7 @@ import TitleInput from './title';
 export default class EditorComponent extends Component {
 
   render() {
-    const { innerRef, title,body, changeTitle, changeBody  } = this.props;
+    const { innerRef, bodyRef, title,body, changeTitle, changeBody, editorFocus, uploadImage, dispatch, t  } = this.props;
     return (
       <div>
         <TitleInput 
@@ -17,6 +17,11 @@ export default class EditorComponent extends Component {
         <Editor 
           body={body}
           changeBody={changeBody}
+          bodyRef={bodyRef}
+          editorFocus={editorFocus}
+          uploadImage={uploadImage}
+          dispatch={dispatch}
+          t={t}
         />
       </div>
     )

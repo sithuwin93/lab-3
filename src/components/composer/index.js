@@ -52,6 +52,18 @@ import {
   convertFromRaw,
   EditorState,
 } from 'draft-js';
+
+import {
+  InputsGrid,
+} from './style';
+import createImagePlugin from 'src/components/editor/customPlugins/draft-js-image-plugin';
+import InlineDialog from 'src/components/inline-dialog';
+import Button from 'src/components/button-new'
+import Modal, { ModalTransition } from 'src/components/modal-dialog';
+import EmbedInputComponent from 'src/components/editor/customPlugins/draft-js-video-plugin/EmbedInput'
+import createVideoPlugin from  'src/components/editor/customPlugins/draft-js-video-plugin';
+import { moveSelectionToEnd } from 'src/components/editor/utils';
+
 type State = {
   title: string,
   body: string,
@@ -80,17 +92,22 @@ type Props = {
   previousLocation?: Location,
   t: i18n.TFunction
 };
+const imagePlugin = createImagePlugin();
+const videoPlugin = createVideoPlugin();
 
 export const DISCARD_DRAFT_MESSAGE =
   'Are you sure you want to discard this draft?';
 
 // We persist the body and title to localStorage
 // so in case the app crashes users don't loose content
+
+
+
 class ComposerWithData extends React.Component<Props, State> {
-  bodyEditor: any;
 
   constructor(props) {
     super(props);
+    this.bodyEditor = React.createRef();
 
     this.state = {
       title: '',
@@ -100,6 +117,7 @@ class ComposerWithData extends React.Component<Props, State> {
       preview: false,
       selectedChannelId: '',
       selectedCommunityId: '',
+      embedding: false
     };
 
     this.persistBodyToLocalStorageWithDebounce = debounce(
@@ -112,6 +130,7 @@ class ComposerWithData extends React.Component<Props, State> {
     );
   }
 
+  embToggleDialog = () => this.setState({ embDialogOpen: !this.state.embDialogOpen });
   removeStorage = async () => {
     await clearDraftThread();
   };
@@ -132,10 +151,14 @@ class ComposerWithData extends React.Component<Props, State> {
   
   componentWillMount() {
     let { storedBody, storedTitle } = this.getTitleAndBody();
+
+    const { body } = this.state;
+    const content = body.getCurrentContent();
+    const isEditorEmpty = content.hasText();
     this.setState({
       title: this.state.title || storedTitle || '',
       // body: this.state.body || storedBody || '',
-      body: this.state.body || storedBody || EditorState.createEmpty()
+      body: isEditorEmpty || storedBody || EditorState.createEmpty(),
     });
   }
 
@@ -164,6 +187,7 @@ class ComposerWithData extends React.Component<Props, State> {
     return;
   }
 
+  
   handleGlobalKeyPress = e => {
     const esc = e && e.keyCode === ESC;
     const enter = e.keyCode === ENTER;
@@ -221,6 +245,7 @@ class ComposerWithData extends React.Component<Props, State> {
     });
   };
 
+  editorFocus = () => this.bodyEditor.focus();
   // changeBody = evt => {
   //   const body = evt.target.value;
   //   this.persistBodyToLocalStorageWithDebounce();
@@ -322,21 +347,21 @@ class ComposerWithData extends React.Component<Props, State> {
     const uploading = `![Uploading ${files[0].name}...]()`;
     let caretPos = this.bodyEditor.selectionStart;
 
-    this.setState(
-      ({ body }) => ({
-        isLoading: true,
-        body:
-          body.substring(0, caretPos) +
-          uploading +
-          body.substring(this.bodyEditor.selectionEnd, this.state.body.length),
-      }),
-      () => {
-        caretPos = caretPos + uploading.length;
-        this.bodyEditor.selectionStart = caretPos;
-        this.bodyEditor.selectionEnd = caretPos;
-        this.bodyEditor.focus();
-      }
-    );
+    // this.setState(
+    //   ({ body }) => ({
+    //     isLoading: true,
+    //     body:
+    //       body.substring(0, caretPos) +
+    //       uploading +
+    //       body.substring(this.bodyEditor.selectionEnd, this.state.body.length),
+    //   }),
+    //   () => {
+    //     caretPos = caretPos + uploading.length;
+    //     this.bodyEditor.selectionStart = caretPos;
+    //     this.bodyEditor.selectionEnd = caretPos;
+    //     this.bodyEditor.focus();
+    //   }
+    // );
 
     return this.props
       .uploadImage({
@@ -344,28 +369,34 @@ class ComposerWithData extends React.Component<Props, State> {
         type: 'threads',
       })
       .then(({ data }) => {
-        this.setState({
-          isLoading: false,
-        });
-        this.changeBody({
-          target: {
-            value: this.state.body.replace(
-              uploading,
-              `![${files[0].name}](${data.uploadImage})`
-            ),
-          },
-        });
+        this.changeBody(
+          imagePlugin.addImage(
+            this.state.body,
+            data.uploadImage,
+          )
+        );
+        // this.setState({
+        //   isLoading: false,
+        // });
+        // this.changeBody({
+        //   target: {
+        //     value: this.state.body.replace(
+        //       uploading,
+        //       `![${files[0].name}](${data.uploadImage})`
+        //     ),
+        //   },
+        // });
       })
       .catch(err => {
-        console.error({ err });
-        this.setState({
-          isLoading: false,
-        });
-        this.changeBody({
-          target: {
-            value: this.state.body.replace(uploading, ''),
-          },
-        });
+        // console.error({ err });
+        // this.setState({
+        //   isLoading: false,
+        // });
+        // this.changeBody({
+        //   target: {
+        //     value: this.state.body.replace(uploading, ''),
+        //   },
+        // });
         this.props.dispatch(
           addToastWithTimeout(
             'error',
@@ -374,6 +405,18 @@ class ComposerWithData extends React.Component<Props, State> {
         );
       });
   };
+
+
+  addEmbedUrl = url => {
+    this.changeBody(
+      videoPlugin.addVideo(
+        moveSelectionToEnd(this.state.body),
+        { src: url }
+      )
+    );
+    this.closeEmbedding();
+
+  }
 
   publishThread = () => {
     // if no title and no channel is set, don't allow a thread to be published
@@ -421,7 +464,6 @@ class ComposerWithData extends React.Component<Props, State> {
 
     const contentState = body.getCurrentContent();
     const raw = convertToRaw(contentState)
-
     const content = {
       title: title.trim(),
       // workaround react-mentions bug by replacing @[username] with @username
@@ -488,15 +530,21 @@ class ComposerWithData extends React.Component<Props, State> {
   setSelectedChannel = (id: string) => {
     return this.setState({ selectedChannelId: id });
   };
+  openEmbedding = () => {
+    this.setState({ embedding: true })
+  }
 
+  closeEmbedding = () => {
+    this.setState({ embedding: false })
+  }
   render() {
     const {
       title,
       isLoading,
       selectedChannelId,
       selectedCommunityId,
+      embedding,
     } = this.state;
-    console.log('selectedCommunityId',selectedCommunityId)
     const {
       networkOnline,
       websocketConnection,
@@ -525,12 +573,19 @@ class ComposerWithData extends React.Component<Props, State> {
             onCommunitySelectionChanged={this.setSelectedCommunity}
             onChannelSelectionChanged={this.setSelectedChannel}
           />
-          <Editor 
-            title={this.state.title}
-            body={this.state.body}
-            changeBody={this.changeBody}
-            changeTitle={this.changeTitle}
-            innerRef={(input) => { this.titleInput = input; }}/>
+          <InputsGrid>
+            <Editor 
+              title={this.state.title}
+              body={this.state.body}
+              changeBody={this.changeBody}
+              changeTitle={this.changeTitle}
+              innerRef={(input) => { this.titleInput = input; }}
+              bodyRef={ref => (this.bodyEditor = ref)}
+              editorFocus={this.editorFocus}
+              uploadImage={this.props.uploadImage}
+              dispatch={this.props.dispatch}
+              t={this.props.t}/>
+          </InputsGrid>
           {/* <Inputs
             title={this.state.title}
             body={this.state.body}
@@ -561,45 +616,27 @@ class ComposerWithData extends React.Component<Props, State> {
                   <Icon glyph="photo" />
                 </MediaLabel>
               </Tooltip>
-              <Tooltip content={this.props.t('StyleWithMarkdown')}>
-                <DesktopLink
-                  target="_blank"
-                  href="https://guides.github.com/features/mastering-markdown/"
-                >
-                  <Icon glyph="markdown" />
-                </DesktopLink>
-              </Tooltip>
-            </InputHints>
-            <ButtonRow>
-              {/* <TextButton
-                data-cy="composer-cancel-button"
-                hoverColor="warn.alt"
-                onClick={this.discardDraft}
-              >
-                Cancel
-              </TextButton> */}
+              {!embedding && (
+                <Tooltip content={this.props.t('UploadPhoto')}>
+                  <MediaLabel>
+                    <Icon glyph="embed" onClick={this.openEmbedding}/>
+                  </MediaLabel>
+                </Tooltip>
+              )}
+              </InputHints>
+              {embedding && (
+                <EmbedInputComponent
+                  onSubmit={this.addEmbedUrl}
+                  close={this.closeEmbedding}
+                />
+              )}
+            {!embedding && <ButtonRow>
               <ThemedButton
                 appearance="subtle"
                 data-cy="composer-cancel-button"
                 onClick={this.discardDraft}>
                 {this.props.t('Cancel')}
               </ThemedButton>
-              {/* <PrimaryButton
-                data-cy="composer-publish-button"
-                onClick={this.publishThread}
-                loading={isLoading}
-                disabled={
-                  !title ||
-                  title.trim().length === 0 ||
-                  isLoading ||
-                  networkDisabled ||
-                  !selectedChannelId ||
-                  !selectedCommunityId
-                }
-              >
-                {isLoading ? 'Publishing...' : 'Publish'}
-              </PrimaryButton> */}
-
               <ThemedButton
                 style={{marginLeft:8}}
                 shouldFitContainer
@@ -617,7 +654,7 @@ class ComposerWithData extends React.Component<Props, State> {
                 }>
                 {isLoading ? this.props.t('Publishing') : this.props.t('Publish')}
               </ThemedButton>
-            </ButtonRow>
+            </ButtonRow> }
           </Actions>
         </Container>
       </Wrapper>

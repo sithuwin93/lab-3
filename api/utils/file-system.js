@@ -3,6 +3,8 @@ import uuidv4 from 'uuid/v4';
 import fs from 'fs';
 
 import type { FileUpload, EntityTypes } from 'shared/types';
+var mime = require('mime-types');
+    
 
 const STORAGE_DIR = 'public/uploads';
 const READ_WRITE_MODE = 0o777;
@@ -28,9 +30,9 @@ export const uploadImage = async (
   if (!(await dirExists(STORAGE_DIR))) {
     await createUploadsDir(STORAGE_DIR);
   }
-
+  const fileExtension = mime.extension(result.mimetype);
   return new Promise(res => {
-    const filePath = `${uuidv4()}-${entity}-${id}`;
+    const filePath = `${uuidv4()}-${entity}-${id}.${fileExtension}`;
     const { stream } = result;
     stream.pipe(fs.createWriteStream(`${STORAGE_DIR}/${filePath}`));
     stream.on('end', () => {

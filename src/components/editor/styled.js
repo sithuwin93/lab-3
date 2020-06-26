@@ -4,11 +4,14 @@ import {
   themed,
   colors,
 } from 'src/components/theme';
+import {
+  DESKTOP_SITE,
+} from 'src/components/layout';
 
 export const TitleWrapper = styled.div`
-  margin: 24px 20px 10px 20px;
-  @media only screen and (max-width: 900px) {
-    margin 8px;
+  margin: 20px 100px 10px 100px;
+  @media (max-width: ${DESKTOP_SITE}px) {
+    margin: 8px;
   }
 `
 
@@ -27,12 +30,26 @@ export const TitleArea = styled.textarea`
     color: ${colors.N90};
   }
   font-family: 'Bree Serif', serif;
+  @media (max-width: ${DESKTOP_SITE}px) {
+    font-size: 28px;
+  }
   font-size: 36px;
+
   font-weight: 500;
   line-height: 56px;
 `;
 
 export const EditorWrapper = styled.div`
+  margin: 24px 100px 10px 100px;
+  @media (max-width: ${DESKTOP_SITE}px) {
+    margin: 8px;
+    font-size: 1em;
+  }
+  cursor: text;
+  font-size: 1.2em;
+
+
+
 
 code[class*="language-"],
 pre[class*="language-"] {

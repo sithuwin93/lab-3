@@ -48,27 +48,29 @@ const sortSuggestions = (a, b, queryString) => {
 const SpectrumMentionsInput = (props: Props) => {
 
   const searchUsers = async (queryString, callback) => {
-    const staticSuggestions = !props.staticSuggestions
-      ? []
-      : props.staticSuggestions
-          .map(cleanSuggestionUserObject)
-          .filter(Boolean)
-          .filter(user => {
-            return (
-              user.username &&
-              (user.username.indexOf(queryString || '') > -1 ||
-                user.filterName.indexOf(queryString || '') > -1)
-            );
-          })
-          .sort((a, b) => {
-            return sortSuggestions(a, b, queryString);
-          })
-          .slice(0, 8);
+    console.log("SpectrumMentionsInput", queryString)
 
-    callback(staticSuggestions);
+    // const staticSuggestions = !props.staticSuggestions
+    //   ? []
+    //   : props.staticSuggestions
+    //       .map(cleanSuggestionUserObject)
+    //       .filter(Boolean)
+    //       .filter(user => {
+    //         return (
+    //           user.username &&
+    //           (user.username.indexOf(queryString || '') > -1 ||
+    //             user.filterName.indexOf(queryString || '') > -1)
+    //         );
+    //       })
+    //       .sort((a, b) => {
+    //         return sortSuggestions(a, b, queryString);
+    //       })
+    //       .slice(0, 8);
 
-    if (!queryString || queryString.length === 0)
-      return callback(staticSuggestions);
+    // callback(staticSuggestions);
+
+    // if (!queryString || queryString.length === 0)
+    //   return callback(staticSuggestions);
 
     const {
       data: { search },
@@ -79,6 +81,7 @@ const SpectrumMentionsInput = (props: Props) => {
         type: 'USERS',
       },
     });
+    console.log("search",search)
 
     if (!search || !search.searchResultsConnection) {
       if (staticSuggestions && staticSuggestions.length > 0)

@@ -7,6 +7,9 @@ import { Truncate, monoStack, hexa } from 'src/components/globals';
 import { Wrapper as EditorWrapper } from '../rich-text-editor/style';
 import { MEDIA_BREAK } from 'src/components/layout';
 import { themed } from 'src/components/theme';
+import {
+  DESKTOP_SITE,
+} from 'src/components/layout';
 
 export const Byline = styled.span`
   display: flex;
@@ -341,17 +344,35 @@ export const Line = styled.pre`
 export const Paragraph = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
+  @media (max-width: ${DESKTOP_SITE}px) {
+    font-size: 1em;
+  }
+  font-size: 1.2em;
 
   &:not(:empty) ~ &:not(:empty) {
     margin-top: 8px;
   }
 `;
 
+
+
 export const BlockQuote = styled.blockquote`
   line-height: 1.5;
-  border-left: 4px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+  // border-left: 4px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
   color: ${() => themed({ light: theme.text.alt, dark:theme.textd.alt })};
   padding: 4px 12px 4px 16px;
+  font-family: Lobster, cursive !important;
+  font-style: italic;
+  && > div > span::before {
+    content: open-quote;
+  }
+  && > div > span::after {
+    content: close-quote;
+  }
+  && > div > span {
+    quotes: "“" "”" "‘" "’";
+  }
+
 `;
 
 export const QuotedParagraph = styled.div`

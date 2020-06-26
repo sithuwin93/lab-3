@@ -26,6 +26,7 @@ export const MEDIA_BREAK =
   COL_GAP +
   NAVBAR_WIDTH * 2;
 
+export const DESKTOP_SITE = 979;
 /* 
   do not remove this className.
   see `src/routes.js` for an explanation of what's going on here
