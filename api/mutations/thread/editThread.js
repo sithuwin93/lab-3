@@ -10,6 +10,7 @@ import { getUserPermissionsInChannel } from '../../models/usersChannels';
 import { isAuthedResolver as requireAuth } from '../../utils/permissions';
 import processThreadContent from 'shared/draft-utils/process-thread-content';
 import { hasLegacyPrefix, stripLegacyPrefix } from 'shared/imgix';
+import { EditorState } from 'draft-js';
 
 type Input = {
   input: EditThreadInput,
@@ -54,7 +55,9 @@ export default requireAuth(async (_: any, args: Input, ctx: GraphQLContext) => {
     );
   }
 
-  input.content.body = processThreadContent('TEXT', input.content.body || '');
+  const raw = EditorState.createEmpty()
+  
+  input.content.body = processThreadContent('DRAFTJS', input.content.body || JSON.stringify(convertToRaw(raw)));
 
   /*
     When threads are sent to the client, all image urls are signed and proxied

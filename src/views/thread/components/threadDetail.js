@@ -1,4 +1,11 @@
 // @flow
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+} from 'draft-js';
+
+
 import * as React from 'react';
 import compose from 'recompose/compose';
 import { Link } from 'react-router-dom';
@@ -26,6 +33,9 @@ import getThreadLink from 'src/helpers/get-thread-link';
 import { ENTER } from 'src/helpers/keycodes';
 import type { Dispatch } from 'redux';
 import { ErrorBoundary } from 'src/components/error';
+import Editor from 'src/components/editor';
+import { withTranslation } from 'react-i18next';
+import createImagePlugin from 'src/components/editor/customPlugins/draft-js-image-plugin';
 
 type State = {
   isEditing?: boolean,
@@ -49,11 +59,13 @@ type Props = {
   ref?: any,
 };
 
+const imagePlugin = createImagePlugin();
+
 class ThreadDetailPure extends React.Component<Props, State> {
   state = {
     isEditing: false,
     parsedBody: null,
-    body: '',
+    body: EditorState.createEmpty(),
     title: '',
     receiveNotifications: false,
     isSavingEdit: false,
@@ -75,7 +87,7 @@ class ThreadDetailPure extends React.Component<Props, State> {
 
     return this.setState({
       isEditing: false,
-      body: '',
+      body: EditorState.createEmpty(),
       title: thread.content.title,
       // We store this in the state to avoid having to JSON.parse on every render
       parsedBody,
@@ -98,36 +110,35 @@ class ThreadDetailPure extends React.Component<Props, State> {
   toggleEdit = () => {
     const { isEditing } = this.state;
     const { thread } = this.props;
-
     this.setState({
       isEditing: !isEditing,
       title: thread.content.title,
-      body: null,
+      body: EditorState.createWithContent(convertFromRaw(JSON.parse(thread.content.body))),
     });
 
-    fetch('https://convert.spectrum.chat/to', {
-      method: 'POST',
-      body: thread.content.body,
-    })
-      .then(res => {
-        if (res.status >= 300 || res.status < 200)
-          throw new Error('Oops, something went wrong.');
-        return res;
-      })
-      .then(res => res.text())
-      .then(md => {
-        this.setState({
-          body: md,
-        });
-      })
-      .catch(err => {
-        this.props.dispatch(addToastWithTimeout('error', err.message));
-        this.setState({
-          isEditing,
-          body: '',
-        });
-        this.props.toggleEdit && this.props.toggleEdit();
-      });
+    // fetch('https://convert.spectrum.chat/to', {
+    //   method: 'POST',
+    //   body: thread.content.body,
+    // })
+    //   .then(res => {
+    //     if (res.status >= 300 || res.status < 200)
+    //       throw new Error('Oops, something went wrong.');
+    //     return res;
+    //   })
+    //   .then(res => res.text())
+    //   .then(md => {
+    //     this.setState({
+    //       body: md,
+    //     });
+    //   })
+    //   .catch(err => {
+    //     this.props.dispatch(addToastWithTimeout('error', err.message));
+    //     this.setState({
+    //       isEditing,
+    //       body: '',
+    //     });
+    //     this.props.toggleEdit && this.props.toggleEdit();
+    //   });
 
     this.props.toggleEdit && this.props.toggleEdit();
   };
@@ -153,15 +164,18 @@ class ThreadDetailPure extends React.Component<Props, State> {
       isSavingEdit: true,
     });
 
+    const contentState = body.getCurrentContent();
+    const raw = convertToRaw(contentState)
     const content = {
       title: title.trim(),
-      body,
+      body: JSON.stringify(raw),
     };
 
     const input = {
       threadId,
       content,
     };
+
 
     editThread(input)
       .then(({ data: { editThread } }) => {
@@ -200,33 +214,34 @@ class ThreadDetailPure extends React.Component<Props, State> {
     });
   };
 
-  changeBody = evt => {
+  changeBody = body => {
     this.setState({
-      body: evt.target.value,
+      body,
     });
   };
 
   uploadFiles = files => {
-    const uploading = `![Uploading ${files[0].name}...]()`;
-    let caretPos = this.bodyEditor.selectionStart;
-    const { body } = this.state;
-    if (!body) return;
 
-    this.setState(
-      {
-        isSavingEdit: true,
-        body:
-          body.substring(0, caretPos) +
-          uploading +
-          body.substring(this.bodyEditor.selectionEnd, body.length),
-      },
-      () => {
-        caretPos = caretPos + uploading.length;
-        this.bodyEditor.selectionStart = caretPos;
-        this.bodyEditor.selectionEnd = caretPos;
-        this.bodyEditor.focus();
-      }
-    );
+    // const uploading = `![Uploading ${files[0].name}...]()`;
+    // let caretPos = this.bodyEditor.selectionStart;
+    // const { body } = this.state;
+    // if (!body) return;
+
+    // this.setState(
+    //   {
+    //     isSavingEdit: true,
+    //     body:
+    //       body.substring(0, caretPos) +
+    //       uploading +
+    //       body.substring(this.bodyEditor.selectionEnd, body.length),
+    //   },
+    //   () => {
+    //     caretPos = caretPos + uploading.length;
+    //     this.bodyEditor.selectionStart = caretPos;
+    //     this.bodyEditor.selectionEnd = caretPos;
+    //     this.bodyEditor.focus();
+    //   }
+    // );
 
     return this.props
       .uploadImage({
@@ -237,15 +252,23 @@ class ThreadDetailPure extends React.Component<Props, State> {
         this.setState({
           isSavingEdit: false,
         });
-        if (!this.state.body) return;
-        this.changeBody({
-          target: {
-            value: this.state.body.replace(
-              uploading,
-              `![${files[0].name}](${data.uploadImage})`
-            ),
-          },
-        });
+
+        this.changeBody(
+          imagePlugin.addImage(
+            this.state.body,
+            data.uploadImage,
+          )
+        );
+
+        // if (!this.state.body) return;
+        // this.changeBody({
+        //   target: {
+        //     value: this.state.body.replace(
+        //       uploading,
+        //       `![${files[0].name}](${data.uploadImage})`
+        //     ),
+        //   },
+        // });
       })
       .catch(err => {
         console.error({ err });
@@ -266,6 +289,7 @@ class ThreadDetailPure extends React.Component<Props, State> {
         );
       });
   };
+  editorFocus = () => this.bodyEditor.focus();
 
   render() {
     const { currentUser, thread } = this.props;
@@ -284,17 +308,29 @@ class ThreadDetailPure extends React.Component<Props, State> {
       <ThreadWrapper isEditing={isEditing} ref={this.props.ref}>
         <ThreadContent isEditing={isEditing}>
           {isEditing ? (
-            <ThreadEditInputs
-              uploadFiles={this.uploadFiles}
+            <Editor 
               title={this.state.title}
               body={this.state.body}
-              autoFocus
-              bodyRef={ref => (this.bodyEditor = ref)}
               changeBody={this.changeBody}
               changeTitle={this.changeTitle}
-              onKeyDown={this.handleKeyPress}
-              isEditing={isEditing}
-            />
+              // innerRef={(input) => { this.titleInput = input; }}
+              bodyRef={ref => (this.bodyEditor = ref)}
+              editorFocus={this.editorFocus}
+              uploadImage={this.props.uploadImage}
+              dispatch={this.props.dispatch}
+              t={this.props.t}/>
+
+            // <ThreadEditInputs
+            //   uploadFiles={this.uploadFiles}
+            //   title={this.state.title}
+            //   body={this.state.body}
+            //   autoFocus
+            //   bodyRef={ref => (this.bodyEditor = ref)}
+            //   changeBody={this.changeBody}
+            //   changeTitle={this.changeTitle}
+            //   onKeyDown={this.handleKeyPress}
+            //   isEditing={isEditing}
+            // />
           ) : (
             <React.Fragment>
               <BylineContainer>
@@ -371,6 +407,8 @@ class ThreadDetailPure extends React.Component<Props, State> {
 
         <ErrorBoundary>
           <ActionBar
+            body={this.state.body}
+            changeBody={this.changeBody}
             toggleEdit={this.toggleEdit}
             currentUser={currentUser}
             thread={thread}
@@ -400,4 +438,4 @@ export default compose(
   withCurrentUser,
   // $FlowIssue
   connect(map)
-)(ThreadDetail);
+)(withTranslation('common')(ThreadDetail));

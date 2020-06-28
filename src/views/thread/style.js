@@ -671,6 +671,48 @@ export const ActionBarContainer = styled.div`
   }
 `;
 
+export const ButtonRow = styled(FlexRow)`
+  @media (max-width: ${MEDIA_BREAK}px) {
+    justify-content: flex-end;
+  }
+`;
+
+
+export const Actions = styled.div`
+  background: ${() => themed({ light:theme.bg.wash , dark: theme.bgd.wash})};
+  border-top: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  padding: 8px 16px;
+  align-self: stretch;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex: 1 0 auto;
+  height: 56px;
+  min-height: 56px;
+  max-height: 56px;
+
+  @media (max-width: ${MEDIA_BREAK}px) {
+    padding: 8px;
+    z-index: ${zIndex.chrome + 1};
+
+    > ${ButtonRow} {
+      width: 100%;
+
+      > button:first-of-type {
+        display: none;
+      }
+
+      > button:last-of-type {
+        width: calc(100% - 16px);
+        margin-right: 8px;
+      }
+    }
+  }
+`;
+
+
 export const FixedBottomActionBarContainer = styled(ActionBarContainer)`
   z-index: 1;
   width: 100%;

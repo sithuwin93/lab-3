@@ -17,8 +17,6 @@ export default function onDropFile(config) {
     { getEditorState, setEditorState }
   ) {
 
-    console.log("uploadPlugin",files)
-
     // TODO need to make sure the correct image block is added
     // TODO -> addImage must be passed in. content type matching should happen
 

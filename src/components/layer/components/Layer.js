@@ -355,7 +355,6 @@ export default class Layer extends Component<Props, State> {
       fixedOffset,
     } = this.state;
     const opacity = hasExtractedStyles ? {} : { opacity: 0 };
-    console.log("position",cssPosition)
     return (
       <React.Fragment>
         <div

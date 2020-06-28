@@ -22,6 +22,7 @@ import sendMessage from 'shared/graphql/mutations/message/sendMessage';
 import sendDirectMessage from 'shared/graphql/mutations/message/sendDirectMessage';
 import { getMessageById } from 'shared/graphql/queries/message/getMessage';
 import MediaUploader from './components/mediaUploader';
+import Embedd from './components/embedd';
 import { QuotedMessage as QuotedMessageComponent } from '../message/view';
 import type { Dispatch } from 'redux';
 import { MarkdownHint } from 'src/components/markdownHint';
@@ -32,6 +33,11 @@ import MentionsInput from '../mentionsInput';
 import TextField from 'src/components/textfield';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+} from 'draft-js';
 
 const QuotedMessage = connect()(
   getMessageById(props => {
@@ -154,6 +160,8 @@ const ChatInput = (props: Props) => {
   };
 
   const sendMessage = ({ file, body }: { file?: any, body?: string }) => {
+
+    console.log('body', body)
     // user is creating a new directMessageThread, break the chain
     // and initiate a new group creation with the message being sent
     // in views/directMessages/containers/newThread.js
@@ -212,12 +220,17 @@ const ChatInput = (props: Props) => {
 
     scrollToBottom();
 
+    const body = EditorState.createEmpty();
+    const contentState = body.getCurrentContent();
+    const raw = convertToRaw(contentState);
+
+
     if (mediaFile) {
       setIsSendingMediaMessage(true);
       scrollToBottom();
       await sendMessage({
         file: mediaFile,
-        body: '{"blocks":[],"entityMap":{}}',
+        body: JSON.stringify(raw),
       })
         .then(() => {
           setIsSendingMediaMessage(false);
@@ -309,12 +322,20 @@ const ChatInput = (props: Props) => {
         )}
         <ChatInputWrapper>
           {props.currentUser && (
-            <MediaUploader
-              isSendingMediaMessage={isSendingMediaMessage}
-              currentUser={props.currentUser}
-              onValidated={previewMedia}
-              onError={err => setPhotoSizeError(err)}
-            />
+            <React.Fragment>
+              <MediaUploader
+                isSendingMediaMessage={isSendingMediaMessage}
+                currentUser={props.currentUser}
+                onValidated={previewMedia}
+                onError={err => setPhotoSizeError(err)}
+              />
+              <Embedd
+                isSendingMediaMessage={isSendingMediaMessage}
+                currentUser={props.currentUser}
+                onValidated={previewMedia}
+                onError={err => setPhotoSizeError(err)}
+              />
+            </React.Fragment>
           )}
           <Form onSubmit={submit}>
             <InputWrapper
@@ -372,8 +393,8 @@ const ChatInput = (props: Props) => {
 
           </Form>
         </ChatInputWrapper>
+      
       </ChatInputContainer>
-      <MarkdownHint showHint={text.length > 0} dataCy="markdownHint" />
     </React.Fragment>
   );
 };
@@ -391,3 +412,6 @@ export default compose(
   // $FlowIssue
   connect(map)
 )(withTranslation(['common'])(ChatInput));
+
+
+{/* <MarkdownHint showHint={text.length > 0} dataCy="markdownHint" /> */}

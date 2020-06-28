@@ -31,6 +31,7 @@ import {
   LogoLink,
   Logo,
 } from './style';
+import TextField from 'src/components/textfield';
 
 /*
   Creates a container that fills the width and height of its parent
@@ -1011,11 +1012,16 @@ export const LoadingProfileThreadDetail = () => (
   </ShimmerProfileLite>
 );
 
+// export const LoadingSelect = () => (
+//   <ShimmerSelect>
+//     <ShimmerBase />
+//   </ShimmerSelect>
+// );
+
 export const LoadingSelect = () => (
-  <ShimmerSelect>
-    <ShimmerBase />
-  </ShimmerSelect>
+  <TextField isDisabled/>
 );
+
 
 type Props = { children: any };
 export const ErrorSelect = ({ children }: Props) => (

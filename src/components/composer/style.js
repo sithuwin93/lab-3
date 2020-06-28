@@ -193,10 +193,13 @@ export const InputHints = styled(FlexRow)`
 // `;
 
 export const SelectWrapper = styled.div`
-  padding: 3px;
+  // padding: 3px;
+  margin:  0 6px 0 0;
   width: 212px;
   @media (max-width: ${MEDIA_BREAK}px) {
     width: 100%;
+    margin:  0 0 3px 0;
+
   }
 `
 
@@ -216,7 +219,7 @@ export const Dropdowns = styled.div`
   @media (max-width: ${MEDIA_BREAK}px) {
     // justify-content: flex-start;
     display: block;
-    min-height: ${props => props.multiRow? '110px': '58px'};
+    min-height: ${props => props.multiRow? '100px': '58px'};
 
   }
 `;

@@ -415,7 +415,6 @@ class ComposerWithData extends React.Component<Props, State> {
       )
     );
     this.closeEmbedding();
-
   }
 
   publishThread = () => {
@@ -630,31 +629,33 @@ class ComposerWithData extends React.Component<Props, State> {
                   close={this.closeEmbedding}
                 />
               )}
-            {!embedding && <ButtonRow>
-              <ThemedButton
-                appearance="subtle"
-                data-cy="composer-cancel-button"
-                onClick={this.discardDraft}>
-                {this.props.t('Cancel')}
-              </ThemedButton>
-              <ThemedButton
-                style={{marginLeft:8}}
-                shouldFitContainer
-                appearance="primary"
-                data-cy="composer-publish-button"
-                onClick={this.publishThread}
-                isLoading={isLoading}
-                isDisabled={
-                  !title ||
-                  title.trim().length === 0 ||
-                  isLoading ||
-                  networkDisabled ||
-                  !selectedChannelId ||
-                  !selectedCommunityId
-                }>
-                {isLoading ? this.props.t('Publishing') : this.props.t('Publish')}
-              </ThemedButton>
-            </ButtonRow> }
+            {!embedding && (
+              <ButtonRow>
+                <ThemedButton
+                  appearance="subtle"
+                  data-cy="composer-cancel-button"
+                  onClick={this.discardDraft}>
+                  {this.props.t('Cancel')}
+                </ThemedButton>
+                <ThemedButton
+                  style={{marginLeft:8}}
+                  shouldFitContainer
+                  appearance="primary"
+                  data-cy="composer-publish-button"
+                  onClick={this.publishThread}
+                  isLoading={isLoading}
+                  isDisabled={
+                    !title ||
+                    title.trim().length === 0 ||
+                    isLoading ||
+                    networkDisabled ||
+                    !selectedChannelId ||
+                    !selectedCommunityId
+                  }>
+                  {isLoading ? this.props.t('Publishing') : this.props.t('Publish')}
+                </ThemedButton>
+              </ButtonRow>
+            )}
           </Actions>
         </Container>
       </Wrapper>

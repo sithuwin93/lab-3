@@ -48,9 +48,7 @@ class EmbedInputComponent extends Component {
         <MediaLabel>
           <Icon onClick={close} glyph="cancel" />
         </MediaLabel>
-
       </React.Fragment>
-
     )
   }
 }

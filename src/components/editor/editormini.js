@@ -22,7 +22,7 @@ import { EditorMiniWrapper } from './styled';
 //   }
 // }
 export default React.forwardRef((props, ref) => (
-  <EditorMiniWrapper>
+  <EditorMiniWrapper tabIndex={props.tabIndex} >
     <Editor 
       body={props.body}
       changeBody={props.changeBody}

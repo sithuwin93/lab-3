@@ -59,7 +59,6 @@ export default requireAuth(
 
     if (thread.content.body) {
       thread.content.body = processThreadContent(type, thread.content.body);
-      console.log("thread.content.body",thread.content.body)
     }
 
     thread.type = 'DRAFTJS';

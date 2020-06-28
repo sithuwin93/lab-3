@@ -288,7 +288,6 @@ export const createRenderer = (options: Options) => {
         </VideoWrapper>
       ),
       mention: (children: Array<Node>, data: Object, { key }: KeyObj) => {
-        console.log("children",children, data.mention.link)
         return (
           <a href={`/users/${data.mention.link}`} 
             className="mention___vYNmB" 

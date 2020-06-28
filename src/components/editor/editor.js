@@ -249,8 +249,6 @@ class CustomImageEditor extends Component {
   }
 
   getBlockStyle(block) {
-    console.log('block.getType()',block.getType())
-
     switch (block.getType()) {
       case 'CODE': return 'short-code';
       case 'code-block': return 'language-javascript';

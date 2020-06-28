@@ -40,6 +40,7 @@ const ChannelSelector = (props: Props) => {
     location,
     className,
     t,
+    tabIndex,
     ...rest,
   } = props;
   const { loading, error, community } = data;
@@ -180,6 +181,7 @@ const ChannelSelector = (props: Props) => {
     // </RequiredSelector>
     <SelectWrapper style={{zIndex:11}}>
       <Select
+        tabIndex={tabIndex} 
         onChange={onChange}
         className={className}
         data-cy="composer-channel-selector"

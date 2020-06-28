@@ -13,7 +13,6 @@ class DividerButton extends Component {
 
     const editorState = this.props.getEditorState();
     const newEditorState = this.props.addDivider(editorState);
-    console.log('newEditorState', convertToRaw(newEditorState.getCurrentContent()))
     this.props.setEditorState(newEditorState);
   };
 

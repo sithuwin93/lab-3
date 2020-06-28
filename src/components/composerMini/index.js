@@ -123,7 +123,6 @@ const MiniComposer = ({
   };
 
   const uploadFiles = files => {
-    console.log("uploadFiles",uploadFiles)
     // const currentBodyEditor = bodyEditor.current;
     // if (!currentBodyEditor || !files[0]) return;
 
@@ -144,7 +143,7 @@ const MiniComposer = ({
         image: files[0],
         type: 'threads',
       }).then(({ data }) => {
-        console.log("data", data)
+
         // changeBody(
         //   imagePlugin.addImage(
         //     body,
@@ -306,7 +305,7 @@ const MiniComposer = ({
           )}
           <TextField
             data-cy="mini-composer-title"
-            tabIndex={1}
+            tabIndex={0}
             titleWarning={titleWarning}
             ref={titleEditor}
             value={title}
@@ -327,6 +326,7 @@ const MiniComposer = ({
         <BodyContainer>
           
           <EditorMiniComponent 
+            tabIndex={0}
             body={body}
             changeBody={changeBody}
             ref={bodyRef}
@@ -340,7 +340,7 @@ const MiniComposer = ({
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '100%',
-              paddingTop: 12,
+              // paddingTop: 12,
             }}
           >
             <div css={{ display: 'flex', alignItems: 'center' }}>
@@ -353,7 +353,7 @@ const MiniComposer = ({
                   selectedCommunityId={community.id}
                   selectedChannelId={selectedChannelId}
                   css={{ marginLeft: 0 }}
-                  tabIndex={3}
+                  tabIndex={0}
                 />
               )}
               {fixedChannelId && (
@@ -363,7 +363,7 @@ const MiniComposer = ({
                   selectedChannelId={fixedChannelId}
                   disabled
                   css={{ marginLeft: 0 }}
-                  tabIndex={3}
+                  tabIndex={0}
                 />
               )}
               <Tooltip content={t('community:OpenInFullscreen')}>

@@ -48,7 +48,6 @@ const sortSuggestions = (a, b, queryString) => {
 const SpectrumMentionsInput = (props: Props) => {
 
   const searchUsers = async (queryString, callback) => {
-    console.log("SpectrumMentionsInput", queryString)
 
     // const staticSuggestions = !props.staticSuggestions
     //   ? []
@@ -81,7 +80,6 @@ const SpectrumMentionsInput = (props: Props) => {
         type: 'USERS',
       },
     });
-    console.log("search",search)
 
     if (!search || !search.searchResultsConnection) {
       if (staticSuggestions && staticSuggestions.length > 0)

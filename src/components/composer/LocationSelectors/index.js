@@ -51,7 +51,7 @@ const ComposerLocationSelectors = (props: Props) => {
 
   return (
     <Dropdowns multiRow={!!selectedCommunityId}>
-      <DropdownsLabel>{`Post to:  `}</DropdownsLabel>
+      {/* <DropdownsLabel>{`Post to:  `}</DropdownsLabel> */}
       <CommunitySelector
         id={selectedCommunityId}
         onCommunityChange={onCommunitySelectionChanged}

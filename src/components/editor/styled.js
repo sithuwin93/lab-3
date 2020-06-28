@@ -45,6 +45,9 @@ export const EditorInput = styled.div`
   //   text-shadow: 0px 0px 0px #000;
   //   -webkit-text-fill-color: transparent;
   // }
+    height: 100%;
+
+
 
   .public-DraftEditorPlaceholder-root {
     color: ${() => themed({ light: colors.N100, dark: colors.DN90 })};
@@ -59,15 +62,17 @@ export const EditorWrapper = styled.div`
   }
   cursor: text;
   font-size: 1.2em;
+  box-sizing: border-box;
+  height: 500px;
 `
 
-export const EditorMiniWrapper = styled.div`    
+export const EditorMiniWrapper = styled.div`  
   width: 100%;
   margin: 0px;
   font-size: 16px;
   cursor: text;
   padding: 8px 6px;
-  min-height: 100px;
+  height: 100px;
   align-items: center;
   background-color: ${() => themed({ light: colors.N10, dark: colors.DN10 })};
   border-color: ${() => themed({ light: colors.N40, dark: colors.DN40 })};
@@ -86,7 +91,7 @@ export const EditorMiniWrapper = styled.div`
   // overflow: hidden;
   // vertical-align: top;
   // pointer-events: auto;
-
+  margin-bottom: 8px;
   &:hover {
     background-color: ${() => themed({ light: colors.N30, dark: colors.DN30 })};
     border-color: ${() => themed({ light: colors.B100, dark: colors.B75 })};

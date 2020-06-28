@@ -27,7 +27,7 @@ export const ChatInputWrapper = styled.div`
   align-items: flex-end;
   width: 100%;
   margin: 0;
-  padding: 8px 12px 0 12px;
+  padding: 8px 12px 8px 12px;
   background-color: ${() => themed({ light:theme.bg.default , dark:theme.bgd.default })};
   border-top: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
   // box-shadow: -1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })}, 1px 0 0 ${themed({ light:theme.bg.border , dark:theme.bgd.border })};

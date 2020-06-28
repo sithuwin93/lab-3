@@ -9,7 +9,6 @@ import { flexMaxHeightIEFix } from '../utils/flex-max-height-ie-fix';
 
 const backgroundColor = themed({ light: N0, dark: DN50 });
 const textColor = themed({ light: N900, dark: DN600 });
-console.log("themed({ light: N0, dark: DN50 });",themed({ light: N0, dark: DN50 })())
 const modalPadding = gridSize() * 3;
 const keylineColor = themed({ light: N30, dark: DN30 });
 export const keylineHeight = 2;

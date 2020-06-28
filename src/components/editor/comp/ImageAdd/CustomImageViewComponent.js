@@ -44,7 +44,6 @@ export default class CustomImageViewComponent extends Component {
       style:{ width:'100%',height:'100%',zIndex:2000},      
     }
 
-    console.log("src",src)
   
     return (
       <div

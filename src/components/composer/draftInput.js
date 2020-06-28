@@ -60,7 +60,7 @@ const MyComponent = (props: Props) => {
         .then(res => {
           if (res.status < 200 || res.status >= 300)
             throw new Error(t('OopsSomethingWentWrong'));
-          return res.json();
+          return res.json();s
         })
         .then(json => {
           setPreviewBody(json);

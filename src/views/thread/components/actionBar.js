@@ -20,12 +20,19 @@ import {
 import {
   ShareButtons,
   ShareButton,
+  Actions,
   ActionBarContainer,
   FixedBottomActionBarContainer,
   EditDone,
+  ButtonRow
 } from '../style';
 import ActionsDropdown from './actionsDropdown';
 import { ThemedButton } from 'src/components/button-new';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
+import EmbedInputComponent from 'src/components/editor/customPlugins/draft-js-video-plugin/EmbedInput'
+import createVideoPlugin from  'src/components/editor/customPlugins/draft-js-video-plugin';
+import { moveSelectionToEnd } from 'src/components/editor/utils';
 
 type Props = {
   thread: GetThreadType,
@@ -41,21 +48,49 @@ type Props = {
   isLockingThread: boolean,
   isPinningThread: boolean,
   uploadFiles: Function,
+  t: i18n.TFunction
 };
+const videoPlugin = createVideoPlugin();
 
 class ActionBar extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      embedding: false
+    }
+  
+  }
+
   uploadFiles = evt => {
     this.props.uploadFiles(evt.target.files);
   };
 
+  openEmbedding = () => {
+    this.setState({ embedding: true })
+  }
+
+  closeEmbedding = () => {
+    this.setState({ embedding: false })
+  }
+
+  addEmbedUrl = url => {
+    this.props.changeBody(
+      videoPlugin.addVideo(
+        moveSelectionToEnd(this.props.body),
+        { src: url }
+      )
+    );
+    this.closeEmbedding();
+  }
+
   render() {
     const { thread, isEditing, isSavingEdit, title } = this.props;
-
+    const { embedding } = this.state;
     if (isEditing) {
       return (
-        <FixedBottomActionBarContainer>
-          <div style={{ display: 'flex' }}>
-            <InputHints>
+        <Actions>
+          <InputHints>
+            <Tooltip content={this.props.t('UploadPhoto')}>
               <MediaLabel>
                 <MediaInput
                   type="file"
@@ -65,22 +100,30 @@ class ActionBar extends React.Component<Props> {
                 />
                 <Icon glyph="photo" />
               </MediaLabel>
-              <DesktopLink
-                target="_blank"
-                href="https://guides.github.com/features/mastering-markdown/"
-              >
-                <Icon glyph="markdown" />
-              </DesktopLink>
-            </InputHints>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <EditDone data-cy="cancel-thread-edit-button">
+            </Tooltip>
+            {!embedding && (
+              <Tooltip content={this.props.t('UploadPhoto')}>
+                <MediaLabel>
+                  <Icon glyph="embed" onClick={this.openEmbedding}/>
+                </MediaLabel>
+              </Tooltip>
+            )}
+          </InputHints>
+          {embedding && (
+            <EmbedInputComponent
+              onSubmit={this.addEmbedUrl}
+              close={this.closeEmbedding}
+            />
+          )}
+
+          {!embedding && (
+             <ButtonRow>
               {/* <TextButton onClick={this.props.toggleEdit}>Cancel</TextButton> */}
-              <ThemedButton onClick={this.props.toggleEdit}>
+              <ThemedButton 
+                onClick={this.props.toggleEdit}>
                 Cancel
               </ThemedButton>
-            </EditDone>
-            <EditDone>
+
               {/* <PrimaryOutlineButton
                 loading={isSavingEdit}
                 disabled={title.trim().length === 0 || isSavingEdit}
@@ -90,7 +133,8 @@ class ActionBar extends React.Component<Props> {
                 {isSavingEdit ? 'Saving...' : 'Save'}
               </PrimaryOutlineButton> */}
               <ThemedButton
-                style={{flex:'none', marginLeft:8}}
+                shouldFitContainer
+                style={{ marginLeft:8}}
                 appearance="primary"
                 isLoading={isSavingEdit}
                 isDisabled={title.trim().length === 0 || isSavingEdit}
@@ -98,9 +142,9 @@ class ActionBar extends React.Component<Props> {
                 data-cy="save-thread-edit-button">
                 {isSavingEdit ? 'Saving...' : 'Save'}
               </ThemedButton>
-            </EditDone>
-          </div>
-        </FixedBottomActionBarContainer>
+            </ButtonRow>
+          )}
+        </Actions>
       );
     } else {
       return (
@@ -178,4 +222,4 @@ class ActionBar extends React.Component<Props> {
   }
 }
 
-export default compose(connect())(ActionBar);
+export default compose(connect())(withTranslation('common')(ActionBar));
