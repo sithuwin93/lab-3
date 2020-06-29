@@ -396,7 +396,7 @@ class CustomImageEditor extends Component {
           onChange={this.props.changeBody}
           plugins={newPlugin}
           ref={this.props.ref}
-          placeholder="Hello Draft placeholder"
+          placeholder={this.props.placeholder}
           blockStyleFn={this.getBlockStyle}
           customStyleMap={{
             CODE: {

@@ -11,6 +11,13 @@ import { connect } from 'react-redux';
 import editMessageMutation from 'shared/graphql/mutations/message/editMessage';
 import { ESC } from '../../helpers/keycodes';
 import { openModal } from '../../actions/modals';
+import {
+  convertToRaw,
+  convertFromRaw,
+  EditorState,
+} from 'draft-js';
+import EditorMini from 'src/components/editor/editormini'
+import { withTranslation } from 'react-i18next';
 
 type Props = {
   message: MessageInfoType,
@@ -21,34 +28,42 @@ type Props = {
 };
 
 const EditingChatInput = (props: Props) => {
-  const initialState =
-    props.message.messageType === 'text' ? props.message.content.body : null;
-  // $FlowIssue
-  const [text, setText] = React.useState(initialState);
+
+  console.log('EditingChatInputprops',props)
+  const initialState = props.message.content.body
+  //   props.message.messageType === 'text' ? props.message.content.body : null;
+  // // $FlowIssue
+  // const [text, setText] = React.useState(initialState);
+  const [ body, setBody] = React.useState(EditorState.createWithContent(convertFromRaw(JSON.parse(initialState))))
+  // const [ body, setBody] = React.useState(EditorState.createEmpty())
+
   // $FlowIssue
   const [saving, setSaving] = React.useState(false);
   let input = null;
 
   // $FlowIssue
-  React.useEffect(() => {
-    if (props.message.messageType === 'text') return;
+  // React.useEffect(() => {
+  //   if (props.message.messageType === 'text') return;
 
-    setText(null);
-    fetch('https://convert.spectrum.chat/to', {
-      method: 'POST',
-      body: props.message.content.body,
-    })
-      .then(res => res.text())
-      .then(md => {
-        setText(md);
-        input && input.focus();
-      });
-  }, [props.message.id]);
+  //   setText(null);
+  //   fetch('https://convert.spectrum.chat/to', {
+  //     method: 'POST',
+  //     body: props.message.content.body,
+  //   })
+  //     .then(res => res.text())
+  //     .then(md => {
+  //       setText(md);
+  //       input && input.focus();
+  //     });
+  // }, [props.message.id]);
 
-  const onChange = e => {
-    const text = e.target.value;
-    setText(text);
-  };
+  // const onChange = e => {
+  //   const text = e.target.value;
+  //   setText(text);
+  // };
+  const changeBody = eds => {
+    setBody(eds)
+  }
 
   const handleKeyPress = e => {
     const esc = e.keyCode === ESC;
@@ -83,15 +98,18 @@ const EditingChatInput = (props: Props) => {
     const { message, editMessage, dispatch } = props;
     const messageId = message.id;
 
-    if (!text || text.length === 0) return props.cancelEdit();
+    // if (!text || text.length === 0) return props.cancelEdit();
+    const contentState = body.getCurrentContent();
+    const raw = convertToRaw(contentState);
 
     const content = {
-      body: text.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+      // body: text.replace(/@\[([a-z0-9_-]+)\]/g, '@$1'),
+      body: JSON.stringify(raw)
     };
 
     const input = {
       id: messageId,
-      messageType: 'text',
+      messageType: 'draftjs',
       content,
     };
 
@@ -119,10 +137,26 @@ const EditingChatInput = (props: Props) => {
       });
   };
 
+
   return (
     <React.Fragment>
-      <EditorInput data-cy="edit-message-input">
-        <Input
+      {/* <EditorInput data-cy="edit-message-input"> */}
+        <EditorMini 
+          dataCy="editing-chat-input"
+          placeholder={props.t('YourMessageHere')}
+          body={body}
+          changeBody={changeBody}
+          ref={ref => {
+            props.editorRef && props.editorRef(ref);
+            input = ref;
+          }}
+          editorFocus={() => {}}
+          uploadImage={() => {}}
+          dispatch={props.dispatch}
+          t={props.t}
+          />
+
+        {/* <Input
           dataCy="editing-chat-input"
           placeholder={text === null ? 'Loading...' : 'Your message here...'}
           disabled={text === null}
@@ -134,8 +168,8 @@ const EditingChatInput = (props: Props) => {
             input = ref;
           }}
           autoFocus
-        />
-      </EditorInput>
+        /> */}
+      {/* </EditorInput> */}
       <EditActions>
         {!saving && (
           <TextButton data-cy="edit-message-cancel" onClick={cancelEdit}>
@@ -157,4 +191,4 @@ const EditingChatInput = (props: Props) => {
 export default compose(
   connect(),
   editMessageMutation
-)(EditingChatInput);
+)(withTranslation(['common','community'])(EditingChatInput));

@@ -2,28 +2,12 @@ import React, { Component } from 'react';
 import Editor from './editor'
 import { EditorMiniWrapper } from './styled';
 
-// export default class EditorMiniComponent extends Component {
-
-//   render() {
-//     const { bodyRef, body, changeBody, editorFocus, uploadImage, dispatch, t  } = this.props;
-//     return (
-//       <EditorMiniWrapper>
-//         <Editor 
-//           body={body}
-//           changeBody={changeBody}
-//           bodyRef={bodyRef}
-//           editorFocus={editorFocus}
-//           uploadImage={uploadImage}
-//           dispatch={dispatch}
-//           t={t}
-//         />
-//       </EditorMiniWrapper>
-//     )
-//   }
-// }
 export default React.forwardRef((props, ref) => (
-  <EditorMiniWrapper tabIndex={props.tabIndex} >
-    <Editor 
+  <EditorMiniWrapper 
+    style={props.style}
+    tabIndex={props.tabIndex} >
+    <Editor     
+      placeholder={props.placeholder}
       body={props.body}
       changeBody={props.changeBody}
       bodyRef={ref}

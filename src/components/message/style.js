@@ -394,7 +394,7 @@ export const QuotedParagraph = styled.div`
 export const QuoteWrapperGradient = styled.div`
   background: linear-gradient(
     to top,
-    rgba(255, 255, 255, 1),
+    ${() => themed({ light: '#FFFFFF', dark:'#000000' })},
     rgba(255, 255, 255, 0)
   );
   height: 2em;

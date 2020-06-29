@@ -29,19 +29,40 @@ type BodyProps = {
 // see https://regex101.com/r/aGamna/2/
 export const Body = (props: BodyProps) => {
   const { showParent = true, message, openGallery, me, bubble = true } = props;
+  console.log("message.content.body",props.message.content.body,props.message.messageType, bubble)
+
   const emojiOnly =
     message.messageType === messageTypeObj.draftjs &&
     draftOnlyContainsEmoji(JSON.parse(message.content.body));
   const WrapperComponent = bubble ? Text : QuotedParagraph;
   switch (message.messageType) {
     case 'optimistic':
+      const parsed = JSON.parse(message.content.body);
       return (
-        <div key={message.id} className="markdown">
-          <WrapperComponent me={me}>
-            <div dangerouslySetInnerHTML={{ __html: message.content.body }} />
-          </WrapperComponent>
-        </div>
+        <WrapperComponent key={message.id} me={me}>
+          {message.parent && showParent && (
+            // $FlowIssue
+            <QuotedMessage message={message.parent} />
+          )}
+          {emojiOnly ? (
+            <Emoji>
+              {parsed && Array.isArray(parsed.blocks) && parsed.blocks[0].text}
+            </Emoji>
+          ) : (
+            <div key={message.id} className="markdown">
+              {redraft(parsed, messageRenderer)}
+            </div>
+          )}
+        </WrapperComponent>
       );
+
+      // return (
+      //   <div key={message.id} className="markdown">
+      //     <WrapperComponent me={me}>
+      //       <div dangerouslySetInnerHTML={{ __html: message.content.body }} />
+      //     </WrapperComponent>
+      //   </div>
+      // );
     case messageTypeObj.text:
     default:
       return (
@@ -55,6 +76,7 @@ export const Body = (props: BodyProps) => {
       }
       return (
         <Image
+          style={{maxWidth: '50%'}}
           key={message.id}
           onClick={openGallery}
           src={message.content.body}

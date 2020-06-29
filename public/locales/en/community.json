@@ -19,5 +19,6 @@
     "ManageChannels": "Manage channels",
     "GoToSettings": "Go to settings",
     "MuteNotifications":"Mute notifications",
-    "EnableChannelNotifications":"Enable channel notifications"
+    "EnableChannelNotifications":"Enable channel notifications",
+    "YourMessageHere": "Your message here..."
 }

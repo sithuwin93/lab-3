@@ -19,6 +19,7 @@ export const sendDirectMessageMutation = gql`
   }
   ${messageInfoFragment}
 `;
+
 const sendDirectMessageOptions = {
   props: ({ ownProps, mutate, ...rest }) => ({
     sendDirectMessage: message => {

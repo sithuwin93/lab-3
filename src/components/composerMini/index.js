@@ -326,6 +326,11 @@ const MiniComposer = ({
         <BodyContainer>
           
           <EditorMiniComponent 
+            placeholder={t('OptionalAddMoreDetails')}
+            style={{
+              height: 100,
+              marginBottom: 8,
+            }}
             tabIndex={0}
             body={body}
             changeBody={changeBody}

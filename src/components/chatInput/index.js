@@ -38,6 +38,7 @@ import {
   convertFromRaw,
   EditorState,
 } from 'draft-js';
+import EditorMini from 'src/components/editor/editormini'
 
 const QuotedMessage = connect()(
   getMessageById(props => {
@@ -97,22 +98,24 @@ const ChatInput = (props: Props) => {
   const { t } = props;
   const cacheKey = `last-content-${props.threadId}`;
   const [text, changeText] = React.useState('');
+  const [body, setBody] = React.useState(EditorState.createEmpty());
+
   const [photoSizeError, setPhotoSizeError] = React.useState('');
   const [inputRef, setInputRef] = React.useState(null);
   const { scrollToBottom } = useAppScroller();
 
   // On mount, set the text state to the cached value if one exists
   // $FlowFixMe
-  React.useEffect(() => {
-    changeText(localStorage.getItem(cacheKey) || '');
-    // NOTE(@mxstbr): We ONLY want to run this if we switch between threads, never else!
-  }, [props.threadId]);
+  // React.useEffect(() => {
+  //   changeText(localStorage.getItem(cacheKey) || '');
+  //   // NOTE(@mxstbr): We ONLY want to run this if we switch between threads, never else!
+  // }, [props.threadId]);
 
   // Cache the latest text everytime it changes
   // $FlowFixMe
-  React.useEffect(() => {
-    localStorage.setItem(cacheKey, text);
-  }, [text]);
+  // React.useEffect(() => {
+  //   localStorage.setItem(cacheKey, text);
+  // }, [text]);
 
   // Focus chatInput when quoted message changes
   // $FlowFixMe
@@ -154,10 +157,14 @@ const ChatInput = (props: Props) => {
     }
   };
 
-  const onChange = e => {
-    const text = e.target.value;
-    changeText(text);
-  };
+  // const onChange = e => {
+  //   const text = e.target.value;
+  //   changeText(text);
+  // };
+  const changeBody = eds => {
+    setBody(eds)
+  }
+
 
   const sendMessage = ({ file, body }: { file?: any, body?: string }) => {
 
@@ -167,7 +174,7 @@ const ChatInput = (props: Props) => {
     // in views/directMessages/containers/newThread.js
     if (props.threadId === 'newDirectMessageThread') {
       return props.createThread({
-        messageType: file ? 'media' : 'text',
+        messageType: file ? 'media' : 'draftjs',
         file,
         messageBody: body,
       });
@@ -179,7 +186,7 @@ const ChatInput = (props: Props) => {
         : props.sendDirectMessage;
     return method({
       threadId: props.threadId,
-      messageType: file ? 'media' : 'text',
+      messageType: file ? 'media' : 'draftjs',
       threadType: props.threadType,
       parentId: props.quotedMessage,
       content: {
@@ -220,7 +227,6 @@ const ChatInput = (props: Props) => {
 
     scrollToBottom();
 
-    const body = EditorState.createEmpty();
     const contentState = body.getCurrentContent();
     const raw = convertToRaw(contentState);
 
@@ -243,11 +249,13 @@ const ChatInput = (props: Props) => {
         });
     }
 
-    if (text.length === 0) return;
+    // if (text.length === 0) return;
 
     // workaround react-mentions bug by replacing @[username] with @username
     // @see withspectrum/spectrum#4587
-    sendMessage({ body: text.replace(/@\[([a-z0-9_-]+)\]/g, '@$1') })
+    // sendMessage({ body: text.replace(/@\[([a-z0-9_-]+)\]/g, '@$1') })
+
+    sendMessage({ body: JSON.stringify(raw) }) //text.replace(/@\[([a-z0-9_-]+)\]/g, '@$1')
       // .then(() => {
       //   // If we're viewing a thread and the user sends a message as a non-member, we need to refetch the thread data
       //   if (
@@ -263,7 +271,8 @@ const ChatInput = (props: Props) => {
       });
 
     // Clear the chat input now that we're sending a message for sure
-    onChange({ target: { value: '' } });
+    // onChange({ target: { value: '' } });
+    changeBody(EditorState.createEmpty());
     removeQuotedMessage();
     inputRef && inputRef.focus();
   };
@@ -329,12 +338,12 @@ const ChatInput = (props: Props) => {
                 onValidated={previewMedia}
                 onError={err => setPhotoSizeError(err)}
               />
-              <Embedd
+              {/* <Embedd
                 isSendingMediaMessage={isSendingMediaMessage}
                 currentUser={props.currentUser}
                 onValidated={previewMedia}
                 onError={err => setPhotoSizeError(err)}
-              />
+              /> */}
             </React.Fragment>
           )}
           <Form onSubmit={submit}>
@@ -364,7 +373,21 @@ const ChatInput = (props: Props) => {
                   </RemovePreviewButton>
                 </PreviewWrapper>
               )}
-              <MentionsInput
+
+              <EditorMini 
+                placeholder={t('YourMessageHere')}
+                body={body}
+                changeBody={changeBody}
+                ref={node => {
+                  if (props.onRef) props.onRef(node);
+                  setInputRef(node);
+                }}
+                editorFocus={props.onFocus}
+                uploadImage={props.uploadImage}
+                dispatch={props.dispatch}
+                t={props.t}
+                />
+              {/* <MentionsInput
                 singleLine={true}
                 hasAttachment={!!props.quotedMessage || !!mediaPreview}
                 networkDisabled={networkDisabled}
@@ -380,18 +403,17 @@ const ChatInput = (props: Props) => {
                   setInputRef(node);
                 }}
                 staticSuggestions={props.participants}
-              />
+              /> */}
               {/* <TextField /> */}
             </InputWrapper>
-            <ThemedButton
-              style={{ flex: 'none', marginLeft: '8px' }}
-              appearance="primary"
-              data-cy="chat-input-send-button"
-              onClick={submit}>
-              {t('Send')}
-            </ThemedButton>
-
-          </Form>
+              <ThemedButton
+                style={{ margin: 'auto 0 2px 8px'}}
+                appearance="primary"
+                data-cy="chat-input-send-button"
+                onClick={submit}>
+                {t('Send')}
+              </ThemedButton>
+           </Form>
         </ChatInputWrapper>
       
       </ChatInputContainer>
@@ -411,7 +433,7 @@ export default compose(
   sendDirectMessage,
   // $FlowIssue
   connect(map)
-)(withTranslation(['common'])(ChatInput));
+)(withTranslation(['common','community'])(ChatInput));
 
 
 {/* <MarkdownHint showHint={text.length > 0} dataCy="markdownHint" /> */}

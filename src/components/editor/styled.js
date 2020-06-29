@@ -72,7 +72,6 @@ export const EditorMiniWrapper = styled.div`
   font-size: 16px;
   cursor: text;
   padding: 8px 6px;
-  height: 100px;
   align-items: center;
   background-color: ${() => themed({ light: colors.N10, dark: colors.DN10 })};
   border-color: ${() => themed({ light: colors.N40, dark: colors.DN40 })};
@@ -91,7 +90,7 @@ export const EditorMiniWrapper = styled.div`
   // overflow: hidden;
   // vertical-align: top;
   // pointer-events: auto;
-  margin-bottom: 8px;
+  // margin-bottom: 8px;
   &:hover {
     background-color: ${() => themed({ light: colors.N30, dark: colors.DN30 })};
     border-color: ${() => themed({ light: colors.B100, dark: colors.B75 })};

@@ -37,7 +37,7 @@ const sendMessageOptions = {
             messageType:
               message.messageType === messageTypeObj.media
                 ? messageTypeObj.media
-                : messageTypeObj.text,
+                : messageTypeObj.draftjs,
             content: {
               body:
                 message.messageType === messageTypeObj.media
@@ -79,10 +79,10 @@ const sendMessageOptions = {
               : null,
             content: {
               ...message.content,
-              body:
-                message.messageType === messageTypeObj.media
-                  ? message.content.body
-                  : snarkdown(message.content.body),
+              body: message.content.body,
+                // message.messageType === messageTypeObj.media
+                //   ? message.content.body
+                //   : snarkdown(message.content.body),
               __typename: 'MessageContent',
             },
             reactions: {
