@@ -56,6 +56,10 @@
     "ENCRYPTION_KEY": "@encryption-key",
     "IMGIX_PROXY_SECURITY_KEY": "@imgix-proxy-security-key",
     "IMGIX_SECURITY_KEY": "@imgix-security-key",
-    "DATADOG_API_KEY": "@datadog-api-key"
+    "DATADOG_API_KEY": "@datadog-api-key",
+
+    "S3_VULTR_HOST_NAME": "@s3-vultr-hostname",
+    "S3_VULTR_ACCESS_KEY": "@s3-vultr-access-key",
+    "S3_VULTR_SECRET_KEY": "@s3-vultr-secret-key"
   }
 }

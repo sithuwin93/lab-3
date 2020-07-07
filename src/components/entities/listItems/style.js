@@ -43,11 +43,14 @@ export const Row = styled.div`
   grid-template-rows: auto;
   grid-template-areas: 'content actions';
   grid-template-columns: 1fr auto;
-  background: ${props =>
-    props.isActive ? 
-    themed({ light:hexa(theme.text.default, 0.04), dark:hexa(theme.textd.default, 0.04) })
-     : themed({ light: theme.bg.default, dark:theme.bgd.default })};
-  border-bottom: 1px solid ${themed({ light:theme.bg.divider , dark:theme.bgd.divider })};
+
+
+  transition: background 0.1s, color 0.1s;
+  // background: linear-gradient(145deg, #ffffff, #dcdcdc);
+  // box-shadow:  3px 3px 5px #bebebe, 
+  //              -3px -3px 5px #ffffff;
+
+
   grid-gap: 16px;
   color: ${props => (props.isActive ? 
     themed({ light: colors.B400, dark: colors.B100 })
@@ -61,10 +64,33 @@ export const Row = styled.div`
   ${props =>
     props.isActive &&
     css`
-      box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
-      background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
+      background-color: #f4f4f4;
+      color: #bdbdbd;
+      cursor: default;
+      background: #f4f4f4;
+      box-shadow: inset 3px 3px 5px #cbcbcb, 
+                  inset -3px -3px 5px #ffffff;
+                  border-radius: 12px;
+                  padding: 8px 12px;
+                  margin: 4px;
+
+      // box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
+      // background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
     `}
 `;
+  // background: ${props =>
+  //   props.isActive ? 
+  //   themed({ light:hexa(theme.text.default, 0.04), dark:hexa(theme.textd.default, 0.04) })
+  //    : themed({ light: theme.bg.default, dark:theme.bgd.default })};
+  // border-bottom: 1px solid ${themed({ light:theme.bg.divider , dark:theme.bgd.divider })};
+
+
+
+
+
+
+
+
 
 export const RowWithAvatar = styled.div`
   padding: 12px 16px;
@@ -82,6 +108,7 @@ export const RowWithAvatar = styled.div`
     background: ${() => themed({ light: theme.bg.wash, dark:theme.bgd.wash })};
     cursor: pointer;
   }
+  border-radius: 0 0 20px 20px;
 `;
 
 export const UserAvatarContainer = styled.div`
@@ -167,3 +194,38 @@ export const ChannelRow = styled(Row)`
 export const ChannelContent = styled(Content)`
   padding: 12px 16px;
 `;
+
+
+export const SettingButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: linear-gradient(145deg, #ffffff, #ddddde);
+  box-shadow: 5px 5px 10px #ddddde, -5px -5px 10px #ffffff:  
+  transition: all 300ms ease-in-out;
+
+  div svg path, rect {
+    fill: ${props => props.glyph == 'notification' ? '#3ce7a2':'#e74c3c' };
+  }
+`
+export const ToggleButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: linear-gradient(145deg, #ffffff, #ddddde);
+  box-shadow: ${props => props.glyph == 'notification' ? 
+  '5px 5px 10px #ddddde, -5px -5px 10px #ffffff':
+  'inset 5px 5px 10px #ddddde, inset -5px -5px 10px #ffffff'};
+  
+
+  transition: all 300ms ease-in-out;
+
+  div svg path, rect {
+    fill: ${props => props.glyph == 'notification' ? '#3ce7a2':'#e74c3c' };
+  }
+
+`

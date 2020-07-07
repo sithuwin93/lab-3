@@ -7,11 +7,11 @@ import type { CommunityInfoType } from 'shared/graphql/fragments/community/commu
 import { openModal } from 'src/actions/modals';
 import JoinCommunity from 'src/components/joinCommunityWrapper';
 import { ActionsRowContainer } from '../style';
-import { ThemedButton } from 'src/components/button-new';
+// import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-
+import { ThemedButton } from 'src/components/button-new';
 type Props = {
   community: CommunityInfoType,
   dispatch: Dispatch<Object>,
@@ -49,7 +49,7 @@ export const UnconnectedCommunityActions = (props: Props) => {
             to={`/${community.slug}/settings`}
             type="link"
             shouldFitContainer
-            appearance="default">
+            appearance="primary">
             <Icon 
             style={{
                 position: 'relative',

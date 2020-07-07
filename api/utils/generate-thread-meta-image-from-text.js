@@ -31,7 +31,7 @@ const FOOTER_PARAMS = {
   txtfont: 'Helvetica,Bold',
 };
 
-const BACKGROUND_URL = `https://spectrum.imgix.net/default_images/twitter-share-card.png`;
+const BACKGROUND_URL = `https://ik.imagekit.io/parabaik/upload-img/default_images/twitter-share-card.png`;
 
 type GetMetaImageInput = {
   title: string,

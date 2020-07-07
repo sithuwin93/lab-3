@@ -70,16 +70,22 @@ class CommunitySettings extends React.Component<Props> {
           to: `/${community.slug}/settings`,
           label: t('Overview'),
           activeLabel: 'settings',
+          isFirst: true,
+          isLast: false,
         },
         {
           to: `/${community.slug}/settings/members`,
           label: t('Members'),
           activeLabel: 'members',
+          isFirst: false,
+          isLast: false,
         },
         {
           to: `/${community.slug}/settings/analytics`,
           label: t('Analytics'),
           activeLabel: 'analytics',
+          isFirst: false,
+          isLast: true,
         },
       ];
 
@@ -110,6 +116,8 @@ class CommunitySettings extends React.Component<Props> {
               <SegmentedControl>
                 {subnavItems.map(item => (
                   <Segment
+                    isFirst={item.isFirst}
+                    isLast={item.isLast}
                     key={item.label}
                     to={item.to}
                     isActive={activeTab === item.activeLabel}

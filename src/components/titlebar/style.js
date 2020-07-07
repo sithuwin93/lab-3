@@ -79,7 +79,9 @@ export const Actions = styled.div`
 `;
 
 export const LeftActionContainer = styled.span`
+  ${({ elevation }) => elevations[elevation]}
   display: flex;
   align-items: center;
   cursor: pointer;
+  border-radius: 50%;
 `;

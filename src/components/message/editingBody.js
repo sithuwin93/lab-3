@@ -46,7 +46,7 @@ const EditingChatInput = (props: Props) => {
   //   if (props.message.messageType === 'text') return;
 
   //   setText(null);
-  //   fetch('https://convert.spectrum.chat/to', {
+  //   fetch('https://convert.parabaik.com/to', {
   //     method: 'POST',
   //     body: props.message.content.body,
   //   })

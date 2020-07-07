@@ -72,7 +72,7 @@ class DirectMessages extends React.Component<Props, State> {
             <ThreadsList activeThreadId={activeThreadId} />
           </StyledSecondaryColumn>
 
-          <PrimaryColumn elevation="e200">
+          <PrimaryColumn >
             {activeThreadId ? (
               <ExistingThread id={activeThreadId} match={match} />
             ) : (

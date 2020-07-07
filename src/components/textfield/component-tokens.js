@@ -10,7 +10,7 @@ export const defaultBackgroundColorHover = {
   light: colors.N30,
   dark: colors.DN30,
 };
-export const defaultBorderColor = { light: colors.N40, dark: colors.DN40 };
+export const defaultBorderColor = { light: '#edeef0', dark: colors.DN40 };
 export const defaultBorderColorFocus = { light: colors.B100, dark: colors.B75 };
 export const transparent = { light: 'transparent', dark: 'transparent' };
 

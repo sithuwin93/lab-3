@@ -74,7 +74,7 @@ export default requireAuth(async (_: any, args: Input, ctx: GraphQLContext) => {
 
     const stripQueryParams = (str: string): string => {
       if (
-        str.indexOf('https://spectrum.imgix.net') < 0 &&
+        str.indexOf('https://ik.imagekit.io') < 0 &&
         str.indexOf('https://spectrum-proxy.imgix.net') < 0
       ) {
         return str;
@@ -89,7 +89,7 @@ export default requireAuth(async (_: any, args: Input, ctx: GraphQLContext) => {
       // images are encoded during the signing process (shared/imgix/index.js)
       // so they must be decoded here for accurate storage in the db
       const decoded = decodeURIComponent(imagePath);
-      // we remove https://spectrum.imgix.net from the path as well so that the
+      // we remove https://ik.imagekit.io/parabaik/upload-img from the path as well so that the
       // path represents the generic location of the file in s3 and decouples
       // usage with imgix
       const processed = hasLegacyPrefix(decoded)

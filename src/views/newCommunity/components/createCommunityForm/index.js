@@ -43,6 +43,7 @@ import {
   PrivacyOptionText,
   DeleteCoverWrapper,
   DeleteCoverButton,
+  RadioInput
 } from './style';
 import { FormContainer, Form, Actions } from '../../style';
 import type { Dispatch } from 'redux';

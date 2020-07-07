@@ -116,7 +116,7 @@ class ThreadDetailPure extends React.Component<Props, State> {
       body: EditorState.createWithContent(convertFromRaw(JSON.parse(thread.content.body))),
     });
 
-    // fetch('https://convert.spectrum.chat/to', {
+    // fetch('https://convert.parabaik.com/to', {
     //   method: 'POST',
     //   body: thread.content.body,
     // })

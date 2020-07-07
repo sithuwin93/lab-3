@@ -86,7 +86,7 @@ class Support extends React.Component<{}> {
                 </PlanDescription>
               </div>
 
-              <OutlineButton href="mailto:hi@spectrum.chat">
+              <OutlineButton href="mailto:hi@parabaik.com">
                 Email us
               </OutlineButton>
             </PlanSection>

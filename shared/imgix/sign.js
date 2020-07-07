@@ -5,8 +5,8 @@ import decodeUriComponent from 'decode-uri-component';
 import { getDefaultExpires } from './getDefaultExpires';
 
 const IS_PROD = process.env.NODE_ENV === 'production';
-export const LEGACY_PREFIX = 'https://spectrum.imgix.net/';
-
+// export const LEGACY_PREFIX = 'https://ik.imagekit.io/parabaik/upload-img/';
+export const LEGACY_PREFIX =  'https://ik.imagekit.io/'
 // prettier-ignore
 const isLocalUpload = (url: string): boolean => url.startsWith('/uploads/', 0) && !IS_PROD
 // prettier-ignore
@@ -16,7 +16,7 @@ const useProxy = (url: string): boolean => url.indexOf('spectrum.imgix.net') < 0
 
 /*
   When an image is uploaded to s3, we generate a url to be stored in our db
-  that looks like: https://spectrum.imgix.net/users/:id/foo.png
+  that looks like: https://ik.imagekit.io/parabaik/upload-img/users/:id/foo.png
 
   Because we are able to proxy our s3 bucket to imgix, we technically only
   needed to store the '/users/...' path. But since legacy threads and messages
@@ -39,7 +39,8 @@ const signPrimary = (url: string, opts: Opts = defaultOpts): string => {
     domains: 'spectrum.imgix.net',
     secureURLToken: process.env.IMGIX_SECURITY_KEY,
   });
-  return client.buildURL(url, opts);
+  // return client.buildURL(url, opts);
+  return `https://ik.imagekit.io/${url}`
 };
 
 const signProxy = (url: string, opts?: Opts = defaultOpts): string => {

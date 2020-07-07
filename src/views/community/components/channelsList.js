@@ -16,7 +16,7 @@ import Tooltip from 'src/components/tooltip';
 import { ChannelListItem } from 'src/components/entities';
 import { WhiteIconButton, OutlineButton } from 'src/components/button';
 import { Spinner } from 'src/components/globals';
-import { SidebarSectionHeader, SidebarSectionHeading, List } from '../style';
+import { SidebarSectionHeader, SidebarSectionHeading, List, ToggleButton } from '../style';
 import { getThreadByIdQuery } from 'shared/graphql/queries/thread/getThread';
 import { toggleThreadNotificationsMutation } from 'shared/graphql/mutations/thread/toggleThreadNotifications';
 import {
@@ -84,7 +84,8 @@ const ChatTab = ({ location, community, currentUser, t }) =>
                                   style={{ marginLeft: '8px', display: 'flex' }}
                                 >
                                   {/* {!newActivity && !isActive && <NewActivityDot />} */}
-                                  <OutlineButton
+                                  <ToggleButton
+                                    glyph={glyph}
                                     disabled={loading}
                                     onClick={(e: any) => {
                                       e &&
@@ -99,6 +100,7 @@ const ChatTab = ({ location, community, currentUser, t }) =>
                                     style={{ padding: '4px' }}
                                     size={'small'}
                                   >
+                                    
                                     <Icon
                                       style={{
                                         marginTop: '-1px',
@@ -106,7 +108,7 @@ const ChatTab = ({ location, community, currentUser, t }) =>
                                       glyph={glyph}
                                       size={24}
                                     />
-                                  </OutlineButton>
+                                  </ToggleButton>
                                 </span>
                               </Tooltip>
                             )}
@@ -251,6 +253,7 @@ class Component extends React.Component<Props> {
               );
             })}
           </List>
+        
         </React.Fragment>
       );
     }

@@ -75,6 +75,9 @@ const MiniComposer = ({
     defaultSelectedChannel
   );
   const draftThread = getDraftThread();
+  // need-fix
+  // editorState.getCurrentContent().hasText()
+
   const [expanded, setExpanded] = useState(
     !!draftThread.title || !!draftThread.body
   );
@@ -257,6 +260,7 @@ const MiniComposer = ({
 
   return (
     <Container
+      elevation="e200"
       data-cy={expanded ? 'mini-composer-expanded' : 'mini-composer-collapsed'}
     >
       {!expanded && (
@@ -401,6 +405,7 @@ const MiniComposer = ({
                 Cancel
               </TextButton> */}
               <ThemedButton
+                appearance="default"
                 tabIndex={0}
                 onClick={handleCancel}
                 data-cy="mini-composer-cancel">

@@ -8,10 +8,12 @@ const { FILE_STORAGE } = process.env;
 const getUploadImageFn = () => {
   switch (FILE_STORAGE) {
     case 'local':
-      return require('./file-system').uploadImage;
+      return require('./vultr').uploadImage;
     case 's3':
-    default:
       return require('./s3').uploadImage;
+    case 'vultr':
+    default:
+      return require('./vultr').uploadImage;
   }
 };
 

@@ -565,7 +565,7 @@ class ComposerWithData extends React.Component<Props, State> {
           data-cy="overlay"
         />
 
-        <Container data-cy="modal-container" isModal={isModal}>
+        <Container data-cy="modal-container" isModal={isModal} elevation="e200">
           <ComposerLocationSelectors
             selectedChannelId={selectedChannelId}
             selectedCommunityId={selectedCommunityId}

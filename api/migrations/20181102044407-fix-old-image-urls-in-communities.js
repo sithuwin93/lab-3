@@ -25,7 +25,7 @@ exports.up = async function(r, conn) {
   const communityPromises = communities.map(async obj => {
     const { profilePhoto, coverPhoto } = obj;
 
-    const LEGACY_PREFIX = 'https://spectrum.imgix.net/';
+    const LEGACY_PREFIX = 'https://ik.imagekit.io/parabaik/upload-img/';
     const hasLegacyPrefix = url => url.startsWith(LEGACY_PREFIX, 0);
     const stripLegacyPrefix = url => url.replace(LEGACY_PREFIX, '');
 

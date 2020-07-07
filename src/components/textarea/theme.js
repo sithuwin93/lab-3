@@ -88,5 +88,6 @@ export const Theme = createTheme(
     invalidRules: invalidRules[mode],
     textColor: componentTokens.textColor[mode],
     placeholderTextColor: componentTokens.placeholderTextColor[mode],
+    borderRadius: '10px'
   }),
 );

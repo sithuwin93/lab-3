@@ -43,24 +43,28 @@ export const StyledButton = styled.button`
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark: theme.bgd.default})}, 0 0 0 4px ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
-    transition: box-shadow 0.2s ease-in-out;
+    // box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark: theme.bgd.default})}, 0 0 0 4px ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
+    // transition: box-shadow 0.2s ease-in-out;
   }
 
   &:active {
-    box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark: theme.bgd.default})},
-      0 0 0 4px ${themed({ light: tint(theme.bg.border, -24), dark: tint(theme.bgd.border, -24)})};
-    transition: box-shadow 0.2s ease-in-out;
+    // box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark: theme.bgd.default})},
+    //   0 0 0 4px ${themed({ light: tint(theme.bg.border, -24), dark: tint(theme.bgd.border, -24)})};
+    // transition: box-shadow 0.2s ease-in-out;
   }
 `;
 
 export const StyledWhiteIconButton = styled(StyledButton)`
   background-color: transparent;
   padding: 0;
-  color: ${() => themed({ light: theme.text.default, dark: theme.textd.default})};
-
+  color: ${() => themed({ light: '#f5f6f7', dark: theme.textd.default})};
+  box-shadow: 5px 5px 10px #ddddde, -5px -5px 10px #ffffff;
   .icon {
     margin-right: 0;
+    color: #185BF1;
+  }
+  &:active {
+    box-shadow: inset 5px 5px 10px #ddddde, inset -5px -5px 10px #ffffff;
   }
 `;
 
@@ -141,23 +145,28 @@ export const StyledWhiteButton = styled(StyledButton)`
 
 export const StyledOutlineButton = styled(StyledButton)`
   background: transparent;
-  border: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
-  transition: box-shadow 0.2s ease-in-out;
-
-  &:hover {
-    background: transparent;
-    border: 1px solid ${themed({ light: tint(theme.bg.border, -8), dark: tint(theme.bgd.border, -8)})};
+  // border: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 5px 5px 10px #ddddde, -5px -5px 10px #ffffff;
+  .icon {
+    color: #185BF1;
   }
 
-  &:focus {
-    box-shadow: 0 0 0 2px ${themed({ light:theme.bg.default , dark: theme.bgd.default})}, 0 0 0 4px ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
-    transition: box-shadow 0.2s ease-in-out;
-  }
+  // &:hover {
+  //   background: transparent;
+  //   border: 1px solid ${themed({ light: tint(theme.bg.border, -8), dark: tint(theme.bgd.border, -8)})};
+  // }
+
+  // &:focus {
+  //   box-shadow: 0 0 0 2px ${themed({ light:theme.bg.default , dark: theme.bgd.default})}, 0 0 0 4px ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  //   transition: box-shadow 0.2s ease-in-out;
+  // }
 
   &:active {
-    box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark:theme.bgd.default })},
-      0 0 0 4px ${themed({ light: tint(theme.bg.border, -24), dark: tint(theme.bgd.border, -24)})};
+    // box-shadow: 0 0 0 2px ${themed({ light: theme.bg.default, dark:theme.bgd.default })},
+    //   0 0 0 4px ${themed({ light: tint(theme.bg.border, -24), dark: tint(theme.bgd.border, -24)})};
     transition: box-shadow 0.2s ease-in-out;
+    box-shadow: inset 5px 5px 10px #ddddde, inset -5px -5px 10px #ffffff;
   }
 `;
 

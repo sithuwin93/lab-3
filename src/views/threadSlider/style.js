@@ -31,8 +31,11 @@ export const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.24);
+  // background: rgba(0, 0, 0, 0.24);
+  background: rgba(245, 246, 247, 0.9);
+
   z-index: -1;
+
 `;
 
 export const ThreadContainer = styled.div`

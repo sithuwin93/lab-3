@@ -248,10 +248,11 @@ class UserView extends React.Component<Props, State> {
                   />
                 </SidebarSection>
               </SecondaryColumn>
-              <PrimaryColumn elevation="e200">
+              <PrimaryColumn>
                 <FeedsContainer>
                   <SegmentedControl>
                     <Segment
+                      isFirst={true}
                       onClick={() => this.handleSegmentClick('posts')}
                       isActive={selectedView === 'posts'}
                       data-cy="user-posts-tab"
@@ -277,6 +278,7 @@ class UserView extends React.Component<Props, State> {
                     </Segment>
 
                     <Segment
+                      isLast={true}
                       onClick={() => this.handleSegmentClick('search')}
                       isActive={selectedView === 'search'}
                       data-cy="user-search-tab"

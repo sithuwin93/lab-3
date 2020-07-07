@@ -207,8 +207,8 @@ class ChannelView extends React.Component<Props> {
                   </ErrorBoundary>
                 )}
               </SecondaryColumn>
-
-              <PrimaryColumn elevation="e200">
+e
+              <PrimaryColumn >
                 <FeedsContainer>
                   <SegmentedControl>
                     <Segment

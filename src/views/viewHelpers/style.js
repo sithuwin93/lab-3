@@ -42,7 +42,7 @@ export const ActionsRow = styled.div`
 export const CardStyles = css`
   background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
   // border: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
-  border-radius: 4px;
+  border-radius: 20px;
 `;
 
 export const Card = styled.div`

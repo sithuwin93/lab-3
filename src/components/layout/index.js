@@ -119,7 +119,8 @@ export const SecondaryPrimaryColumnGrid = styled.div`
     minmax(${MIN_PRIMARY_COLUMN_WIDTH}px, ${MAX_PRIMARY_COLUMN_WIDTH}px);
   grid-template-rows: 100%;
   grid-template-areas: 'secondary primary';
-  grid-gap: ${COL_GAP}px;
+  // grid-gap: ${COL_GAP}px;
+  grid-gap: 0;
   max-width: ${MAX_WIDTH}px;
   margin: 0 24px;
 
@@ -191,7 +192,7 @@ export const SecondaryColumn = styled.section`
   overflow-y: auto;
   position: sticky;
   top: 0;
-  padding: 3px;
+  padding: 0 20px;
   padding-bottom: 48px;
   grid-area: secondary;
 

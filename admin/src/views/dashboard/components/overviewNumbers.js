@@ -24,7 +24,7 @@ import {
 
 const IS_PROD = process.env.NODE_ENV === 'production';
 const LOGIN_URL = IS_PROD
-  ? `https://spectrum.chat/auth/twitter?r=https://${window.location.host}`
+  ? `https://www.parabaik.com/auth/twitter?r=https://${window.location.host}`
   : 'http://localhost:3001/auth/twitter?r=http://localhost:3000';
 
 const OverviewNumbers = ({ data }) => {

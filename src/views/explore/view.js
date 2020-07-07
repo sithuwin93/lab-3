@@ -68,6 +68,8 @@ class CollectionSwitcher extends React.Component<{}, State> {
         <SegmentedControl>
           {collections.map((collection, i) => (
             <Segment
+              isFirst={collection.isFirst}
+              isLast={collection.isLast}
               key={i}
               onClick={() =>
                 this.handleSegmentClick(collection.curatedContentType)

@@ -2,7 +2,8 @@
 import styled from 'styled-components';
 import theme from 'shared/theme';
 import { MEDIA_BREAK } from 'src/components/layout';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 
 export const StyledInput = styled.input`
@@ -19,6 +20,9 @@ export const StyledInput = styled.input`
 `
 
 export const Container = styled.div`
+  ${({ elevation }) => elevations[elevation]}
+  margin: 6px;
+  border-radius: 18px;
   border-bottom: 1px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
   display: flex;
   flex-direction: column;

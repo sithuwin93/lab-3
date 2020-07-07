@@ -115,7 +115,11 @@ export const TextAreaWrapper = styled.div`
   position: relative;
   background-color: ${getBackgroundColor};
   border-color: ${getBorderColor};
-  border-radius: ${borderRadius};
+  // border-radius: ${borderRadius};
+  background: #f5f6f7;  
+  // box-shadow: inset 3px 3px 5px #cbcbcb, inset -3px -3px 5px #ffffff;
+  box-shadow: 2px 2px 3px rgba(55, 84, 170, .15), inset 0px 0px 4px rgba(255, 255, 255, 0), inset 7px 7px 15px rgba(55, 84, 170, .15), inset -7px -7px 20px rgba(255, 255, 255, 1), 0px 0px 4px rgba(255, 255, 255, .2) !important;  
+  border-radius: 10px;
   border-style: ${getBorderStyle};
   box-sizing: border-box;
   overflow: auto;

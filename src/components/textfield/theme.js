@@ -121,6 +121,18 @@ const getContainerBackgroundColor = ({
   };
 };
 
+// const getContainerBorderWidth = ({
+//   isFocused
+// }) => {
+//   if(isFocused) {
+//     return {
+//       borderWidth: '2px'
+//     }
+//   }
+//   return {
+//     borderWidth: 0,
+//   }
+// }
 const getContainerBorderColor = ({
   appearance,
   isFocused,
@@ -207,8 +219,9 @@ export const Theme = createTheme(props => ({
     alignItems: 'center',
     ...getContainerBackgroundColor(props),
     ...getContainerBorderColor(props),
-    borderRadius: '3px',
+    borderRadius: '10px',
     borderWidth: '2px',
+    // ...getContainerBorderWidth(props),
     borderStyle: props.appearance === 'none' ? 'none' : 'solid',
     boxSizing: 'border-box',
     color: props.isDisabled
@@ -225,6 +238,14 @@ export const Theme = createTheme(props => ({
     wordWrap: 'break-word',
     verticalAlign: 'top',
     pointerEvents: 'auto',
+
+  
+    // boxShadow: '2px 2px 9px #EBEFF3, -2px -2px 9px #88A1B7',
+    background: '#f5f6f7',
+    // boxShadow: '3px 3px 6px 3px rgba(0, 0, 0, 0.1), -3px -3px 3px 3px rgba(247, 251, 255, 1), 3px 3px 8px 2px rgba(0, 0, 0, 0) inset, -3px -3px 7px 2px rgba(247, 251, 255, 0) inset',
+    // boxShadow: 'inset 3px 3px 5px #cbcbcb, inset -3px -3px 5px #ffffff',
+    boxShadow: '2px 2px 3px rgba(55, 84, 170, .15), inset 0px 0px 4px rgba(255, 255, 255, 0), inset 7px 7px 15px rgba(55, 84, 170, .15), inset -7px -7px 20px rgba(255, 255, 255, 1), 0px 0px 4px rgba(255, 255, 255, .2) !important',  
+    borderRadius: '10px'
   },
   input: {
     backgroundColor: 'transparent',
@@ -236,8 +257,8 @@ export const Theme = createTheme(props => ({
     fontSize: `${fontSize()}px`,
     minWidth: '0',
     outline: 'none',
-    padding: `${props.isCompact ? gridSize() / 2 : gridSize()}px ${gridSize() -
-      2}px`,
+    padding: `${props.isCompact ? gridSize() / 2 : gridSize() + 4}px ${gridSize() -
+      2 +4}px`,
     width: '100%',
     height: `${(props.isCompact ? gridSize() * 3.5 : gridSize() * 4.5) /
       fontSize()}em`,

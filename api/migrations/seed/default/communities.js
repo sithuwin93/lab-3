@@ -17,11 +17,11 @@ module.exports = [
     isPrivate: false,
     name: 'Spectrum',
     description: 'The future of communities',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'spectrum',
     memberCount: 4,
   },
@@ -31,11 +31,11 @@ module.exports = [
     isPrivate: false,
     name: 'Payments',
     description: 'Where payments are tested',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'payments',
     memberCount: 5,
   },
@@ -46,11 +46,11 @@ module.exports = [
     isPrivate: false,
     name: 'Deleted',
     description: 'Things didnt work out',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'deleted',
     memberCount: 0,
   },
@@ -60,11 +60,11 @@ module.exports = [
     isPrivate: true,
     name: 'Private community',
     description: 'Private community',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'private',
     memberCount: 1,
   },
@@ -74,11 +74,11 @@ module.exports = [
     isPrivate: false,
     name: 'Single channel community',
     description: 'Single channel community',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'single',
     memberCount: 1,
   },
@@ -88,11 +88,11 @@ module.exports = [
     isPrivate: true,
     name: 'private community with join token',
     description: 'private community with join token',
-    website: 'https://spectrum.chat',
+    website: 'https://www.parabaik.com',
     profilePhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Profile.png.0.6225566835336693',
     coverPhoto:
-      'https://spectrum.imgix.net/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
+      'https://ik.imagekit.io/parabaik/upload-img/communities/-Kh6RfPYjmSaIWbkck8i/Twitter Header.png.0.3303118636071434',
     slug: 'private-join',
     memberCount: 1,
   },

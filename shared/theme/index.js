@@ -1,7 +1,7 @@
 // @flow
 export const theme = {
   bg: {
-    default: '#FFFFFF',
+    default: '#f5f6f7',
     reverse: '#16171A',
     wash: '#FAFAFA',
     divider: '#F6F7F8',

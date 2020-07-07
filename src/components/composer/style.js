@@ -12,7 +12,8 @@ import {
   NAVBAR_WIDTH,
   MIN_WIDTH_TO_EXPAND_NAVIGATION,
 } from 'src/components/layout';
-import { themed, colors } from 'src/components/theme';
+import { themed, elevation as AkElevations,colors } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const DropzoneWrapper = styled.div`
   position: sticky;
@@ -96,11 +97,14 @@ export const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.24);
+  // background: rgba(0, 0, 0, 0.24);
+  background: rgba(245, 246, 247, 0.9);
   z-index: 9994;
 `;
 
 export const Container = styled(FlexCol)`
+  ${({ elevation }) => elevations[elevation]}
+
   display: flex;
   height: 100%;
   max-height: 100vh;
@@ -109,7 +113,7 @@ export const Container = styled(FlexCol)`
   background: ${() => themed({ light: theme.bg.wash, dark:theme.bgd.wash })};
   height: calc(100vh);
   z-index: 9995;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08), 4px 0 12px rgba(0, 0, 0, 0.08);
+  // box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08), 4px 0 12px rgba(0, 0, 0, 0.08);
 
   @media (max-width: ${MEDIA_BREAK}px) {
     max-width: 100vw;

@@ -58,7 +58,7 @@ const ThreadSlider = (props: Props) => {
             }}
             threadId={threadId}
           >
-            <Overlay onClick={closeSlider} data-cy="overlay" />
+            <Overlay onClick={closeSlider} data-cy="overlay" elevation="e200"/>
           </ThreadView>
         </ThreadContainer>
 

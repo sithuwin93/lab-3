@@ -27,7 +27,9 @@ export const Overlay = styled.div`
   right: 0;
   bottom: 0;
   z-index: 9998 /* on top of titlebar */;
-  background: rgba(0, 0, 0, 0.4);
+  // background: rgba(0, 0, 0, 0.4);
+  background: rgba(245, 246, 247, 0.9);
+
 `;
 
 export const RedDot = styled.span`
@@ -253,9 +255,18 @@ export const AvatarGrid = styled.div`
     props.isActive &&
     css`
       // box-shadow: inset 3px 0 0 ${themed({ light:theme.text.default , dark: theme.textd.default})};
-      box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
-      background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
+      // box-shadow: inset 3px 0 0 ${() => themed({ light: colors.B400, dark: colors.B100 })};
+      // background-color: ${() => themed({ light: colors.N30A, dark: colors.N500A })};
+      background-color: #f4f4f4;
+      color: #bdbdbd;
+      cursor: default;
+      background: #f4f4f4;
+      box-shadow: inset 3px 3px 5px #cbcbcb, 
+                  inset -3px -3px 5px #ffffff;
+                  border-radius: 12px;
+                  margin: 4px;
 
+                  
       img,
       a img {
         filter: grayscale(0%) !important;
@@ -264,10 +275,6 @@ export const AvatarGrid = styled.div`
     `}
 
   &:hover {
-    box-shadow: inset 3px 0 0
-      ${props => (props.isActive ? 
-        themed({ light: theme.brand.default, dark: theme.brandd.default}) : 
-        themed({ light: theme.bg.border, dark:theme.bgd.border }))};
     background: ${props =>
       props.isActive ? 
       themed({ light: hexa(theme.brand.default, 0.04), dark:hexa(theme.brandd.default, 0.04) }) 
@@ -304,6 +311,10 @@ export const AvatarGrid = styled.div`
     }
   }
 `;
+    // box-shadow: inset 3px 0 0
+    //   ${props => (props.isActive ? 
+    //     themed({ light: theme.brand.default, dark: theme.brandd.default}) : 
+    //     themed({ light: theme.bg.border, dark:theme.bgd.border }))};
 
 
 export const AvatarBottomGrid = styled.div`

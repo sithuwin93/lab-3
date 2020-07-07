@@ -25,6 +25,7 @@ export const uploadImage = async (
   entity: EntityTypes,
   id: string
 ): Promise<string> => {
+  console.log('file','entity','id',file,entity,id)
   const result = await file;
 
   if (!(await dirExists(STORAGE_DIR))) {

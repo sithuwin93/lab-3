@@ -1,6 +1,8 @@
 export const collections = [
   {
     title: 'Top Communities',
+    isFirst: true,
+    isLast: false,
     curatedContentType: 'top-communities-by-members',
     communities: [
       'spectrum',
@@ -26,6 +28,8 @@ export const collections = [
   {
     title: 'Design',
     curatedContentType: 'design-communities',
+    isFirst: false,
+    isLast: false,
     communities: [
       'product-design',
       'icon-design',
@@ -54,6 +58,8 @@ export const collections = [
   {
     title: 'Web development',
     curatedContentType: 'development-communities',
+    isFirst: false,
+    isLast: false,
     communities: [
       'react',
       'node',
@@ -84,6 +90,8 @@ export const collections = [
   {
     title: 'Tech',
     curatedContentType: 'tech-communities',
+    isFirst: false,
+    isLast: false,
     communities: [
       'tech-tea',
       'balancemymoney',
@@ -97,6 +105,8 @@ export const collections = [
   {
     title: 'Life',
     curatedContentType: 'life-communities',
+    isFirst: false,
+    isLast: true,
     communities: [
       'for-good',
       'mental-health',

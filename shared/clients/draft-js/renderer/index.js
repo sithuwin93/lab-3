@@ -259,6 +259,8 @@ export const createRenderer = (options: Options) => {
         data: { src?: string, width?:number, alignment?:string, alt?: string },
         { key }: KeyObj
       ) => {
+
+        console.log("data.src",data.src)
         return (
           <Zoom 
             width={data.width}

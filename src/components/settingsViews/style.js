@@ -56,6 +56,7 @@ export const SectionCard = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
+  border-radius: 18px;
   @media (max-width: ${MEDIA_BREAK}px) {
     border-radius: 0;
   }

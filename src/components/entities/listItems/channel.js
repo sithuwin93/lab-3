@@ -17,6 +17,8 @@ import {
   Label,
   Description,
   ChannelActions,
+  SettingButton,
+  ToggleButton
 } from './style';
 import { ThemedButton } from 'src/components/button-new';
 import { useTranslation } from 'react-i18next';
@@ -167,12 +169,13 @@ const Channel = (props: Props) => {
         render={({ isLoading }) => (
           <Tooltip content={tipText}>
             <span style={{ marginLeft: '8px', display: 'flex' }}>
-              <OutlineButton
+              <ToggleButton
                 disabled={isLoading}
                 onMouseEnter={() => setIsHoveringNotifications(true)}
                 onMouseLeave={() => setIsHoveringNotifications(false)}
                 style={{ padding: '4px' }}
                 size={'small'}
+                glyph={glyph}
               >
                 <Icon
                   style={{
@@ -181,7 +184,7 @@ const Channel = (props: Props) => {
                   glyph={glyph}
                   size={24}
                 />
-              </OutlineButton>
+              </ToggleButton>
             </span>
           </Tooltip>
         )}

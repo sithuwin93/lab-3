@@ -651,11 +651,13 @@ export const PinIcon = styled.span`
 `;
 
 export const ActionBarContainer = styled.div`
+  ${({ elevation }) => elevations[elevation]}
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
-  border: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+  // background: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
+  // border: 1px solid ${themed({ light: theme.bg.border, dark:theme.bgd.border })};
+
   border-left: 0;
   border-right: 0;
   padding: 6px 16px;

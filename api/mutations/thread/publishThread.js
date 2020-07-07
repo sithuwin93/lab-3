@@ -286,6 +286,7 @@ export default requireAuth(
     const imageKeys = Object.keys(body.entityMap).filter(
       key => body.entityMap[key].type.toLowerCase() === 'image'
     );
+
     urls.forEach((url, index) => {
       if (!body.entityMap[imageKeys[index]]) return;
       body.entityMap[imageKeys[index]].data.src = url;

@@ -3,9 +3,13 @@ import theme from 'shared/theme';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { zIndex, hexa } from 'src/components/globals';
-import { themed } from 'src/components/theme';
+import { themed, elevation as AkElevations, } from 'src/components/theme';
+const elevations = { ...AkElevations };
 
 export const InboxThreadItem = styled.div`
+${({ elevation }) => elevations[elevation]}
+  margin: 6px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   max-width: 100%;

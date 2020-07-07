@@ -62,7 +62,7 @@ export const SidebarSection = styled.section`
   background: ${() => themed({ light: theme.bg.default, dark:theme.bgd.default })};
   // border: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
   margin-top: 24px;
-  border-radius: 4px;
+  border-radius: 20px;
 
   @media (max-width: ${MEDIA_BREAK}px) {
     border: 0;
@@ -88,7 +88,7 @@ export const SidebarSectionHeader = styled.div`
   top: 0;
   background: ${() => themed({ light: theme.bg.default, dark: theme.bgd.default})};
   z-index: 11;
-  border-radius: 4px 4px 0 0;
+  border-radius: 20px 20px 0 0;
 
   a {
     display: flex;
@@ -171,7 +171,7 @@ export const NameWarn = styled.div`
 export const List = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 20px 20px;
   overflow: hidden;
 `;
 
@@ -212,9 +212,9 @@ export const Description = styled.p`
 `;
 
 export const PostsFeedsSelectorContainer = styled.div`
-  padding: 8px 16px;
-  border-bottom: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
-  background: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
+  padding: 8px 6px;
+  // border-bottom: 1px solid ${themed({ light:theme.bg.border , dark: theme.bgd.border})};
+  // background: ${() => themed({ light: theme.bg.wash, dark: theme.bgd.wash})};
   display: flex;
   justify-content: space-between;
 `;
@@ -272,7 +272,7 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: ${() => themed({ light:theme.bg.wash , dark:theme.bgd.wash })};
+  // background: ${() => themed({ light:theme.bg.wash , dark:theme.bgd.wash })};
   padding-bottom: 64px;
 `;
 
@@ -284,3 +284,23 @@ export const NewActivityDot = styled.div`
   align-self: center;
   margin-right: 16px;
 `;
+
+export const ToggleButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: linear-gradient(145deg, #ffffff, #ddddde);
+  box-shadow: ${props => props.glyph == 'notification' ? 
+  '5px 5px 10px #ddddde, -5px -5px 10px #ffffff':
+  'inset 5px 5px 10px #ddddde, inset -5px -5px 10px #ffffff'};
+  
+
+  transition: all 300ms ease-in-out;
+
+  div svg path, rect {
+    fill: ${props => props.glyph == 'notification' ? '#3ce7a2':'#e74c3c' };
+  }
+
+`

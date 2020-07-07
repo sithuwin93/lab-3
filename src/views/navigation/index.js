@@ -62,6 +62,7 @@ const Navigation = (props: Props) => {
         {({ navigationIsOpen, setNavigationIsOpen }) => (
           <NavigationWrapper data-cy="navigation-bar" isOpen={navigationIsOpen}>
             <Overlay
+              elevation="e200"
               isOpen={navigationIsOpen}
               onClick={() => setNavigationIsOpen(false)}
             />

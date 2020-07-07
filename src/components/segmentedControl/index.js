@@ -20,7 +20,7 @@ export const SegmentedControl = (props: ControlProps) => {
   } = props;
   return (
     <StyledSegmentedControl
-      elevation="e200"
+      // elevation="e200"
       sticky={sticky}
       mobileSticky={mobileSticky}
       stickyOffset={stickyOffset}
@@ -37,10 +37,12 @@ type SegmentProps = {
 };
 
 export const Segment = (props: SegmentProps) => {
-  const { isActive = false, hideOnDesktop = false, to, ...rest } = props;
-
+  const { isActive = false, isFirst=false, isLast=false, hideOnDesktop = false, to, ...rest } = props;
+  console.log('propsSegment',props)
   const component = (
     <StyledSegment
+      isFirst={isFirst}
+      isLast={isLast}
       isActive={isActive}
       hideOnDesktop={hideOnDesktop}
       {...rest}

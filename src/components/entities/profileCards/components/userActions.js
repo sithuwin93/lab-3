@@ -6,18 +6,19 @@ import type { Dispatch } from 'redux';
 import type { UserInfoType } from 'shared/graphql/fragments/user/userInfo';
 import { openModal } from 'src/actions/modals';
 import { withCurrentUser } from 'src/components/withCurrentUser';
-// import {
-//   PrimaryOutlineButton,
-//   HoverWarnOutlineButton,
-//   OutlineButton,
-// } from 'src/components/button';
+import {
+  PrimaryOutlineButton,
+  HoverWarnOutlineButton,
+  OutlineButton,
+} from 'src/components/button';
 import InitDirectMessageWrapper from 'src/components/initDirectMessageWrapper';
 import { ActionsRowContainer } from '../style';
 import { isAdmin } from 'src/helpers/is-admin';
-import { ThemedButton } from 'src/components/button-new';
+// import { ThemedButton } from 'src/components/button-new';
 import Icon from 'src/components/icon';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
+import ThemedButton from 'src/components/button-new/ThemeButton';
 
 type Props = {
   user: UserInfoType,
@@ -47,7 +48,7 @@ export const UnconnectedUserActions = (props: Props) => {
         // </OutlineButton>
         <ThemedButton 
           type="link"
-          appearance="default"
+          appearance="primary"
           shouldFitContainer 
           to={`/users/${user.username}/settings`}>
           <Icon 

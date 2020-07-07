@@ -71,11 +71,11 @@ export const EditorMiniWrapper = styled.div`
   margin: 0px;
   font-size: 16px;
   cursor: text;
-  padding: 8px 6px;
+  padding: 12px 10px;
   align-items: center;
   background-color: ${() => themed({ light: colors.N10, dark: colors.DN10 })};
-  border-color: ${() => themed({ light: colors.N40, dark: colors.DN40 })};
-  border-radius: 3px;
+  border-color: ${() => themed({ light: '#edeef0', dark: colors.DN40 })};
+  border-radius: 10px;
   border-width: 2px;
   border-style: solid;
   box-sizing: border-box;
@@ -98,9 +98,14 @@ export const EditorMiniWrapper = styled.div`
   }
 
   &: focus-within  {
-    border-color: ${() => themed({ light: colors.B100, dark: colors.B75 })};
-
+    // border-color: ${() => themed({ light: colors.B100, dark: colors.B75 })};
   }
+  background: #f5f6f7;
+  // box-shadow: inset 3px 3px 5px #cbcbcb, inset -3px -3px 5px #ffffff;
+
+  box-shadow: 2px 2px 3px rgba(55, 84, 170, .15), inset 0px 0px 4px rgba(255, 255, 255, 0), inset 7px 7px 15px rgba(55, 84, 170, .15), inset -7px -7px 20px rgba(255, 255, 255, 1), 0px 0px 4px rgba(255, 255, 255, .2) !important;  
+
+
 `
 
 // content: '\2022\2022\2022\2022\2022';

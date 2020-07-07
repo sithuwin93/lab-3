@@ -80,7 +80,7 @@ const MobileTitlebar = (props: Props) => {
         <TitlebarContainer elevation="e100" {...rest} hasAction={rightAction}> 
           <Content>
             {leftAction && (
-              <LeftActionContainer>
+              <LeftActionContainer elevation="e200">
                 {leftActionComponent(setNavigationIsOpen)}
               </LeftActionContainer>
             )}

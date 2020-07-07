@@ -31,7 +31,7 @@ export const CoverPhoto = styled.div`
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center center;
-  border-radius: 4px 4px 0 0;
+  border-radius: 20px 20px 0 0;
 
   @media (max-width: ${MEDIA_BREAK}px) {
     border-radius: 0;

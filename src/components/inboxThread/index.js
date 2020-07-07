@@ -69,6 +69,7 @@ class InboxThread extends React.Component<Props> {
     return (
       <ErrorBoundary>
         <InboxThreadItem
+          elevation="e200"
           new={newMessagesSinceLastViewed || newUnseenThread}
           data-cy="thread-card"
           active={active}

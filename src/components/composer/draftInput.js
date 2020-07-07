@@ -53,7 +53,7 @@ const MyComponent = (props: Props) => {
     setShowPreview(show);
     if (show) {
       setPreviewBody(null);
-      fetch('https://convert.spectrum.chat/from', {
+      fetch('https://convert.parabaik.com/from', {
         method: 'POST',
         body,
       })

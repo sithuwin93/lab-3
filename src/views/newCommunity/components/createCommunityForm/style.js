@@ -7,6 +7,12 @@ import { subtleHeading } from 'src/components/theme/colors';
 import { fontSize, gridSize } from 'src/components/theme/constants';
 import { headingSizes } from 'src/components/theme/typography';
 
+export const RadioInput = styled.input`
+
+
+
+`
+
 export const LabelWrapper = styled.div`
   margin-top: 12px;
 `
@@ -111,23 +117,27 @@ export const CommunitySuggestion = styled.li`
 
 export const PrivacySelector = styled.div`
   display: flex;
-  border-radius: 4px;
+  border-radius: 20px;
   border: 2px solid ${themed({ light: theme.bg.border, dark: theme.bgd.border})};
   margin-top: 16px;
   overflow: hidden;
 `;
 
+// background: ${props =>
+  //   props.selected ? 
+  //   themed({ light: props.theme.bg.default, dark:props.theme.bgd.default }) 
+  //   : themed({ light: props.theme.bg.wash, dark: props.theme.bgd.wash})};
 export const PrivacyOption = styled.label`
   display: flex;
   flex-direction: column;
   flex: 1 0 50%;
   padding: 16px;
-  background: ${props =>
-    props.selected ? 
-    themed({ light: props.theme.bg.default, dark:props.theme.bgd.default }) 
-    : themed({ light: props.theme.bg.wash, dark: props.theme.bgd.wash})};
+  
   cursor: pointer;
-
+  box-shadow: ${props => 
+    props.selected ? 
+    themed({ light: 'inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #FFFFFF', dark:props.theme.bgd.default }) 
+    : themed({ light: '9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5)', dark: props.theme.bgd.wash})};
   input {
     width: 18px;
     height: 18px;
@@ -164,6 +174,10 @@ export const PrivacyOptionLabel = styled.p`
 
   input {
     margin-right: 8px;
+    box-shadow: -4px -2px 4px 0px #d1d9e6, 4px 2px 8px 0px #fff;
+  }
+  input:checked{
+    box-shadow: -8px -4px 8px 0px #ffffff, 8px 4px 12px 0px #d1d9e6;
   }
 `;
 
