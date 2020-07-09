@@ -18,6 +18,8 @@ module.exports = async () => {
     migrationsDirectory: path.resolve(__dirname, '../../api/migrations'),
     db: 'testing',
     op: 'up',
+    // user: 'admin',
+    // password: process.env.RETHINK_DB_PASSWORD
   });
 
   debug(`migrations complete, inserting data into "testing"`);
@@ -32,3 +34,5 @@ module.exports = async () => {
 
   debug(`setup complete`);
 };
+// user: 'admin',
+// password: 'ce1ae15b-da80-5f31-ad33-f385df6b145b'

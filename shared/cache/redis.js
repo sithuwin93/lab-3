@@ -8,6 +8,11 @@ export const config =
         host: process.env.REDIS_CACHE_URL,
         password: process.env.REDIS_CACHE_PASSWORD,
       }
-    : undefined;
-
+    // : undefined;
+    :    
+      {
+        port: "6379",
+        host: "127.0.0.1",
+        password: process.env.REDIS_PASSWORD,
+      }
 export default new Redis(config);

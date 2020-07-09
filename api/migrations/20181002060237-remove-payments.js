@@ -1,6 +1,6 @@
 exports.up = async (r, conn) => {
   const betaSupporterIds = await r
-    .db('spectrum')
+    .db('parabaik')
     .table('recurringPayments')
     .filter({ planId: 'beta-pro' })
     .map(row => row('userId'))
@@ -9,7 +9,7 @@ exports.up = async (r, conn) => {
 
   const addSupporterFieldToUsersPromises = async () =>
     await r
-      .db('spectrum')
+      .db('parabaik')
       .table('users')
       .getAll(...betaSupporterIds)
       .update({
@@ -37,7 +37,7 @@ exports.up = async (r, conn) => {
 exports.down = async (r, conn) => {
   return await Promise.all([
     r
-      .db('spectrum')
+      .db('parabaik')
       .table('communities')
       .update({
         stripeCustomerId: null,
@@ -47,7 +47,7 @@ exports.down = async (r, conn) => {
       })
       .run(conn),
     r
-      .db('spectrum')
+      .db('parabaik')
       .table('users')
       .update({
         betaSupporter: r.literal(),

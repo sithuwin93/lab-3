@@ -4,11 +4,16 @@ const debug = require('debug')('migrations');
 
 const DEFAULT_CONFIG = {
   driver: 'rethinkdbdash',
-  db: process.env.NODE_ENV === 'test' ? 'testing' : 'spectrum',
+  db: process.env.NODE_ENV === 'test' ? 'testing' : 'parabaik',
   host: 'localhost',
   port: 28015,
   migrationsDirectory: 'api/migrations',
+  // user: 'admin',
+  // password: process.env.RETHINK_DB_PASSWORD
+
 };
+// user: 'admin',
+// password: 'ce1ae15b-da80-5f31-ad33-f385df6b145b'
 
 let ca;
 

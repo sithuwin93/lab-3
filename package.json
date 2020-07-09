@@ -48,7 +48,6 @@
     "rimraf": "^2.6.1",
     "sass-loader": "^8.0.2",
     "sw-precache-webpack-plugin": "^0.11.4",
-    "uuid": "^3.0.1",
     "wait-on": "^2.1.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "write-file-webpack-plugin": "^4.5.1"
@@ -288,7 +287,6 @@
     "toobusy-js": "^0.5.1",
     "tslib": "^1.11.1",
     "ua-parser-js": "^0.7.21",
-    "uuid": "^3.1.0",
     "validator": "^9.0.0",
     "web-push": "^3.3.3"
   },
@@ -301,18 +299,17 @@
     "event-stream": "3.3.4"
   },
   "scripts": {
-    "start": "NODE_ENV=production node main.js",
+    "start": "FORCE_DEV=true NODE_ENV=production node main.js",
     "start:athena": "cross-env NODE_ENV=production node build-athena/main.js",
     "start:hermes": "cross-env NODE_ENV=production node build-hermes/main.js",
     "start:chronos": "cross-env NODE_ENV=production node build-chronos/main.js",
     "start:mercury": "cross-env NODE_ENV=production node build-mercury/main.js",
     "start:vulcan": "cross-env NODE_ENV=production node build-vulcan/main.js",
-    "start:api": "cross-env NODE_ENV=production node build-api/main.js",
+    "start:api": "cross-env FORCE_DEV=true FILE_STORAGE=vultr  node build-api/main.js",
     "dev:web": "cross-env NODE_PATH=./ react-app-rewired start",
-    "dev:api": "cross-env FILE_STORAGE=local cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,api*,shared:rethinkdb:db-query-cache,-api:resolvers,shared:middlewares:ratelimiter cross-env DIR=api backpack",
+    "dev:api": "cross-env  FILE_STORAGE=local cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,api*,shared:rethinkdb:db-query-cache,-api:resolvers,shared:middlewares:ratelimiter cross-env DIR=api backpack",
     "dev:api:s3": "cross-env FILE_STORAGE=s3 cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,api*,shared:rethinkdb:db-query-cache,-api:resolvers cross-env DIR=api backpack",
     "dev:api:vultr": "cross-env FILE_STORAGE=vultr cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,api*,shared:rethinkdb:db-query-cache,-api:resolvers cross-env DIR=api backpack",
-
     "dev:athena": "cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,athena*,-athena:resolvers cross-env DIR=athena backpack",
     "dev:hermes": "cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,hermes*,-hermes:resolvers cross-env DIR=hermes backpack",
     "dev:chronos": "cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,chronos*,-chronos:resolvers cross-env DIR=chronos backpack",
@@ -321,7 +318,7 @@
     "dev:hyperion": "cross-env NODE_PATH=./ cross-env NODE_ENV=development cross-env DEBUG=build*,hyperion*,-hyperion:resolvers cross-env DIR=hyperion backpack",
     "dev:desktop": "(cd desktop && yarn run dev)",
     "prebuild:api": "rimraf build-api",
-    "build:api": "cross-env NODE_PATH=./ cross-env DIR=api backpack build",
+    "build:api": "cross-env FORCE_DEV=true FILE_STORAGE=vultr NODE_PATH=./ cross-env DIR=api backpack build",
     "postbuild:api": "cp api/package.json build-api/package.json && cp now.json build-api/now.json && cpy cacert build-api",
     "prebuild:athena": "rimraf build-athena",
     "build:athena": "cross-env NODE_PATH=./ cross-env DIR=athena backpack build",

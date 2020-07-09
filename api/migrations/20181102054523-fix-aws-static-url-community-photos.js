@@ -2,7 +2,7 @@ exports.up = async function(r, conn) {
   const LEGACY_PREFIX = 'https://s3.amazonaws.com/spectrum-chat/';
 
   const communities = await r
-    .db('spectrum')
+    .db('parabaik')
     .table('communities')
     .filter(row =>
       row('profilePhoto')
@@ -35,7 +35,7 @@ exports.up = async function(r, conn) {
     const newCoverPhoto = processImageUrl(coverPhoto);
 
     return await r
-      .db('spectrum')
+      .db('parabaik')
       .table('communities')
       .get(obj.id)
       .update({

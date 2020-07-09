@@ -11,7 +11,7 @@ const member = data.users.find(({ username }) => username === 'bryn');
 afterEach(() => {
   return db
     .table('communities')
-    .filter({ slug: 'spectrum' })
+    .filter({ slug: 'parabaik' })
     .update({
       name: community.name,
       description: community.description,

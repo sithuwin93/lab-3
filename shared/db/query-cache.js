@@ -17,7 +17,11 @@ const queryCache = new TagCache({
   defaultTimeout: 86400,
   redis: {
     ...DEFAULT_REDIS_OPTIONS,
-    ...(IS_PROD ? PRODUCTION_REDIS_OPTIONS : {}),
+    ...(IS_PROD ? PRODUCTION_REDIS_OPTIONS : {
+      port: "6379",
+      host: "127.0.0.1",
+      password: process.env.REDIS_PASSWORD,
+    }),
   },
 });
 

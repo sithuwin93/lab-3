@@ -1,6 +1,6 @@
 exports.up = async function(r, conn) {
   const users = await r
-    .db('spectrum')
+    .db('parabaik')
     .table('users')
     .filter(row => row('modifiedAt').lt(r.epochTime(1540929600)))
     .filter(row =>
@@ -57,7 +57,7 @@ exports.up = async function(r, conn) {
     const newCoverPhoto = processImageUrl(coverPhoto);
 
     return await r
-      .db('spectrum')
+      .db('parabaik')
       .table('users')
       .get(obj.id)
       .update({

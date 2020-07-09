@@ -60,6 +60,8 @@
 
     "S3_VULTR_HOST_NAME": "@s3-vultr-hostname",
     "S3_VULTR_ACCESS_KEY": "@s3-vultr-access-key",
-    "S3_VULTR_SECRET_KEY": "@s3-vultr-secret-key"
+    "S3_VULTR_SECRET_KEY": "@s3-vultr-secret-key",
+    "REDIS_PASSWORD": "@redis-password",
+    "RETHINK_DB_PASSWORD": "@rethinkdb-password"
   }
 }

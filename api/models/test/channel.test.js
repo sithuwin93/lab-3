@@ -108,7 +108,7 @@ describe('models/channel', () => {
 
   describe('getChannelBySlug', () => {
     it('excludes deleted channels', async () => {
-      expect(await channel.getChannelBySlug('deleted', 'spectrum')).toEqual(
+      expect(await channel.getChannelBySlug('deleted', 'parabaik')).toEqual(
         null
       );
     });

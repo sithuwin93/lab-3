@@ -12,11 +12,14 @@ const IS_PROD = !process.env.FORCE_DEV && process.env.NODE_ENV === 'production';
 const CONNECTIONS = 20;
 const DEFAULT_CONFIG = {
   // Connect to the test database when, well, testing
-  db: !process.env.TEST_DB ? 'spectrum' : 'testing',
+  db: !process.env.TEST_DB ? 'parabaik' : 'testing',
   max: CONNECTIONS, // Maximum number of connections, default is 1000
   buffer: CONNECTIONS, // Minimum number of connections open at any given moment, default is 50
   timeoutGb: 60 * 60 * 1000, // How long should an unused connection stick around, default is an hour, this is a minute
-  timeout: 30, // The number of seconds for a connection to be opened, default 20
+  timeout: 30, // The number of seconds for a connection to be opened, default 20,
+  user: 'admin',
+  password: process.env.RETHINK_DB_PASSWORD
+
 };
 
 let ca;

@@ -1,6 +1,6 @@
 exports.up = async function(r, conn) {
   const threads = await r
-    .db('spectrum')
+    .db('parabaik')
     .table('threads')
     .filter(row => row('modifiedAt').lt(r.epochTime(1540929600)))
     .filter(row => row('content')('body').match('spectrum.imgix.net'))
@@ -51,7 +51,7 @@ exports.up = async function(r, conn) {
     });
 
     return await r
-      .db('spectrum')
+      .db('parabaik')
       .table('threads')
       .get(obj.id)
       .update({

@@ -1,6 +1,6 @@
 exports.up = async function(r, conn) {
   const messages = await r
-    .db('spectrum')
+    .db('parabaik')
     .table('messages')
     .filter({ messageType: 'media' })
     .filter(row => row('timestamp').lt(r.epochTime(1540929600)))
@@ -13,7 +13,7 @@ exports.up = async function(r, conn) {
 
   const messagePromises = messages.map(async obj => {
     return await r
-      .db('spectrum')
+      .db('parabaik')
       .table('messages')
       .get(obj.id)
       .update({

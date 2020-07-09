@@ -15,14 +15,14 @@ const REF_TABLE_MAP = {
     .db('rethinkdb')
     .table('table_config')
     .filter({
-      db: 'spectrum',
+      db: 'parabaik',
     })
     .map(rec => rec('name'))
     .run();
 
   for (const table of tables) {
     const [record] = await r
-      .db('spectrum')
+      .db('parabaik')
       .table(table)
       .limit(1)
       .run();

@@ -579,7 +579,7 @@ export const setPinnedThreadInCommunity = (communityId: string, value: ?string, 
 
 // prettier-ignore
 export const userIsMemberOfAnyChannelInCommunity = (communityId: string, userId: string): Promise<Boolean> => {
-  return db('spectrum')
+  return db('parabaik')
     .table('channels')
     .getAll(communityId, { index: 'communityId' })
     .eqJoin('id', db.table('usersChannels'), { index: 'channelId' })
