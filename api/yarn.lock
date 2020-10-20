@@ -4086,8 +4086,9 @@ draft-js-prism@^1.0.6:
     extend "^3.0.0"
     immutable "*"
 
-"draft-js-prism@github:ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb":
+draft-js-prism@ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb:
   version "1.0.3"
+  uid "6edb31c3805dd1de3fb897cc27fced6bac1bafbb"
   resolved "https://codeload.github.com/ngs/draft-js-prism/tar.gz/6edb31c3805dd1de3fb897cc27fced6bac1bafbb"
   dependencies:
     extend "^3.0.0"
@@ -7627,9 +7628,9 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.0, object-keys@^1.1.1
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
 object-path@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
-  integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.5.tgz#d4e3cf19601a5140a55a16ad712019a9c50b577a"
+  integrity sha512-jgSbThcoR/s+XumvGMTMf81QVBmah+/Q7K7YduKeKVWL7N111unR2d6pZZarSk6kY/caeNxUDyxOvMWyzoU2eg==
 
 object-visit@^1.0.0:
   version "1.0.1"
